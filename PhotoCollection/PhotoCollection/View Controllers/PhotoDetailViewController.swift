@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -133,6 +133,20 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
 		self.imageView = imageView
 		
 		// Button
+		
+		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setTitle("Add Image", for: .normal)
+		button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+		
+		view.addSubview(button)
+		
+		button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+		button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+		
+		// TextField
+		
+		
 		
 	}
 }
