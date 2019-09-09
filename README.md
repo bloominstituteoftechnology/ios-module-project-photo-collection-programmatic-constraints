@@ -50,7 +50,7 @@ Most of what you will be doing is writing code that takes the place of what you 
     - Add a `UITextField` to the view controller's `view`. Set its `placeholder` to something like "Give this photo a title:". You can leave its `text` empty. 
     - Constrain the above UI elements **using only `NSLayoutAnchor`s**.
     - Create a `UIBarButtonItem`. Set its title to "Save Photo". Set its action as the `savePhoto` method that already exists in this view controller. Then, set it as the navigation item's right bar button item. (the documentation on `UINavigationItem` is your friend here). **Note:** a view controller subclass already has a `navigationItem` property built-in.
-    - Don't forget to call this method somewhere!
+    - Don't forget to call this method somewhere that makes sense!
 
 2. Create an `updateViews()` function that passes the information from the `Photo` to the image view and text field. Call this function sometime after the `photo` variable has been given a value from the `cellForItem at` method in the `PhotosCollectionViewController`. Again, there are a couple places you could decide to do this.
 
@@ -60,8 +60,7 @@ Most of what you will be doing is writing code that takes the place of what you 
     - Add a label that tells the user to select a theme that they would like to use.
     - Add two buttons. The first's title should be "Dark" for the dark theme, and the other's should be "Blue". Add a target to each button that calls `selectDarkTheme` and `selectBlueTheme` respectively.
     - Constrain these UI elements using whichever method of programmatic constraints you prefer.
-
-    - Don't forget to call this method somewhere! 
+    - Don't forget to call this method somewhere that makes sense! 
   
 ## Go Further
 
