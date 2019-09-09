@@ -12,6 +12,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+	let photoCollectionViewCell = PhotoCollectionViewCell()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,6 +33,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
+
+		
+
+		
         
         return cell
     }
@@ -87,3 +92,5 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+
