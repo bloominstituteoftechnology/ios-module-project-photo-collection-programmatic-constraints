@@ -66,12 +66,12 @@
 		460DDFE82112CF0B00E7FF73 /* PhotoCollection */ = {
 			isa = PBXGroup;
 			children = (
-				4639ABC72284C1D100285343 /* Model */,
-				4639ABC82284C1D500285343 /* Model Controller */,
-				4639ABC62284C1CB00285343 /* Views */,
-				4639ABC22284C1A700285343 /* View Controllers */,
-				4639ABC32284C1AD00285343 /* Helpers */,
 				4639ABC52284C1BE00285343 /* Storyvboards */,
+				4639ABC22284C1A700285343 /* View Controllers */,
+				4639ABC62284C1CB00285343 /* Views */,
+				4639ABC82284C1D500285343 /* Model Controller */,
+				4639ABC72284C1D100285343 /* Model */,
+				4639ABC32284C1AD00285343 /* Helpers */,
 				4639ABC42284C1B800285343 /* Resources */,
 			);
 			path = PhotoCollection;
@@ -80,9 +80,9 @@
 		4639ABC22284C1A700285343 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				460DDFFF2112D80000E7FF73 /* ThemeSelectionViewController.swift */,
-				460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */,
 				460DE0032112D9E300E7FF73 /* PhotoCollectionViewController.swift */,
+				460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */,
+				460DDFFF2112D80000E7FF73 /* ThemeSelectionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
