@@ -9,6 +9,9 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
+    
+    private var imageView: UIImageView!
+    private var titleLabel: UILabel!
 
     var photo: Photo! {
         didSet {
@@ -66,6 +69,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: 0).isActive = true
         
+        self.imageView = imageView
+        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -87,12 +92,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: 8).isActive = true
         
+        self.titleLabel = label
+        
         
         
     }
     
     private func updateViews() {
-        
+        //imageView.image = photo.imageData
+        titleLabel.text = photo.title
     }
     
 }

@@ -25,6 +25,55 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         updateViews()
     }
     
+    func setUpSubViews() {
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        
+        self.imageView = imageView
+        
+        
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(button)
+        
+        let buttonTopConstraint = NSLayoutConstraint(item: button,
+                                                     attribute: .top,
+                                                     relatedBy: .equal,
+                                                     toItem: view.safeAreaLayoutGuide,
+                                                     attribute: .top,
+                                                     multiplier: 1,
+                                                     constant: 20)
+        
+        let buttonTrailingConstraint = NSLayoutConstraint(item: button,
+                                                     attribute: .trailing,
+                                                     relatedBy: .equal,
+                                                     toItem: view.safeAreaLayoutGuide,
+                                                     attribute: .trailing,
+                                                     multiplier: 1,
+                                                     constant: -20)
+        
+        NSLayoutConstraint.activate([buttonTopConstraint, buttonTrailingConstraint])
+        
+        let aTextField = UITextField()
+        aTextField.translatesAutoresizingMaskIntoConstraints = false
+        aTextField.placeholder = "Give this photo a title"
+        view.addSubview(aTextField)
+        
+        let textFieldTopContraint = aTextField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 60)
+        let textFieldTrailingConstraint = aTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        
+        textFieldTopContraint.isActive = true
+        textFieldTrailingConstraint.isActive = true
+        
+        self.titleTextField = aTextField
+        
+    }
+    
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -38,7 +87,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
