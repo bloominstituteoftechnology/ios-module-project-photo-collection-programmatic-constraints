@@ -9,76 +9,74 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
-    var photo: Photo?
-	var imageView: UIImageView!
-	var label: UILabel!
+	
+	var photo: Photo? {
+		didSet{
+			updateViews()
+		}
+	}
+	private var imageView: UIImageView!
+	private var label: UILabel!
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setUpSubViews()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		setUpSubViews()
+	}
 	
 	func setUpSubViews() {
 		
 		// Image
 		
-		let imageView = photo?.imageData
-		let label = photo?.title
+		let imageView = UIImageView()
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.contentMode = .scaleAspectFit
 		addSubview(imageView)
-		addSubview(label)
+		
+		NSLayoutConstraint(item: imageView,
+						   attribute: .top,
+						   relatedBy: .equal,
+						   toItem: safeAreaLayoutGuide,
+						   attribute: .top,
+						   multiplier: 1,
+						   constant: -8).isActive = true
 		
 		NSLayoutConstraint(item: imageView,
 						   attribute: .leading,
 						   relatedBy: .equal,
-						   toItem: self,
-						   attribute: .leading,
-						   multiplier: 1,
-						   constant: 4).isActive = true
-		
-		NSLayoutConstraint(item: imageView,
-						   attribute: .trailing,
-						   relatedBy: .equal,
-						   toItem: self,
-						   attribute: .trailing,
-						   multiplier: 1,
-						   constant: -4).isActive = true
-		
-		NSLayoutConstraint(item: imageView,
-						   attribute: .height,
-						   relatedBy: .equal,
-						   toItem: imageView,
-						   attribute: .width,
-						   multiplier: 1,
-						   constant: 0).isActive = true
-		
-		NSLayoutConstraint(item: label,
-						   attribute: .leading,
-						   relatedBy: .equal,
-						   toItem: self,
+						   toItem: safeAreaLayoutGuide,
 						   attribute: .leading,
 						   multiplier: 1,
 						   constant: 8).isActive = true
 		
-		NSLayoutConstraint(item: label,
+		NSLayoutConstraint(item: imageView,
 						   attribute: .trailing,
 						   relatedBy: .equal,
-						   toItem: self,
+						   toItem: safeAreaLayoutGuide,
 						   attribute: .trailing,
 						   multiplier: 1,
-						   constant: -6).isActive = true
+						   constant: -8).isActive = true
 		
-		NSLayoutConstraint(item: label,
+		NSLayoutConstraint(item: imageView,
 						   attribute: .height,
 						   relatedBy: .equal,
-						   toItem: imageView,
-						   attribute: .width,
+						   toItem: self,
+						   attribute: .height,
 						   multiplier: 1,
 						   constant: 0).isActive = true
 		
-		self.imageView = imageView
-		self.label = label
+		self.imageView - imageView
 		
+		
+	
 	}
 	
 	private func updateViews() {
-		imageView.image = photo.image
-		nameLabel.text = photo?.title
+		
 	}
     
 }
