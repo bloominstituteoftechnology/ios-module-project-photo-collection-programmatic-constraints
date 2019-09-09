@@ -25,12 +25,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         setTheme()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if photo != nil {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
             updateViews()
-        }
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -135,13 +132,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
         imageView.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         imageView.trailingAnchor.constraint(lessThanOrEqualTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.875).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         let addImageButton = UIButton()
         self.view.addSubview(addImageButton)
         addImageButton.setTitle("Add Image", for: .normal)
-        addImageButton.setTitleColor(.blue, for: .normal)
+        addImageButton.setTitleColor(UIColor(red: 14.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0), for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         
