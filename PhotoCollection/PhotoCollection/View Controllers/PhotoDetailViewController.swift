@@ -20,6 +20,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpSubViews()
         
         setTheme()
         updateViews()
@@ -72,6 +73,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         self.titleTextField = aTextField
         
+        
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        
+        
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -83,6 +89,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         guard let image = info[.originalImage] as? UIImage else { return }
         
         imageView.image = image
+        
     }
     
     // MARK: - Private Methods
@@ -110,7 +117,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -165,4 +172,5 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
 }
