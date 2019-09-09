@@ -120,11 +120,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     private func setupSubviews () {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 8).isActive = true
-        imageView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 8).isActive = true
-        imageView.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 8)
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         view.addSubview(imageView)
+        imageView.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
         self.imageView = imageView
         
         let button = UIButton(type: .system)
@@ -136,12 +136,16 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Add a title:"
         view.addSubview(textField)
+        textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 16).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
         titleTextField = textField
         
         let barButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto) )
-        self.navigationController?.navigationItem.rightBarButtonItem = barButtonItem
+        self.navigationItem.setRightBarButton(barButtonItem, animated: false)
     }
     
 }

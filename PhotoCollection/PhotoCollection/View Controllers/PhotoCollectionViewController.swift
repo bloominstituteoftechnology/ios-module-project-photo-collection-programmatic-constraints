@@ -98,6 +98,8 @@ extension PhotoCollectionViewController:UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 300, height: 350)
+        let screenWidth = UIScreen.main.bounds.width
+        let imageSquare = (screenWidth / 2) - 10
+        return CGSize(width: imageSquare, height: imageSquare + 30)
     }
 }
