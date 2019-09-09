@@ -13,7 +13,21 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView: UIImageView!
     private var nameLabel: UILabel!
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUpSubviews()
+    }
     
     
     func setUpSubviews() {
@@ -49,4 +63,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         self.nameLabel = label
     }
     
+    private func updateViews() {
+        
+        guard let unwrappedPhoto = photo?.imageData else { return }
+        imageView.image = UIImage(data: unwrappedPhoto)
+        nameLabel.text = photo?.title
+    }
 }
