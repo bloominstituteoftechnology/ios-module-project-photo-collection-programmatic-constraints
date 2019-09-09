@@ -15,7 +15,7 @@ class ThemeSelectionViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func selectBlueTheme() {
+    @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
@@ -37,6 +37,26 @@ class ThemeSelectionViewController: UIViewController {
         selectDarkThemButton.setTitle("Dark Theme", for: .normal)
         selectDarkThemButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         
+        view.addSubview(selectDarkThemButton)
+        
+        let darkTopConstraint = selectDarkThemButton.topAnchor.constraint(equalTo: themeLabel.bottomAnchor, constant: 8)
+        let darkLeadingConstraint = selectDarkThemButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
+        
+        darkTopConstraint.isActive = true
+        darkLeadingConstraint.isActive = true
+        
+        let selectLightThemeButton = UIButton(type: .system)
+        selectLightThemeButton.translatesAutoresizingMaskIntoConstraints = false
+        selectLightThemeButton.setTitle("Light Theme", for: .normal)
+        selectLightThemeButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        
+        view.addSubview(selectLightThemeButton)
+        
+        let lightTopConstraint = selectLightThemeButton.topAnchor.constraint(equalTo: themeLabel.bottomAnchor, constant: 8)
+        let lightTrailingConstraint = selectLightThemeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 30)
+        
+        lightTopConstraint.isActive = true
+        lightTrailingConstraint.isActive = true
     }
     
 }
