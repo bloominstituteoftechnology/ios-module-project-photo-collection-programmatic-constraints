@@ -11,6 +11,15 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
-    
+	
+	func setUpSubViews() {
+		
+		// Image
+		
+		let imageView = photo?.imageData
+		let label = photo?.title
+		
+		
+	}
     
 }

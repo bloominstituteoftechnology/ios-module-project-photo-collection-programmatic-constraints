@@ -12,6 +12,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+	
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,6 +36,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         return cell
     }
+	
     
     private func setTheme() {
     
