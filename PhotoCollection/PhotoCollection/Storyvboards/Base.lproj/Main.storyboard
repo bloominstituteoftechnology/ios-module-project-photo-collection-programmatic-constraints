@@ -33,7 +33,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
                                 <connections>
-                                    <segue destination="NGh-cL-33m" kind="show" identifier="ViewPhoto" id="83N-iO-oAe"/>
+                                    <segue destination="NGh-cL-33m" kind="show" identifier="ViewPhotoSegue" id="83N-iO-oAe"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -45,12 +45,12 @@
                     <navigationItem key="navigationItem" title="Photo Collection" id="BSB-L7-6Ea">
                         <barButtonItem key="leftBarButtonItem" title="Select Theme" id="uiT-8K-AZm">
                             <connections>
-                                <segue destination="8G7-gp-Zsk" kind="presentation" identifier="SelectTheme" id="bJH-AP-fjk"/>
+                                <segue destination="8G7-gp-Zsk" kind="presentation" identifier="SelectThemeSegue" id="bJH-AP-fjk"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="eDm-Wj-GZU">
                             <connections>
-                                <segue destination="NGh-cL-33m" kind="show" identifier="CreatePhoto" id="M2Q-r3-aQa"/>
+                                <segue destination="NGh-cL-33m" kind="show" identifier="CreatePhotoSegue" id="M2Q-r3-aQa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
