@@ -23,10 +23,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUpSubviews()
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     // MARK: - Constraits
@@ -49,6 +48,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         let titleTextField = UITextField()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.backgroundColor = .white
+        
         titleTextField.placeholder = "Give this photo a title:"
         view.addSubview(titleTextField)
         titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 4).isActive = true
@@ -62,8 +63,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
 
     }
-    
-    
     
     // MARK: - UIImagePickerControllerDelegate
     
@@ -116,7 +115,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationController?.popViewController(animated: true)
     }
     
-    private func updateViews() {
+    func updateViews() {
         
         guard let photo = photo else {
             title = "Create Photo"
