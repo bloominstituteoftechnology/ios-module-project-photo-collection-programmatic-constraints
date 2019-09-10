@@ -16,6 +16,9 @@ class PhotoCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //TODO: Not sure if this is the correct way to set the delegate equal to the viewController
+        self.collectionView.delegate = self
+        
         collectionView?.reloadData()
         setTheme()
     }
