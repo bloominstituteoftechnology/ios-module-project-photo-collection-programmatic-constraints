@@ -34,6 +34,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
         
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
         
         let addImageButton = UIButton(type: .system)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
@@ -41,10 +44,21 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         view.addSubview(addImageButton)
         
+        //TODO: How come you can't set the trailing anchors?
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5).isActive = true
+        addImageButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+
+        
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Give this photo a title"
         view.addSubview(textField)
+        
+        
+        self.imageView = imageView
+        self.titleTextField = textField
+      
         
     }
     
