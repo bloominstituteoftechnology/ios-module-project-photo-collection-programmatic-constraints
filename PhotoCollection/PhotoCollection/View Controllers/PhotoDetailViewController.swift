@@ -20,13 +20,69 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setSubViews()
         setTheme()
         updateViews()
+    
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setSubViews()
+    }
+    
+    private func setSubViews() {
+        
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        
+        self.navigationItem.rightBarButtonItem = saveButton
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.511826694, alpha: 1)
+        
+        view.addSubview(imageView)
+
+       imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.7, constant: 0).isActive = true
+        
+        self.imageView = imageView
+        
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 20
+        button.backgroundColor = .black
+        button.setTitle("Select Photo", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(button)
+        
+        button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+        button.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
+        
+        
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Image Title"
+        textField.backgroundColor = .gray
+        textField.layer.cornerRadius = 10
+        textField.clipsToBounds = true
+        
+        view.addSubview(textField)
+        
+        textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 8).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
+        
+        self.titleTextField = textField
     }
     
     // MARK: - UIImagePickerControllerDelegate
     
+   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
@@ -38,10 +94,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
@@ -61,7 +117,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+   @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -77,6 +133,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func updateViews() {
+        
+        navigationItem.title = "Add Photo"
         
         guard let photo = photo else {
             title = "Create Photo"
