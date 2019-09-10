@@ -40,6 +40,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         return cell
     }
+
+//	override func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+//		<#code#>
+//	}
     
     private func setTheme() {
     
@@ -93,4 +97,17 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
 }
 
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
 
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+		return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+		return 0
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return (CGSize.init(width: 100, height: 100))
+	}
+}

@@ -36,6 +36,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
 		imageView.contentMode = .scaleAspectFit
 		addSubview(imageView)
 
@@ -72,6 +73,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 		label.textAlignment = .center
 		addSubview(label)
 
+
+
 		NSLayoutConstraint(item: label,
 						   attribute: .top,
 						   relatedBy: .equal,
@@ -97,5 +100,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 		guard let photo = photo else { return }
 		imageView.image = UIImage(data: photo.imageData)
 		photoLabel.text = photo.title
+	}
+
+	func addSubViews() {
+
+
+
+
+
 	}
 }
