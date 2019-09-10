@@ -44,7 +44,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 						   toItem: safeAreaLayoutGuide,
 						   attribute: .top,
 						   multiplier: 1,
-						   constant: -8).isActive = true
+						   constant: -4).isActive = true
 		
 		NSLayoutConstraint(item: imageView,
 						   attribute: .leading,
@@ -52,7 +52,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 						   toItem: safeAreaLayoutGuide,
 						   attribute: .leading,
 						   multiplier: 1,
-						   constant: 8).isActive = true
+						   constant: 4).isActive = true
 		
 		NSLayoutConstraint(item: imageView,
 						   attribute: .trailing,
@@ -60,7 +60,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 						   toItem: safeAreaLayoutGuide,
 						   attribute: .trailing,
 						   multiplier: 1,
-						   constant: -8).isActive = true
+						   constant: -4).isActive = true
 		
 		NSLayoutConstraint(item: imageView,
 						   attribute: .height,

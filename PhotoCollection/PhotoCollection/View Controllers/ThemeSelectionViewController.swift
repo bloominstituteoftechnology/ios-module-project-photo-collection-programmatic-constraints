@@ -21,4 +21,21 @@ class ThemeSelectionViewController: UIViewController {
     }
     
     var themeHelper: ThemeHelper?
+	
+	func setUpSubViews() {
+		
+		// Label
+		
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.text = "Please select a theme:"
+		
+		view.addSubview(label)
+		
+		label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+		label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+		label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+		
+	}
+	
 }
