@@ -58,7 +58,7 @@ class ThemeSelectionViewController: UIViewController {
         darkButton.backgroundColor = .black
         darkButton.setTitle("Dark", for: .normal)
         darkButton.setTitleColor(.white, for: .normal)
-        darkButton.layer.cornerRadius = 20
+        darkButton.layer.cornerRadius = 15
         
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         
@@ -68,9 +68,10 @@ class ThemeSelectionViewController: UIViewController {
         lightButton.setTitle("Light", for: .normal)
         lightButton.setTitleColor(.white, for: .normal)
         lightButton.backgroundColor = .black
-        lightButton.layer.cornerRadius = 20
+        lightButton.layer.cornerRadius = 15
         
         lightButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        lightButton.widthAnchor.constraint(equalTo: darkButton.widthAnchor, multiplier: 1)
         
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false

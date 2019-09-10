@@ -38,42 +38,42 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         addSubview(imageView)
         
-//        imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-//        imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-//        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-//        imageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: imageView,
-                           attribute: .top,
-                           relatedBy: .equal,
-                           toItem: self,
-                           attribute: .top,
-                           multiplier: 1,
-                           constant: 4).isActive = true
-        
-        NSLayoutConstraint(item: imageView,
-                           attribute: .leading,
-                           relatedBy: .equal,
-                           toItem: self,
-                           attribute: .leading,
-                           multiplier: 1,
-                           constant: 4).isActive = true
-        
-        NSLayoutConstraint(item: imageView,
-                           attribute: .trailing,
-                           relatedBy: .equal,
-                           toItem: self,
-                           attribute: .trailing,
-                           multiplier: 1,
-                           constant: -4).isActive = true
-        
-        NSLayoutConstraint(item: imageView,
-                           attribute: .height,
-                           relatedBy: .equal,
-                           toItem: imageView,
-                           attribute: .width,
-                           multiplier: 1,
-                           constant: 0).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        imageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: 0).isActive = true
+//
+//        NSLayoutConstraint(item: imageView,
+//                           attribute: .top,
+//                           relatedBy: .equal,
+//                           toItem: self,
+//                           attribute: .top,
+//                           multiplier: 1,
+//                           constant: 4).isActive = true
+//
+//        NSLayoutConstraint(item: imageView,
+//                           attribute: .leading,
+//                           relatedBy: .equal,
+//                           toItem: self,
+//                           attribute: .leading,
+//                           multiplier: 1,
+//                           constant: 4).isActive = true
+//
+//        NSLayoutConstraint(item: imageView,
+//                           attribute: .trailing,
+//                           relatedBy: .equal,
+//                           toItem: self,
+//                           attribute: .trailing,
+//                           multiplier: 1,
+//                           constant: -4).isActive = true
+//
+//        NSLayoutConstraint(item: imageView,
+//                           attribute: .height,
+//                           relatedBy: .equal,
+//                           toItem: imageView,
+//                           attribute: .width,
+//                           multiplier: 1,
+//                           constant: 0).isActive = true
         
         self.imageView = imageView
         

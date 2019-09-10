@@ -23,27 +23,22 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         setSubViews()
         setTheme()
         updateViews()
-    
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setSubViews()
+        
     }
     
     private func setSubViews() {
         
-        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
         
-        self.navigationItem.rightBarButtonItem = saveButton
+        navigationItem.setRightBarButton(saveButton, animated: true)
         
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.511826694, alpha: 1)
+        imageView.backgroundColor = .clear
         
         view.addSubview(imageView)
-
-       imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.7, constant: 0).isActive = true
@@ -80,61 +75,49 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         self.titleTextField = textField
     }
     
-    // MARK: - UIImagePickerControllerDelegate
+    @objc private func addImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Please select your photo source.", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            } else {
+                let alert =  UIAlertController(title: "Camera Unavailable", message: "We were unable to gain access to your camera.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+                
+            }
+            
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil ))
+        
+        present(actionSheet, animated: true, completion: nil)
+        
+    }
     
-   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        imageView.image = selectedImage
         
         picker.dismiss(animated: true, completion: nil)
         
-        guard let image = info[.originalImage] as? UIImage else { return }
-        
-        imageView.image = image
     }
     
-    // MARK: - Private Methods
-    
-    @objc private func addImage() {
-        
-        let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-        
-        switch authorizationStatus {
-        case .authorized:
-            presentImagePickerController()
-            
-        case .notDetermined:
-            
-            PHPhotoLibrary.requestAuthorization { (status) in
-                
-                guard status == .authorized else {
-                    NSLog("User did not authorize access to the photo library")
-                    return
-                }
-                self.presentImagePickerController()
-            }
-        default:
-            break
-        }
-    }
-    
-   @objc private func savePhoto() {
-        
-        guard let image = imageView.image,
-            let imageData = image.pngData(),
-            let title = titleTextField.text else { return }
-        
-        if let photo = photo {
-            photoController?.update(photo: photo, with: imageData, and: title)
-        } else {
-            photoController?.createPhoto(with: imageData, title: title)
-        }
-        
-        navigationController?.popViewController(animated: true)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
     private func updateViews() {
-        
-        navigationItem.title = "Add Photo"
         
         guard let photo = photo else {
             title = "Create Photo"
@@ -145,17 +128,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
-    }
-    
-    private func presentImagePickerController() {
-        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
     }
     
     private func setTheme() {
@@ -174,4 +146,22 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
+    @objc private func savePhoto() {
+        
+        guard let image = imageView.image,
+            let imageData = image.pngData(),
+            let title = titleTextField.text else { return }
+        
+        if let photo = photo {
+            photoController?.update(photo: photo, with: imageData, and: title)
+        } else {
+            photoController?.createPhoto(with: imageData, title: title)
+        }
+        
+        navigationController?.popViewController(animated: true)
+    }
 }
+
+
+
