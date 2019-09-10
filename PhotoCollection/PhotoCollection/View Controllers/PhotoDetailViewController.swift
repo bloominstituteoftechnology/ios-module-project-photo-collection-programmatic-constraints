@@ -21,8 +21,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubViews()
         setTheme()
-        updateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            updateViews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +43,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +66,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -115,5 +120,47 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    func setUpSubViews() {
+        let imageView = UIImageView()
+        self.view.addSubview(imageView)
+        imageView.backgroundColor = .darkGray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        imageView.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(lessThanOrEqualTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        let addImageButton = UIButton()
+        self.view.addSubview(addImageButton)
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.setTitleColor(UIColor(red: 14.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0), for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        
+        let photoTitleTextField = UITextField()
+        self.view.addSubview(photoTitleTextField)
+        photoTitleTextField.placeholder = "Give this photo a title..."
+        photoTitleTextField.backgroundColor = .white
+        photoTitleTextField.layer.cornerRadius = 12.0
+        photoTitleTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        photoTitleTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        photoTitleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 20).isActive = true
+        photoTitleTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        photoTitleTextField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        photoTitleTextField.bottomAnchor.constraint(lessThanOrEqualTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+        photoTitleTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        let savePhotoBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        self.navigationItem.rightBarButtonItem = savePhotoBarButtonItem
+        
     }
 }

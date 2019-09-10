@@ -13,6 +13,11 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -85,5 +90,22 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let cellInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+        
+        return cellInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 2.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 200)
     }
 }
