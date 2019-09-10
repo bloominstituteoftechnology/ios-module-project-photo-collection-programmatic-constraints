@@ -76,7 +76,7 @@ class ThemeSelectionViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         stackView.alignment = .fill
         
         stackView.addArrangedSubview(darkButton)
@@ -87,5 +87,6 @@ class ThemeSelectionViewController: UIViewController {
         stackView.topAnchor.constraint(equalTo: whichThemeLabel.bottomAnchor, constant: 40).isActive = true
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        
     }
 }
