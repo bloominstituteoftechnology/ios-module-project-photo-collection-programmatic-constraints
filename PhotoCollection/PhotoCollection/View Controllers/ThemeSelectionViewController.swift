@@ -10,7 +10,7 @@ import UIKit
 
 class ThemeSelectionViewController: UIViewController {
 
-    func selectDarkTheme() {
+   @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
@@ -35,6 +35,20 @@ class ThemeSelectionViewController: UIViewController {
 		label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
 		label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
 		label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+		
+		// Button
+		
+		let turnDarkButton = UIButton(type: .system)
+		turnDarkButton.translatesAutoresizingMaskIntoConstraints = false
+		turnDarkButton.setTitle("Dark Theme", for: .normal)
+		turnDarkButton.addTarget(self, action: #selector(selectDarkTheme) , for: .touchUpInside)
+		
+		view.addSubview(turnDarkButton)
+		
+		turnDarkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16).isActive = true
+		turnDarkButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+		turnDarkButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -8).isActive = true
+		
 		
 	}
 	
