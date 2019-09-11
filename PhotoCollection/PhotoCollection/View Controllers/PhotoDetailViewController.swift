@@ -11,20 +11,55 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
     
+    var titleTextField: UITextField = {
+        let texfield = UITextField()
+        texfield.translatesAutoresizingMaskIntoConstraints = false
+        texfield.backgroundColor = .white
+        texfield.placeholder = "enter a description for Image"
+        return texfield
+    }()
+    var saveImage: UIButton!
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTheme()
         updateViews()
+        viewWillLayoutSubviews()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        view.addSubview(imageView)
+        view.addSubview(titleTextField)
+        imageViewContraints()
+        texfieldConstraints()
+        savePhotoButtonConstraints()
+        addPhotoFromLibrary()
+    }
+    
+   private func savePhotoButtonConstraints() {
+        let savePhotoBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        navigationItem.rightBarButtonItem = savePhotoBarButtonItem
+    }
+    
+   private func addPhotoFromLibrary() {
+    let saveImage = UIButton()
+    saveImage.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+    saveImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+    saveImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
+    saveImage.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+    self.saveImage = saveImage
+    view.addSubview(saveImage)
+    }
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -37,8 +72,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     // MARK: - Private Methods
+    private func texfieldConstraints() {
     
-    private func addImage() {
+    }
+    private func imageViewContraints() {
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
+        view.addSubview(imageView)
+    }
+    
+  @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +105,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
