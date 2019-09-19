@@ -50,10 +50,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         
         NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 4).isActive = true
-        NSLayoutConstraint(item: titleLabel, attribute: .leading, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 2).isActive = true
-        NSLayoutConstraint(item: titleLabel, attribute: .trailing, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: -2).isActive = true
         NSLayoutConstraint(item: titleLabel, attribute: .bottom, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 160).isActive = true
-        
+        NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         self.titleLabel = titleLabel
     }
     
