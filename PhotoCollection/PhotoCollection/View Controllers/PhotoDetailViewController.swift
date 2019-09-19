@@ -129,7 +129,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         addImageButton.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
         addImageButton.setTitle("Add Image", for: .normal)
         view.addSubview(addImageButton)
-        addImageButton.addTarget(self, action: #selector(addImage), for: UIControl.Event.touchUpInside)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside) //UIControl.Event.touchUpInside)
         
         titleTextField = UITextField()
         titleTextField.backgroundColor = .white
@@ -143,7 +143,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
 
         // Image Constraints
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 240.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120.0).isActive = true
 //        detailImage.trailingAnchor.constraint(greaterThanOrEqualTo: view.trailingAnchor, constant: -120.0).isActive = true
         imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true

@@ -13,15 +13,21 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         collectionView?.reloadData()
         setTheme()
-        
     }
     
     // MARK: UICollectionViewDataSource
+//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return 1
+//    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
