@@ -23,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +39,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +62,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -80,6 +81,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         guard let photo = photo else {
             title = "Create Photo"
+            setupSubviews()
             return
         }
         
@@ -87,6 +89,43 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
+    }
+    
+    private func setupSubviews() {
+        let image = UIImageView()
+        view.addSubview(image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        let button = UIButton()
+        button.setTitle("Add Image", for: .normal)
+        button.target(forAction: #selector(addImage), withSender: self)
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        let textField = UITextField()
+        textField.placeholder = "Give this photo a title:"
+        textField.backgroundColor = .purple
+        view.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+//        image.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        image.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        image.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        image.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        button.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 4).isActive = true
+        button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+
+        textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 16).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        textField.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40).isActive = true
+        
+        let savePhotoBarButton = UIBarButtonItem()
+        savePhotoBarButton.title = "Save Photo"
+        savePhotoBarButton.action = #selector(savePhoto)
+        navigationItem.rightBarButtonItem = savePhotoBarButton
     }
     
     private func presentImagePickerController() {
