@@ -91,7 +91,7 @@ class PhotoCollectionViewController: UICollectionViewController {
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let insets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        let insets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         return insets
     }
     
