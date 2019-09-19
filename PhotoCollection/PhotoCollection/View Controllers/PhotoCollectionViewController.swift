@@ -10,8 +10,18 @@ import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
     
-    let photoController = PhotoController()
+    let photoController = PhotoController() 
     let themeHelper = ThemeHelper()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let width = self.view.bounds.width
+        let spacing = CGFloat(20.0)
+        let itemWidth = (width - 3.0 * spacing) / 2.0
+        let collectionViewLayout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
+        collectionViewLayout.itemSize = UICollectionViewFlowLayout.automaticSize
+        collectionViewLayout.estimatedItemSize = CGSize(width: itemWidth, height: 200.0)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,17 +31,21 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     // MARK: UICollectionViewDataSource
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoController.photos.count
+//        return photoController.photos.count
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
-        let photo = photoController.photos[indexPath.row]
-        
-        cell.photo = photo
+//        let photo = photoController.photos[indexPath.row]
+//
+//        cell.photo = photo
         
         return cell
     }
@@ -86,4 +100,21 @@ class PhotoCollectionViewController: UICollectionViewController {
             break
         }
     }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = self.view.bounds.width
+//        let spacing = CGFloat(20.0)
+//        let itemWidth = (width - 3.0 * spacing) / 2.0
+//        return CGSize(width: itemWidth, height: 200.0)
+//    }
 }
