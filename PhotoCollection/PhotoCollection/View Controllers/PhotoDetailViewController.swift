@@ -120,16 +120,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func setUpDetailSubViews() {
-//        let container = UILayoutGuide()
-//        view.addLayoutGuide(container)
-//        let margins = view.layoutMarginsGuide
+
         imageView = UIImageView()
-        //detailImage.backgroundColor = .blue
         imageView.backgroundColor = .darkGray
         view.addSubview(imageView)
         
         let addImageButton = UIButton()
-        //let textStyle = NSMutableParagraphStyle.default.alignment
         addImageButton.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
         addImageButton.setTitle("Add Image", for: .normal)
         view.addSubview(addImageButton)
