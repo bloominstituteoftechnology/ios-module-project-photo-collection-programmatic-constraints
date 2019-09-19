@@ -18,6 +18,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         collectionView?.reloadData()
         setTheme()
+        
     }
     
     // MARK: UICollectionViewDataSource
@@ -32,7 +33,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
-        
+//        cell.setUpSubviews()
+       
         return cell
     }
     
@@ -72,6 +74,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
+            destinationVC.setUpDetailSubViews()
             
         case "ViewPhoto":
             
@@ -85,5 +88,19 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 0.0, height: 80.0)
     }
 }
