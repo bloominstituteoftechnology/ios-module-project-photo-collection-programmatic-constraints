@@ -12,12 +12,12 @@ class ThemeHelper {
     
     private let themePreferenceKey = "themePreference"
     
-    var themePreference: String? {
+    var selectedTheme: String? {
         return UserDefaults.standard.string(forKey: themePreferenceKey)
     }
     
     init() {
-        guard themePreference == nil else { return }
+        guard selectedTheme == nil else { return }
         setThemePreferenceToDark()
     }
     

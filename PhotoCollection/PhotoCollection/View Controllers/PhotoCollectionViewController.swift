@@ -37,16 +37,16 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     private func setTheme() {
-    
-        guard let themePreference = themeHelper.themePreference else { return }
+        
+        guard let themePreference = themeHelper.selectedTheme else { return }
         
         var backgroundColor: UIColor!
         
         switch themePreference {
         case "Dark":
-            backgroundColor = .lightGray
+            backgroundColor = .gray
         case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+            backgroundColor = .blue
         default:
             break
         }
@@ -79,11 +79,29 @@ class PhotoCollectionViewController: UICollectionViewController {
                 let indexPath = collectionView?.indexPathsForSelectedItems?.first else { return }
             
             destinationVC.photo = photoController.photos[indexPath.row]
+            
             destinationVC.photoController = photoController
+            
             destinationVC.themeHelper = themeHelper
             
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController:UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = UIScreen.main.bounds.width
+        let imageSquare = (screenWidth / 2) - 10
+        return CGSize(width: imageSquare, height: imageSquare + 30)
     }
 }
