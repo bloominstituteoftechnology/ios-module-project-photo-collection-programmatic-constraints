@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -115,5 +115,33 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    func setupSubviews() {
+        //Create UIImageView and add to the superview
+        let imageView = UIImageView()
+        self.view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //Create UIButton and add to the superview
+        let addNewImageButton = UIButton()
+        addNewImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addNewImageButton.setTitle("Add Image", for: .normal)
+        self.view.addSubview(addNewImageButton)
+        addNewImageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        //Create UITextField and add to the superview
+        let titleTextField = UITextField()
+        titleTextField.placeholder = "Give a title to this photo:"
+        self.view.addSubview(titleTextField)
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        //NSLayoutAnchors for imageView property
+        let imageViewMargins = view.layoutMarginsGuide
+        imageViewMargins.centerYAnchor.constraint(equalTo: imageViewMargins.centerYAnchor).isActive = true
+        imageViewMargins.topAnchor.constraint(equalTo: imageViewMargins.topAnchor, constant: 40.0).isActive = true
+        imageViewMargins.widthAnchor.constraint(equalTo: imageViewMargins.widthAnchor, multiplier: 0.8).isActive = true
+        imageViewMargins.heightAnchor.constraint(equalTo: imageViewMargins.widthAnchor, multiplier: 0.6).isActive = true
+        
     }
 }
