@@ -20,10 +20,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupSubviews()
         setTheme()
         updateViews()
-        setupSubviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -125,11 +124,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         self.imageView = image
         self.titleTextField = textField
         
-        let savePhotoBarButton = UIBarButtonItem()
-        savePhotoBarButton.title = "Save Photo"
-        savePhotoBarButton.target = self
-        savePhotoBarButton.action = #selector(savePhoto)
-        navigationItem.rightBarButtonItem = savePhotoBarButton
+        let savePhotoBarButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        navigationItem.setRightBarButton(savePhotoBarButton, animated: false)
     }
     
     private func presentImagePickerController() {
