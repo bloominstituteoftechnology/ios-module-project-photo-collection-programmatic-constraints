@@ -14,7 +14,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private let imageView = UIImageView()
     private let label = UILabel()
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -26,8 +30,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         self.setUpSubViews()
     }
     
-    func setUpSubViews() {
-        self.contentView.backgroundColor = .purple
+    private func updateViews() {
+        setUpSubViews()
+        guard let photo = photo else { return }
+        
+        self.label.text = photo.title
+        
+        imageView.image = UIImage(data: photo.imageData)
+    }
+    
+    private func setUpSubViews() {
         // vertical stackview
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.axis = .vertical
@@ -61,14 +73,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                toItem: self.contentView,
                                attribute: .trailing,
                                multiplier: 1.0,
-                               constant: 0.0)
+                               constant: 0.0),
         ]
         NSLayoutConstraint.activate(stackViewConstraints)
         
         let width = UIScreen.main.bounds.width
         let spacing = CGFloat(20.0)
         let itemWidth = (width - 3.0 * spacing) / 2.0
-        self.imageView.backgroundColor = .red
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.clipsToBounds = true
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.addArrangedSubview(imageView)
         let imageViewConstraints = [
@@ -88,11 +101,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                constant: 80.0)
         ]
         NSLayoutConstraint.activate(imageViewConstraints)
-        
-        
-        label.text = "Dummy Text"
+
         self.stackView.addArrangedSubview(label)
-        
-        
+        self.label.textAlignment = .center
     }
 }

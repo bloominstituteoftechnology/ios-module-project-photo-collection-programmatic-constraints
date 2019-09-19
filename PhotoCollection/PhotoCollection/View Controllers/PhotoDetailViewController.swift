@@ -11,8 +11,10 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    private let stackView = UIStackView()
+    private let button = UIButton()
+    var imageView = UIImageView()
+    var titleTextField = UITextField()
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -23,6 +25,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSaveButton()
+
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,6 +42,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
+    private func setUpSaveButton() {
+        let buttonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        self.navigationItem.rightBarButtonItem = buttonItem
+    }
+    
+    @objc
     private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
@@ -61,6 +71,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
+    @objc
     private func savePhoto() {
         
         guard let image = imageView.image,
@@ -77,7 +88,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func updateViews() {
-        
+        setUpSubViews()
         guard let photo = photo else {
             title = "Create Photo"
             return
@@ -115,5 +126,41 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    private func setUpSubViews() {
+        // vertical stackview
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.axis = .vertical
+        self.stackView.spacing = 10.0
+        self.view.addSubview(self.stackView)
+        
+        NSLayoutConstraint.activate([
+            self.stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+
+        self.imageView.backgroundColor = .red
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.clipsToBounds = true
+        self.stackView.addArrangedSubview(imageView)
+        NSLayoutConstraint.activate([
+            self.imageView.widthAnchor.constraint(equalToConstant: 300.0),
+            self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 9.0/16.0, constant: 1.0)
+        ])
+        
+        self.button.setTitle("Add Image", for: .normal)
+        self.button.addTarget(self, action: #selector(addImage), for: .primaryActionTriggered)
+        self.button.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.addArrangedSubview(button)
+        
+        self.titleTextField.placeholder = "Give this photo a title"
+        self.titleTextField.backgroundColor = .white
+        self.titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.addArrangedSubview(titleTextField)
+        NSLayoutConstraint.activate([
+            self.titleTextField.heightAnchor.constraint(equalToConstant: 50.0),
+        ])
     }
 }
