@@ -9,53 +9,68 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
+    
 
     var photo: Photo?
+    var imageView: UIImageView!
+    var titleLabel: UILabel!
     
     
     func setUpSubviews() {
 
-        let photoImageView = UIImageView()
-        photoImageView.translatesAutoresizingMaskIntoConstraints = false
-        photoImageView.backgroundColor = .white
-        self.addSubview(photoImageView)
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleAspectFit
+        self.addSubview(imageView)
+        
+        
 
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .black
         self.addSubview(titleLabel)
         
         
-        let iLeadingConstraint = NSLayoutConstraint(item: photoImageView, attribute: .leading, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let iWidthConstraint = NSLayoutConstraint(item: photoImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
-        let iAspectRatioConstraint = NSLayoutConstraint(item: photoImageView, attribute: .height, relatedBy: .equal, toItem: photoImageView, attribute: .width, multiplier: 1.0, constant: 0.0)
+        NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .leading, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
+        
+        self.imageView = imageView
         
         
-        let tTopConstraint = NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: photoImageView, attribute: .bottom, multiplier: 1.0, constant: 8.0)
-        let tCenterXConstraint = NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1.0, constant: 8.0).isActive = true
+        NSLayoutConstraint(item: titleLabel, attribute: .leading, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .leading, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: titleLabel, attribute: .trailing, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: titleLabel, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0.0).isActive = true
         
-        NSLayoutConstraint.activate([
-            
-            iLeadingConstraint,
-            iWidthConstraint,
-            iAspectRatioConstraint,
-            tTopConstraint,
-            tCenterXConstraint
-            
-            ])
-
-
-
+        self.titleLabel = titleLabel
+        
     }
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUpSubviews()
+    }
+    
+    
+    
 
-//    func updateViews() {
-//
-//        guard let photo = photo else { return }
-//        
-//        photo.title = 
-//        
-//
-//
-//    }
+    func updateViews() {
+
+        guard let photo = photo else { return }
+        
+        titleLabel.text = photo.title
+        imageView.image = UIImage(data: photo.imageData)
+        
+    }
     
     
 }
