@@ -35,7 +35,6 @@ class ThemeSelectionViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Select Theme"
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .black
         titleLabel.font = UIFont.systemFont(ofSize: 50.0)
         view.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100.0).isActive = true
