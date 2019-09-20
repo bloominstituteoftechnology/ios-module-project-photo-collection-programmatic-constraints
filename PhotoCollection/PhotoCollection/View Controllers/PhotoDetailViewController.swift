@@ -132,7 +132,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
         
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("Add Photo", for: .normal)
         button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         view.addSubview(button)
@@ -141,6 +141,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         let textField = UITextField()
         textField.placeholder = "Give this photo a title:"
         textField.backgroundColor = .white
+        textField.layer.cornerRadius = 8
         view.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         

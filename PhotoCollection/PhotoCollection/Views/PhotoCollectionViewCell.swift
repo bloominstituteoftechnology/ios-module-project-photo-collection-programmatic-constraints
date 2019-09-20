@@ -33,6 +33,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         self.addSubview(titleLabel)
         
         
+        
         NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .leading, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
