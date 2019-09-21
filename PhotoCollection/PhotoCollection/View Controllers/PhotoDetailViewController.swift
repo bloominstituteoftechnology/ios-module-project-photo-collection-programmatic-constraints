@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -115,5 +115,32 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    func setUpSubviews() {
+        imageView = UIImageView()
+        view.addSubview(imageView)
+        titleTextField = UITextField()
+        titleTextField.placeholder = "Give this photo a title"
+        view.addSubview(titleTextField)
+        
+        let btnAddImage = UIButton()
+        btnAddImage.setTitle("Add Image", for: .normal)
+        btnAddImage.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        view.addSubview(btnAddImage)
+        
+        guard let imageView = imageView else { return }
+        
+        let constraints = [imageView.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1.0, constant: 40),
+                           imageView.centerXAnchor.constraint(equalTo: view?.centerXAnchor),
+                           imageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.6),
+                           imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+                           btnAddImage.centerXAnchor.constraint(equalTo: view?.centerXAnchor),
+                           btnAddImage.topAnchor.constraint(equalToSystemSpacingBelow: imageView.bottomAnchor, multiplier: 1.0, constant: 20),
+                           titleTextField.centerXAnchor.constraint(equalTo: btnAddImage.centerXAnchor),
+                           titleTextField.topAnchor.constraint(equalToSystemSpacingBelow: btnAddImage.bottomAnchor, multiplier: 1.0, constant: 10),
+                           titleTextField.widthAnchor.constraint(equalTo: view?.widthAnchor, multiplier: 0.8)
+        ]
+        
     }
 }

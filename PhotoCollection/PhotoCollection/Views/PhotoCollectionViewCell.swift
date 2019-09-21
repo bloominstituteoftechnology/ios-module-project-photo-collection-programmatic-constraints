@@ -20,6 +20,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpSubViews() {
+        self.addSubview(imgView)
+        self.addSubview(lblTitle)
         
         let constraints = [NSLayoutConstraint(item: imgView,
                                               attribute: .centerX, relatedBy: .equal,
