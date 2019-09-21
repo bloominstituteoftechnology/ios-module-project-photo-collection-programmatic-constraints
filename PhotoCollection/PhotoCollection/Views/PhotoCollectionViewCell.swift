@@ -57,13 +57,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 //            NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100.0),
 //            NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: contentView, attribute: .width, multiplier: 1.0, constant: 0.0),
 //            NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: <#T##NSLayoutConstraint.Attribute#>, multiplier: <#T##CGFloat#>, constant: <#T##CGFloat#>),
-            NSLayoutConstraint(item: myImageView, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant:  0.0),
-            NSLayoutConstraint(item: myImageView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant:  0.0),
-//            NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: contentView, attribute: .height, multiplier: 1.0, constant:  80.0),
-            NSLayoutConstraint(item: myImageView, attribute: .width, relatedBy: .equal, toItem: contentView, attribute: .width, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: myImageView, attribute: .height, relatedBy: .equal, toItem: contentView, attribute: .height, multiplier: 0.8, constant: 0.0),
+//            NSLayoutConstraint(item: myImageView, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant:  0.0),
+//            NSLayoutConstraint(item: myImageView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant:  0.0),
+            NSLayoutConstraint(item: myImageView, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant:  0.0),
+            NSLayoutConstraint(item: myImageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant:  0.0),
+            NSLayoutConstraint(item: myImageView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1.0, constant:  4.0),
+//            NSLayoutConstraint(item: myImageView, attribute: .width, relatedBy: .equal, toItem: contentView, attribute: .width, multiplier: 1.0, constant: 0.0),
+//            NSLayoutConstraint(item: myImageView, attribute: .height, relatedBy: .equal, toItem: contentView, attribute: .height, multiplier: 0.8, constant: 0.0),
             NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: myImageView, attribute: .bottom, multiplier: 1.0, constant: 8.0),
-            NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: myImageView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+            NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: myImageView, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: titleLabel, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         ]
         
         NSLayoutConstraint.activate(imageConstraints)
