@@ -24,11 +24,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         setTheme()
     }
     
-    // MARK: UICollectionViewDataSource
-//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
     }
@@ -39,7 +34,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
-//        cell.setUpSubviews()
+        cell.setUpSubviews()
        
         return cell
     }
@@ -99,14 +94,17 @@ class PhotoCollectionViewController: UICollectionViewController {
 
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
+        return UIEdgeInsets(top: 12.0, left: 12.0, bottom: 24.0, right: 12.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 0.0, height: 80.0)
+        
+        let width = 180.00
+        let height = 180 * 1.25
+        return CGSize(width: width, height: height)
     }
 }

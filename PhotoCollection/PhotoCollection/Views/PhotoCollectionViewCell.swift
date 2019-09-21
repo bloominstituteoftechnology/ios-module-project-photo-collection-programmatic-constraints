@@ -12,38 +12,41 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+//        setUpSubviews()
         contentView.widthAnchor.constraint(equalToConstant: 180).isActive = true
         contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.25).isActive = true
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = .white
         
 //        contentView.addConstraint(NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: superview?.safeAreaLayoutGuide, attribute: .width, multiplier: 0.5, constant: 0.0))
-
-//        setUpSubviews()
+        
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpSubviews()
         fatalError("Interface Builder is not supported!")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
 //    let view = UIView()
     let myImageView = UIImageView()
     let titleLabel = UILabel()
     
     func setUpSubviews() {
-//        contentView.addSubview(view)
+//        updateViews()
         contentView.addSubview(myImageView)
         contentView.addSubview(titleLabel)
     
@@ -70,8 +73,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         ]
         
         NSLayoutConstraint.activate(imageConstraints)
-//        myImageView.addConstraints(imageConstraints)
-//        titleLabel.addConstraints(imageConstraints)
     }
     
     func updateViews() {
@@ -79,6 +80,5 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         guard let photo = photo else { return }
         myImageView.image = UIImage(data: photo.imageData)
         titleLabel.text = photo.title
-        
     }
 }
