@@ -11,18 +11,30 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
-    let imageView = UIImageView()
-    let label = UILabel()
+    var imageView: UIImageView!
+    var label: UILabel!
     
     func setUpViews() {
         
+        imageView = UIImageView()
+        label = UILabel()
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(imageView)
+        contentView.addSubview(label)
+        
+        label.backgroundColor = .white
+        label.textColor = .black
+        
         let myConstraints = [
-            NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: PhotoCollectionViewCell.self, attribute: .centerX, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: PhotoCollectionViewCell.self, attribute: .centerY, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 100.0),
-            NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 100.0),
+            NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 40.0),
+            NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1.0, constant: 40.0),
+            NSLayoutConstraint(item: imageView, attribute: .topMargin, relatedBy: .equal, toItem: contentView, attribute: .topMargin, multiplier: 1.0, constant: 40.0),
             NSLayoutConstraint(item: label, attribute: .topMargin, relatedBy: .equal, toItem: imageView, attribute: .bottomMargin, multiplier: 1.0, constant: 8.0),
-            NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+            NSLayoutConstraint(item: label, attribute: .bottomMargin, relatedBy: .equal, toItem: contentView, attribute: .bottomMargin, multiplier: 1.0, constant: 10.0),
+            NSLayoutConstraint(item: label, attribute: .leftMargin, relatedBy: .equal, toItem: contentView, attribute: .leftMargin, multiplier: 1.0, constant: 8.0)
         ]
         
         NSLayoutConstraint.activate(myConstraints)
@@ -30,9 +42,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         guard let photo = photo else { return }
-        
+        setUpViews()
         imageView.image = UIImage(data: photo.imageData)
         label.text = photo.title
+        
     }
     
 }

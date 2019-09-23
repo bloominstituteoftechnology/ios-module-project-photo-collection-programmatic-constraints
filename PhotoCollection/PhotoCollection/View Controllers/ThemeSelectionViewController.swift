@@ -9,13 +9,25 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    func setUpSubViews() {
+        let label = UILabel()
+        let darkButton = UIButton()
+        let lightButton = UIButton()
+        
+        darkButton.setTitle("Dark", for: .normal)
+        darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+        
+        lightButton.setTitle("Blue", for: .normal)
+        lightButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+    }
 
-    func selectDarkTheme() {
+    @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
     
-    func selectBlueTheme() {
+    @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
