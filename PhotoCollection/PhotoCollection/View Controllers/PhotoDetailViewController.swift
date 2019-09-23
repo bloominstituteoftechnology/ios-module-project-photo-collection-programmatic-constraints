@@ -120,19 +120,24 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     private func setUpSubviews() {
         imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         titleTextField = UITextField()
         titleTextField.placeholder = "Give this photo a title"
+        titleTextField.textAlignment = .center
+        titleTextField.backgroundColor = .white
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleTextField)
         
         let btnAddImage = UIButton()
         btnAddImage.setTitle("Add Image", for: .normal)
         btnAddImage.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        btnAddImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(btnAddImage)
         
         guard let imageView = imageView else { return }
         
-        let constraints = [imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+        let constraints = [imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
                            imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
                            imageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.6),
                            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
@@ -143,6 +148,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
                            titleTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
         ]
         
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(constraints)
         
         let btnSave = UIBarButtonItem()
