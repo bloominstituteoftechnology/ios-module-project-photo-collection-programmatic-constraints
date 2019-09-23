@@ -14,7 +14,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
-    var photo: Photo?
+    var photo: Photo? { didSet { updateViews() } }
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -22,7 +22,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
-        updateViews()
+        setUpSubviews()
+//        updateViews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -61,7 +62,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -74,19 +75,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func updateViews() {
-        
-        guard let photo = photo else {
-            title = "Create Photo"
-            return
-        }
-        
-        title = photo.title
-        
-        imageView.image = UIImage(data: photo.imageData)
-        titleTextField.text = photo.title
     }
     
     private func presentImagePickerController() {
@@ -117,7 +105,20 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.backgroundColor = backgroundColor
     }
     
-    func setUpSubviews() {
+    private func updateViews() {
+        
+        guard let photo = photo else {
+            title = "Create Photo"
+            return
+        }
+        
+        title = photo.title
+        
+        imageView.image = UIImage(data: photo.imageData)
+        titleTextField.text = photo.title
+    }
+    
+    private func setUpSubviews() {
         imageView = UIImageView()
         view.addSubview(imageView)
         titleTextField = UITextField()
@@ -131,16 +132,22 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         guard let imageView = imageView else { return }
         
-        let constraints = [imageView.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1.0, constant: 40),
-                           imageView.centerXAnchor.constraint(equalTo: view?.centerXAnchor),
+        let constraints = [imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+                           imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
                            imageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.6),
                            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-                           btnAddImage.centerXAnchor.constraint(equalTo: view?.centerXAnchor),
-                           btnAddImage.topAnchor.constraint(equalToSystemSpacingBelow: imageView.bottomAnchor, multiplier: 1.0, constant: 20),
+                           btnAddImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                           btnAddImage.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
                            titleTextField.centerXAnchor.constraint(equalTo: btnAddImage.centerXAnchor),
-                           titleTextField.topAnchor.constraint(equalToSystemSpacingBelow: btnAddImage.bottomAnchor, multiplier: 1.0, constant: 10),
-                           titleTextField.widthAnchor.constraint(equalTo: view?.widthAnchor, multiplier: 0.8)
+                           titleTextField.topAnchor.constraint(equalTo: btnAddImage.bottomAnchor, constant: 10),
+                           titleTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
         ]
         
+        NSLayoutConstraint.activate(constraints)
+        
+        let btnSave = UIBarButtonItem()
+        btnSave.title = "Save Photo"
+        btnSave.action = #selector(savePhoto)
+        self.navigationItem.setRightBarButton(btnSave, animated: false)
     }
 }
