@@ -12,5 +12,3 @@ struct Photo: Equatable {
     var imageData: Data
     var title: String
 }
-
-// Testing Github sync status
