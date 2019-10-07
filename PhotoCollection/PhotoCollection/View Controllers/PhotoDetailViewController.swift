@@ -9,14 +9,25 @@
 import UIKit
 import Photos
 
-class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout {
+    
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        setUpSubviews()
+//    }
+//
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        setUpSubviews()
+//    }
     
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
     var photo: Photo? {
         didSet {
-            updateViews()
+            // The design doc says to call this here, but doing so causes it to try to update views before the subviews are set up in `setUpSubviews()` and thus crashes the application. Because `updateViews()` is already being called after this in `viewDidLoad()`, it should still work as expected without this line.
+            //updateViews()
         }
     }
     var photoController: PhotoController?
@@ -25,9 +36,20 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTheme()
         setUpSubviews()
+        setTheme()
         updateViews()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let horizontalPhotos: CGFloat = 2
+
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalPhotos - 1)
+        
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalPhotos
+        return CGSize(width: width, height: width * 1.2)
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -43,7 +65,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    func setUpSubviews() {
+    private func setUpSubviews() {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

@@ -34,7 +34,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     //MARK: Private
     
-    private func setUpSubviews() {
+    private func setUpSubviews() {        
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                toItem: self,
                                attribute: .trailing,
                                multiplier: 1,
-                               constant: -2)
+                               constant: -2),
+            NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1, constant: 0)
         ])
         
         self.imageView = imageView
@@ -85,7 +86,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint(item: nameLabel,
                                attribute: .leading,
                                relatedBy: .equal,
-                               toItem: imageView,
+                               toItem: self,
                                attribute: .leading,
                                multiplier: 1,
                                constant: 2),
@@ -93,7 +94,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint(item: nameLabel,
                                attribute: .trailing,
                                relatedBy: .equal,
-                               toItem: imageView,
+                               toItem: self,
                                attribute: .trailing,
                                multiplier: 1,
                                constant: 2)
