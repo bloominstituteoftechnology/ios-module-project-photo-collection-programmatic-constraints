@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -18,6 +18,17 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         collectionView?.reloadData()
         setTheme()
+    }
+    
+    func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        var horizontalItems: CGFloat = 2
+        
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
+        
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
+        return CGSize(width: width, height: width * 1.2)
     }
     
     // MARK: UICollectionViewDataSource

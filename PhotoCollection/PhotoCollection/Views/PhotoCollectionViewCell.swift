@@ -110,7 +110,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateViews() {
-       imageView.image = photo?.imageData
+        // TO DO:
+ //       imageView.image = photo?.imageData
         nameLabel.text = photo?.title
     }
 }

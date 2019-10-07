@@ -36,9 +36,43 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = image
     }
     
+    // MARK: -Methods
+    
+    func setUpSubviews() {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)])
+        
+        self.imageView = imageView
+        
+        let addImageButton = UIButton(type: .system)
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(addImageButton)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([])
+        
+        let textField = UITextField()
+        textField.text = nil
+        textField.placeholder = "Give this photo a title."
+        
+        
+        
+    }
+    
     // MARK: - Private Methods
     
-    private func addImage() {
+   @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -84,8 +118,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         title = photo.title
-        
-        imageView.image = UIImage(data: photo.imageData)
+        // TO DO: convert imageData to UIImage
+//        imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
     }
     
