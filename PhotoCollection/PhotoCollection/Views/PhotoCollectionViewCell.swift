@@ -12,7 +12,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     //MARK: Properties
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     var nameLabel: UILabel!
     var imageView: UIImageView!
     
