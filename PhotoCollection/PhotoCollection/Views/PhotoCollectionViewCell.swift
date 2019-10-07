@@ -9,8 +9,14 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
+    
+    //MARK: Properties
 
     var photo: Photo?
+    var nameLabel: UILabel!
+    var imageView: UIImageView!
+    
+    //MARK: Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +28,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setUpSubviews()
     }
     
-    func setUpSubviews() {
+    //MARK: Private
+    
+    private func setUpSubviews() {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,13 +62,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                constant: -2)
         ])
         
-        let label = UILabel()
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView = imageView
+        
+        let nameLabel = UILabel()
+        nameLabel.textAlignment = .center
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: label,
+            NSLayoutConstraint(item: nameLabel,
                                attribute: .top,
                                relatedBy: .equal,
                                toItem: imageView,
@@ -68,7 +78,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                multiplier: 1,
                                constant: 4),
             
-            NSLayoutConstraint(item: label,
+            NSLayoutConstraint(item: nameLabel,
                                attribute: .leading,
                                relatedBy: .equal,
                                toItem: imageView,
@@ -76,7 +86,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                multiplier: 1,
                                constant: 2),
             
-            NSLayoutConstraint(item: label,
+            NSLayoutConstraint(item: nameLabel,
                                attribute: .trailing,
                                relatedBy: .equal,
                                toItem: imageView,
@@ -84,6 +94,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                multiplier: 1,
                                constant: 2)
         ])
+        
+        self.nameLabel = nameLabel
+    }
+    
+    private func updateViews() {
+        nameLabel.text = photo?.title
+        if let imageData = photo?.imageData {
+            imageView.image = UIImage(data: imageData)
+        }
     }
     
 }
