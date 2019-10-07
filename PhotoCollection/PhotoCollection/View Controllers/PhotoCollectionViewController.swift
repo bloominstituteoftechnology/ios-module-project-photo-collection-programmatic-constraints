@@ -8,10 +8,11 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    var horizonatalItems: CGFloat = 2
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,6 +35,21 @@ class PhotoCollectionViewController: UICollectionViewController {
         cell.photo = photo
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizonatalItems - 1)
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizonatalItems
+        return CGSize(width: width, height: width * 1.2)
     }
     
     private func setTheme() {
