@@ -80,7 +80,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         self.imageView = imageView
         
-        let addImageButton = UIButton()
+        let addImageButton = UIButton(type: .system)
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
