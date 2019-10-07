@@ -38,7 +38,30 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    func setUpSubviews() {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        
+        self.imageView = imageView
+        
+        let addImageButton = UIButton()
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addImageButton)
+        
+        let titleTextField = UITextField()
+        titleTextField.placeholder = "Photo title"
+        titleTextField.contentMode = .left
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        
+        self.titleTextField = titleTextField
+    }
+    
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
