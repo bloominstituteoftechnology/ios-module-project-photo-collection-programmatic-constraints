@@ -14,7 +14,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -47,20 +51,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
-        ])
-        
-        let titleTextField = UITextField()
-        titleTextField.placeholder = "Photo title"
-        titleTextField.contentMode = .left
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleTextField)
-        
-        self.titleTextField = titleTextField
-        
-        NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            titleTextField.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0)
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1)
         ])
         
         self.imageView = imageView
@@ -72,8 +65,23 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(addImageButton)
         
         NSLayoutConstraint.activate([
-            addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8),
+            addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             addImageButton.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0)
+        ])
+        
+        let titleTextField = UITextField()
+        titleTextField.placeholder = "Photo title"
+        titleTextField.contentMode = .left
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        
+        self.titleTextField = titleTextField
+        
+        NSLayoutConstraint.activate([
+            titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 8),
+            titleTextField.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0),
+            titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0),
+            titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 0)
         ])
         
         let savePhotoButton = UIBarButtonItem()
@@ -136,12 +144,14 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
         
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     private func setTheme() {
