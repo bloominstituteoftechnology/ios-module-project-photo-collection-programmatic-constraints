@@ -71,7 +71,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let nameLabel = UILabel()
         nameLabel.textAlignment = .center
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(imageView)
+        addSubview(nameLabel)
         
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: nameLabel,
