@@ -110,6 +110,5 @@ class ThemeSelectionViewController: UIViewController {
          
          NSLayoutConstraint.activate([blueButtonTopConstraint, blueButtonTrailingConstraint])
         
-        
     }
 }

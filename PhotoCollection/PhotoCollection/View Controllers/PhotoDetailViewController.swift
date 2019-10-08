@@ -62,9 +62,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 80),
-            addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)])
+            addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)])
         
         
         let textField = UITextField()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class PhotoCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -18,18 +18,19 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         
         collectionView?.reloadData()
         setTheme()
+        
     }
     
-    func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        var horizontalItems: CGFloat = 2
-        
-        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
-        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
-        
-        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
-        return CGSize(width: width, height: width * 1.2)
-    }
+//    func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        var horizontalItems: CGFloat = 2
+//
+//        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+//        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
+//
+//        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
+//        return CGSize(width: width, height: width * 1.2)
+//    }
     
     // MARK: UICollectionViewDataSource
     
@@ -97,4 +98,30 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
             break
         }
     }
+}
+//extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+//    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return (CGSize.init(width: 200, height: 200))
+//    }
+//}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    var horizontalItems: CGFloat = 2
+    
+    let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+    
+    let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
+    
+    let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
+    
+    return CGSize(width: width, height: width * 1.2)
+}
 }
