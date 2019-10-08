@@ -12,6 +12,10 @@ class ThemeSelectionViewController: UIViewController {
     
     var themeHelper: ThemeHelper?
     
+    private var textLabel: UILabel?
+    private var darkButton: UIButton?
+    private var blueButton: UIButton?
+    
     override func viewDidLoad() {
         setSubviews()
     }
@@ -29,6 +33,7 @@ class ThemeSelectionViewController: UIViewController {
     
     
     private func setSubviews() {
+        
         let selectThemeLabel = UILabel()
         let darkButton = UIButton()
         let blueButton = UIButton()
@@ -100,7 +105,9 @@ class ThemeSelectionViewController: UIViewController {
                                        constant: 20),
         ])
      
-        
+        self.textLabel = selectThemeLabel
+        self.darkButton = darkButton
+        self.blueButton = blueButton
     
         
     }

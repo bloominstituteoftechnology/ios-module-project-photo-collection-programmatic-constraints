@@ -14,9 +14,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
-    var photo: Photo?
-    var photoController: PhotoController?
-    var themeHelper: ThemeHelper?
+    var photo: Photo!
+    var photoController: PhotoController!
+    var themeHelper: ThemeHelper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
