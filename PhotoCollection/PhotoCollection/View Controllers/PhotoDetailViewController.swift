@@ -23,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -36,9 +37,62 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = image
     }
     
+    // MARK: -Methods
+    
+    func setUpSubviews() {
+        
+        // Add Image View
+        
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)])
+        
+        self.imageView = imageView
+        
+        // Add image button
+        let addImageButton = UIButton(type: .system)
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(addImageButton)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)])
+        
+        // Add text fiels
+        let textField = UITextField()
+        textField.text = nil
+        textField.placeholder = "Give this photo a title."
+        
+        view.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 8),
+            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)])
+        
+        self.titleTextField = textField
+    
+        // Add save button
+        
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        self.navigationItem.rightBarButtonItem = saveButton
+    }
+     
     // MARK: - Private Methods
     
-    private func addImage() {
+   @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +115,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -84,8 +138,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         title = photo.title
-        
-        imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
     }
     
