@@ -9,6 +9,12 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpSubViews()
+        
+    }
 
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
@@ -23,6 +29,7 @@ class ThemeSelectionViewController: UIViewController {
     var themeHelper: ThemeHelper?
     
     private func setUpSubViews() {
+        
         let photoCollectionLabel = UILabel()
         
         photoCollectionLabel.translatesAutoresizingMaskIntoConstraints = false

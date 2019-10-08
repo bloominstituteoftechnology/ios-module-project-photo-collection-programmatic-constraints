@@ -13,6 +13,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -23,14 +24,16 @@ class PhotoCollectionViewController: UICollectionViewController {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        
 //        
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 //        
 //    }
-//    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return CGFloat(8)
+    }
+    
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        
+//
 //    }
     
     // MARK: UICollectionViewDataSource

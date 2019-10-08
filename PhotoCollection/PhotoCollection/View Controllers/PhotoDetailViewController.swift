@@ -23,6 +23,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        
+        setUpSubViews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
