@@ -44,6 +44,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
+        cell.updateViews()
         
         return cell
     }
@@ -114,13 +115,13 @@ class PhotoCollectionViewController: UICollectionViewController {
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-    var horizontalItems: CGFloat = 2
+        let horizontalItems: CGFloat = 2
     
-    let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
     
-    let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
     
-    let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
     
     return CGSize(width: width, height: width * 1.2)
 }

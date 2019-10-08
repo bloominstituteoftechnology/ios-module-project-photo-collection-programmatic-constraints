@@ -32,8 +32,11 @@ class ThemeSelectionViewController: UIViewController {
     var themeHelper: ThemeHelper?
     
     func setUpSubviews() {
+        
+        // Add label
         let label = UILabel()
         label.text = "Select the theme you would like to use: "
+        label.textAlignment = .center
         
         view.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -62,10 +65,16 @@ class ThemeSelectionViewController: UIViewController {
                                constant: -40)])
         self.themeLabel = label
         
+        // Add Dark theme button
         let darkButton = UIButton(type: .system)
         darkButton.setTitle("Dark Theme", for: .normal)
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
-        
+        darkButton.tintColor = UIColor.white
+        darkButton.backgroundColor = UIColor.black
+        darkButton.layer.cornerRadius = 8
+        darkButton.layer.borderWidth = 2
+        darkButton.layer.borderColor = UIColor.black.cgColor
+        darkButton.contentEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
         view.addSubview(darkButton)
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -82,13 +91,20 @@ class ThemeSelectionViewController: UIViewController {
                                                              toItem: view.safeAreaLayoutGuide,
                                                              attribute: .leading,
                                                              multiplier: 1,
-                                                             constant: 100)
+                                                             constant: 50)
         
         NSLayoutConstraint.activate([darkButtonTopConstraint, darkButtonLeadingConstraint])
         
+        // Add blue button
         let blueButton = UIButton(type: .system)
          blueButton.setTitle("Blue Theme", for: .normal)
          blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+             blueButton.tintColor = UIColor.white
+             blueButton.backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+             blueButton.layer.cornerRadius = 8
+             blueButton.layer.borderWidth = 2
+             blueButton.layer.borderColor = UIColor.black.cgColor
+             blueButton.contentEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
          
          view.addSubview(blueButton)
          blueButton.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +122,7 @@ class ThemeSelectionViewController: UIViewController {
                                                               toItem: view.safeAreaLayoutGuide,
                                                               attribute: .trailing,
                                                               multiplier: 1,
-                                                              constant: -100)
+                                                              constant: -50)
          
          NSLayoutConstraint.activate([blueButtonTopConstraint, blueButtonTrailingConstraint])
         

@@ -29,9 +29,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setUpSubviews()
     }
     
+    // MARK: Methods
     
+    // Set up subViews
     func setUpSubviews() {
-        // image view constraints
+        // add image view + constraints
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         
@@ -69,6 +71,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 //                                                           attribute: .bottom,
 //                                                           multiplier: 1,
 //                                                           constant: -2)
+        
         let imageViewHeightConstraint = NSLayoutConstraint(item: imageView,
                            attribute: .height,
                            relatedBy: .equal,
@@ -76,13 +79,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .width,
                            multiplier: 1,
                            constant: 0)
-//        let imageViewHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
-        
-        
-        
+
+        //        let imageViewHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
+
         NSLayoutConstraint.activate([imageViewTopConstraint, imageViewLeadingConstraint, imageViewTrailingConstraint, imageViewHeightConstraint])
         
         self.imageView = imageView
+        
+        // Add label
         
         let label = UILabel()
         label.textAlignment = .center
@@ -126,8 +130,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
      func updateViews() {
         // function that passes the information from the Photo to the image view and label
-        guard let photoImageData = photo?.imageData else { return }
-        imageView.image = UIImage(data: photoImageData)
-        nameLabel.text = photo?.title
+        guard let photo = photo else { return }
+        let imagePhoto = UIImage(data: photo.imageData)
+        imageView.image = imagePhoto
+        nameLabel.text = photo.title
+        
     }
 }

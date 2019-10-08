@@ -83,7 +83,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="3lA-Et-ihd"/>
                     </view>
-                    <navigationItem key="navigationItem" id="XYc-N2-p4C"/>
+                    <navigationItem key="navigationItem" title="Theme Settings" id="XYc-N2-p4C"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gaf-K2-SIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,9 +112,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fOf-G9-XNI" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZR3-e6-qE1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ZR3-e6-qE1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

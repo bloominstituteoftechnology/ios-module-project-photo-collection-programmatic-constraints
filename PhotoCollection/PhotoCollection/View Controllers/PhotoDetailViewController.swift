@@ -40,6 +40,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     // MARK: -Methods
     
     func setUpSubviews() {
+        
+        // Add Image View
+        
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         
@@ -54,6 +57,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         self.imageView = imageView
         
+        // Add image button
         let addImageButton = UIButton(type: .system)
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
@@ -65,7 +69,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)])
         
-        
+        // Add text fiels
         let textField = UITextField()
         textField.text = nil
         textField.placeholder = "Give this photo a title."
@@ -80,6 +84,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         self.titleTextField = textField
     
+        // Add save button
+        
         let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
         self.navigationItem.rightBarButtonItem = saveButton
     }
