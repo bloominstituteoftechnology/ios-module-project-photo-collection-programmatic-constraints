@@ -23,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -60,16 +61,30 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(addImageButton)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([])
+        NSLayoutConstraint.activate([
+            addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 80),
+            addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)])
+        
         
         let textField = UITextField()
         textField.text = nil
         textField.placeholder = "Give this photo a title."
         
+        view.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 8),
+            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)])
         
-    }
+        self.titleTextField = textField
     
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        self.navigationItem.rightBarButtonItem = saveButton
+    }
+     
     // MARK: - Private Methods
     
    @objc private func addImage() {
@@ -95,7 +110,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -118,8 +133,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         title = photo.title
-        // TO DO: convert imageData to UIImage
-//        imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
     }
     

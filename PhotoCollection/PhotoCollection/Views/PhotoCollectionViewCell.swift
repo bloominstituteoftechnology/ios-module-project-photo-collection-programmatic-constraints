@@ -108,10 +108,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([nameLabelTopConstraint, nameLabelLeadingConstraint, nameLabelTrailingConstraints])
     }
-    
-    private func updateViews() {
-        // TO DO:
- //       imageView.image = photo?.imageData
+
+     func updateViews() {
+        // function that passes the information from the Photo to the image view and label
+        guard let photoImageData = photo?.imageData else { return }
+        imageView.image = UIImage(data: photoImageData)
         nameLabel.text = photo?.title
     }
 }
