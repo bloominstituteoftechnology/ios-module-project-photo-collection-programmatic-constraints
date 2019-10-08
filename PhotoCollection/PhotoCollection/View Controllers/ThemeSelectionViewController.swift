@@ -9,6 +9,12 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    var themeHelper: ThemeHelper?
+    
+    override func viewDidLoad() {
+        setSubviews()
+    }
 
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
@@ -20,7 +26,7 @@ class ThemeSelectionViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    var themeHelper: ThemeHelper?
+    
     
     private func setSubviews() {
         let selectThemeLabel = UILabel()
@@ -42,13 +48,59 @@ class ThemeSelectionViewController: UIViewController {
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         
-//        NSLayoutConstraint(item: <#T##Any#>,
-//                           attribute: <#T##NSLayoutConstraint.Attribute#>,
-//                           relatedBy: <#T##NSLayoutConstraint.Relation#>,
-//                           toItem: <#T##Any?#>,
-//                           attribute: <#T##NSLayoutConstraint.Attribute#>,
-//                           multiplier: <#T##CGFloat#>,
-//                           constant: <#T##CGFloat#>)
+        
+        NSLayoutConstraint.activate([
+        
+            NSLayoutConstraint(item: selectThemeLabel,
+                               attribute: .top,
+                               relatedBy: .equal,
+                               toItem: view.safeAreaLayoutGuide,
+                               attribute: .top,
+                               multiplier: 1,
+                               constant: -20),
+            
+            NSLayoutConstraint(item: selectThemeLabel,
+                               attribute: .centerX,
+                               relatedBy: .equal,
+                               toItem: view.safeAreaLayoutGuide,
+                               attribute: .centerX,
+                               multiplier: 1,
+                               constant: 0),
+            
+            NSLayoutConstraint(item: darkButton,
+                               attribute: .leading,
+                               relatedBy: .equal,
+                               toItem: view.safeAreaLayoutGuide,
+                               attribute: .leading,
+                               multiplier: 1,
+                               constant: 30),
+            
+            NSLayoutConstraint(item: blueButton,
+                               attribute: .trailing,
+                               relatedBy: .equal,
+                               toItem: view.safeAreaLayoutGuide,
+                               attribute: .trailing,
+                               multiplier: 1,
+                               constant: -30),
+            
+            NSLayoutConstraint(item: blueButton,
+                               attribute: .centerY,
+                               relatedBy: .equal,
+                               toItem: darkButton,
+                               attribute: .centerY,
+                               multiplier: 1,
+                               constant: 0),
+            
+            NSLayoutConstraint(item: darkButton,
+                                       attribute: .top,
+                                       relatedBy: .equal,
+                                       toItem: selectThemeLabel,
+                                       attribute: .bottom,
+                                       multiplier: 1,
+                                       constant: 20),
+        ])
+     
+        
     
         
     }
