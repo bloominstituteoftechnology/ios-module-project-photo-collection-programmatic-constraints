@@ -17,10 +17,21 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUpSubViews()
+    }
+    
+    
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
     
-    private func setUpSubViews() {
+    func setUpSubViews() {
         
         // MARK: - Views
         let imageView = UIImageView()

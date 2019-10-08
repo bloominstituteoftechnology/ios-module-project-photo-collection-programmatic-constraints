@@ -9,6 +9,10 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    func setUpSubViews() {
+        
+    }
 
     func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()

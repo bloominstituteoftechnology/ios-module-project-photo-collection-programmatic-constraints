@@ -22,6 +22,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
+        setUpSubViews()
         updateViews()
     }
     
@@ -38,7 +39,46 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    private func setUpSubViews() {
+        
+        // Add image to view controller's view
+        let imageView = UIImageView()
+        self.imageView = imageView
+        
+        // Button
+        let addImageButton = UIButton(type: .system)
+        addImageButton.setTitle("Add image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        // Add text field to view controller's view
+        let textField = UITextField()
+        textField.placeholder = "Give this photo a title:"
+        self.titleTextField = textField
+        
+        // Adding subviews
+        view.addSubview(addImageButton)
+        view.addSubview(textField)
+        
+        // Turn off autoresizing
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Adding constraints
+        
+        textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 8).isActive = true
+        
+        addImageButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 10).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 8).isActive = true
+        
+        // Bar button item
+        let barButtonItem = UIBarButtonItem(title: "Save photo", style: .plain, target: self, action: #selector(savePhoto))
+        
+        // Assume that navigationItem exists, in the same way you assume title exists when in a default table view cell
+        navigationItem.setRightBarButton(barButtonItem, animated: false)
+    }
+    
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +101,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
