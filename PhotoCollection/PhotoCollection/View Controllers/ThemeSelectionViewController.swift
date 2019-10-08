@@ -14,7 +14,7 @@ class ThemeSelectionViewController: UIViewController {
         super .viewDidLoad()
         setUpSubviews()
     }
-
+    
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
@@ -38,30 +38,41 @@ class ThemeSelectionViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
+        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         
         // DARK BUTTON
         let darkButton = UIButton(type: .system)
         darkButton.setTitle("Dark", for: .normal)
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+        darkButton.tintColor = UIColor.white
+        darkButton.backgroundColor = .black
+        darkButton.layer.cornerRadius = 5
+        darkButton.layer.borderWidth = 2
+        darkButton.contentEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
+        darkButton.layer.borderColor = UIColor.black.cgColor
         
         view.addSubview(darkButton)
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         
         darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8).isActive = true
-        darkButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        darkButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 120).isActive = true
         
         // BLUE BUTTON
         let blueButton = UIButton(type: .system)
         blueButton.setTitle("Blue", for: .normal)
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        blueButton.backgroundColor = .blue
+        blueButton.tintColor = UIColor.white
+        blueButton.layer.cornerRadius = 5
+        blueButton.layer.borderWidth = 2
+        blueButton.contentEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
+        blueButton.layer.borderColor = UIColor.blue.cgColor
         
         view.addSubview(blueButton)
         blueButton.translatesAutoresizingMaskIntoConstraints = false
         
         blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8).isActive = true
-        blueButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40)
-        //blueButton.centerYAnchor.constraint(equalTo: darkButton.centerYAnchor).isActive = true
+        blueButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -120).isActive = true
     }
 }

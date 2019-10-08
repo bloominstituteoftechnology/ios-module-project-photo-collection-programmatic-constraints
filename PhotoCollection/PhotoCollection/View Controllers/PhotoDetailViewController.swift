@@ -42,7 +42,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
