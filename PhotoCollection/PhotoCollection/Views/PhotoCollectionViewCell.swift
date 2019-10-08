@@ -20,8 +20,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         }
         
     private func updateViews() {
-        imageView.image = photo?.imageData
-        nameLabel.text = photo?.title
+        
+        guard let photo = photo else { return }
+        
+        imageView.image = UIImage(data: photo.imageData)
+        nameLabel.text = photo.title
     }
     
     override init(frame: CGRect) {
