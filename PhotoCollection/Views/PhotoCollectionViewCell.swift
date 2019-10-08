@@ -56,15 +56,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                    NSLayoutConstraint(item: imageView,
                                       attribute: .top,
                                       relatedBy: .equal,
-                                      toItem: imageView,
-                                      attribute: .bottom,
+                                      toItem: safeAreaLayoutGuide,
+                                      attribute: .top,
                                       multiplier: 1,
                                       constant: 4),
                    
                    NSLayoutConstraint(item: imageView,
                                       attribute: .leading,
                                       relatedBy: .equal,
-                                      toItem: self,
+                                      toItem: safeAreaLayoutGuide,
                                       attribute: .leading,
                                       multiplier: 1,
                                       constant: 8),
@@ -72,10 +72,17 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                    NSLayoutConstraint(item: imageView,
                                       attribute: .trailing,
                                       relatedBy: .equal,
-                                      toItem: self,
+                                      toItem: safeAreaLayoutGuide,
                                       attribute: .trailing,
                                       multiplier: 1,
-                                      constant: -8)
+                                      constant: -8),
+                   NSLayoutConstraint(item: imageView,
+                                      attribute: .height,
+                                      relatedBy: .equal,
+                                      toItem: self,
+                                      attribute: .width,
+                                      multiplier: 1,
+                                      constant: 0)
                ])
         
         // Label
