@@ -23,6 +23,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +40,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -116,4 +118,59 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
+    func setUpSubviews() {
+        
+        //TODO: See if you have to use the imageView and the titleTextField from above or not, or if you need to declare new once here..
+        //let photoImage = UIImageView()
+        let addImageButton = UIButton()
+        //let titleTextField = UITextField()
+        let saveButton = UIBarButtonItem()
+        
+        view.addSubview(addImageButton)
+        view.addSubview(imageView)
+        view.addSubview(titleTextField)
+        
+        
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        //TODO: self?
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        titleTextField.placeholder = "Image Title"
+        saveButton.title = "Save Photo"
+        // TODO: saveButton.action = savePhoto()
+        
+        navigationItem.rightBarButtonItem = saveButton
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 15).isActive = true
+        titleTextField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+    }
+    
+    // TODO: Create an updateViews() function that passes the information from the Photo to the image view and text field. Call this function sometime after the photo variable has been given a value from the cellForItem at method in the PhotosCollectionViewController. Again, there are a couple places you could decide to do this.
+    private func updateViews(image: Data, title: String) {
+        guard let photoImage = photo?.imageData,
+            let title = photo?.title else { return }
+        
+        titleTextField.text = title
+        imageView.image = UIImage(data: photoImage)
+    }
+    
+//    private func updateViews() {
+//        guard let photo = photo else { return }
+//        imageView.image = UIImage(data: photo.imageData)
+//        titleTextField.text = photo.title
+//
+//    }
+
+
+
 }
