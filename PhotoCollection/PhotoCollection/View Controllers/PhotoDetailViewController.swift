@@ -63,7 +63,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -122,36 +122,36 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     func setUpSubviews() {
         
         //TODO: See if you have to use the imageView and the titleTextField from above or not, or if you need to declare new once here..
-        //let photoImage = UIImageView()
+        let photoImage = UIImageView()
         let addImageButton = UIButton()
-        //let titleTextField = UITextField()
+        let titleTextField2 = UITextField()
         let saveButton = UIBarButtonItem()
         
         view.addSubview(addImageButton)
-        view.addSubview(imageView)
-        view.addSubview(titleTextField)
+        view.addSubview(photoImage)
+        view.addSubview(titleTextField2)
         
         
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        photoImage.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField2.translatesAutoresizingMaskIntoConstraints = false
         
         //TODO: self?
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        titleTextField.placeholder = "Image Title"
+        titleTextField2.placeholder = "Image Title"
         saveButton.title = "Save Photo"
-        // TODO: saveButton.action = savePhoto()
+        saveButton.action = #selector(savePhoto)
         
         navigationItem.rightBarButtonItem = saveButton
         
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        photoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
+        photoImage.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
-        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        addImageButton.topAnchor.constraint(equalTo: photoImage.bottomAnchor, constant: 20).isActive = true
         addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
-        titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 15).isActive = true
-        titleTextField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        titleTextField2.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 15).isActive = true
+        titleTextField2.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
     }
     

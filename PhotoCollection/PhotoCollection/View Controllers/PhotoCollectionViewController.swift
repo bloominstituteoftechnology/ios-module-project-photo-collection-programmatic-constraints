@@ -35,14 +35,14 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
       }
     
     //TODO: insetForSectionAt
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        <#code#>
-    }
-    
-    //TODO: minimumInteriitemSpacingForSectionAt
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        <#code#>
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        <#code#>
+//    }
+//    
+//    //TODO: minimumInteriitemSpacingForSectionAt
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        <#code#>
+//    }
     //TODO: SizeForItemAt
     
     
