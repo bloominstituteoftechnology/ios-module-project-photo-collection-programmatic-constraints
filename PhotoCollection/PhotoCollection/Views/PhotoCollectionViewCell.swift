@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
+    
     private var imageView: UIImageView!
     private var photoLabel: UILabel!
     
@@ -37,6 +37,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
+
+        self.imageView = imageView
         
         let imageTopConstraint = NSLayoutConstraint(item: imageView,
                                                     attribute: .top,
@@ -44,7 +46,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                     toItem: self,
                                                     attribute: .top,
                                                     multiplier: 1,
-                                                    constant: 4)
+                                                    constant: 2)
         
         let imageLeadingConstraint = NSLayoutConstraint(item: imageView,
                                                         attribute: .leading,
@@ -52,7 +54,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                         toItem: self,
                                                         attribute: .leading,
                                                         multiplier: 1,
-                                                        constant: 4)
+                                                        constant: 2)
         
         let imageTrailingConstraint = NSLayoutConstraint(item: imageView,
                                                          attribute: .trailing,
@@ -60,14 +62,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                          toItem: self,
                                                          attribute: .trailing,
                                                          multiplier: 1,
-                                                         constant: -4)
+                                                         constant: -2)
         
         let imageHeightConstraint = NSLayoutConstraint(item: imageView,
                                                        attribute: .height,
                                                        relatedBy: .equal,
                                                        toItem: imageView,
                                                        attribute: .width,
-                                                       multiplier: 1,
+                                                       multiplier: 2/3,
                                                        constant: 0)
         
         NSLayoutConstraint.activate([imageTopConstraint,
@@ -75,13 +77,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                      imageTrailingConstraint,
                                      imageHeightConstraint])
         
-        self.imageView = imageView
-        
-        // PhotoLabel
         let photoLabel = UILabel()
         photoLabel.translatesAutoresizingMaskIntoConstraints = false
         photoLabel.textAlignment = .center
+        
         addSubview(photoLabel)
+        self.photoLabel = photoLabel
+        
         
         let photoLabelTopConstraint = NSLayoutConstraint(item: photoLabel,
                                                          attribute: .top,
@@ -110,9 +112,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([photoLabelTopConstraint,
                                      photoLabelLeadingConstraint,
                                      photoLabelTrailingConstraint])
-        
-        self.photoLabel = photoLabel
-        
     }
     
     private func updateViews() {
