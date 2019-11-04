@@ -62,7 +62,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -279,5 +279,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             )
         ]
         NSLayoutConstraint.activate(titleTextFieldConstraints)
+        
+        let saveButton = UIBarButtonItem(
+            barButtonSystemItem: .save,
+            target: self,
+            action: #selector(savePhoto)
+        )
+        navigationItem.rightBarButtonItem = saveButton
     }
 }
