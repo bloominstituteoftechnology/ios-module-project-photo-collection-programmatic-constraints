@@ -13,6 +13,8 @@ class ThemeSelectionViewController: UIViewController {
     var darkButton: UIButton!
     var blueButton: UIButton!
     
+    var collectionVC: PhotoCollectionViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubViews()
@@ -20,11 +22,13 @@ class ThemeSelectionViewController: UIViewController {
 
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
+        collectionVC?.setTheme()
         dismiss(animated: true, completion: nil)
     }
     
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
+        collectionVC?.setTheme()
         dismiss(animated: true, completion: nil)
     }
     

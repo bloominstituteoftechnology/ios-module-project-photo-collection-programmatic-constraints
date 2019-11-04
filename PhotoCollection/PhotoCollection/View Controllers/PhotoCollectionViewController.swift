@@ -40,7 +40,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     
     
-    private func setTheme() {
+    func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
         
@@ -69,6 +69,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.collectionVC = self
             
         case "CreatePhoto":
             
