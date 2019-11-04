@@ -53,6 +53,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         collectionView?.backgroundColor = backgroundColor
     }
+
     
     // MARK: - Navigation
     
@@ -85,5 +86,23 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let insets = UIEdgeInsets.init(top: 4, left: 4, bottom: 4, right: 4)
+        
+        return insets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = (view.frame.size.width - 10) / 2
+        return CGSize(width: 150, height: 200)
     }
 }
