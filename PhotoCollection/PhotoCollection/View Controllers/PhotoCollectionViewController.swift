@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -21,6 +21,18 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     // MARK: UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: CGFloat(bitPattern: 5), left: CGFloat(bitPattern: 5), bottom: CGFloat(bitPattern: 5), right: CGFloat(bitPattern: 5))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(bitPattern: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 250, height: 300)
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
