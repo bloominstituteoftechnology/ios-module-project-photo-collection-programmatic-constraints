@@ -12,6 +12,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
     
+    private var imageView: UIImageView!
+    private var titleLabel: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpSubViews()
@@ -22,18 +25,22 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setUpSubViews()
     }
     
-    func setUpSubViews() {
+    func updateViews() {
         guard let photo = photo,
             let image = UIImage(data: photo.imageData)
             else { return }
         
-        let imageView = UIImageView(image: image)
+        imageView.image = image
+        titleLabel.text = photo.title
+    }
+    
+    private func setUpSubViews() {
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         
         let titleLabel = UILabel()
-        titleLabel.text = photo.title
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
         
@@ -79,7 +86,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             constant: 0
         )
         
-        NSLayoutConstraint.activate([imageTopConstraint, imageLeadingConstraint, imageTrailingConstraint, imageHeightConstraint])
+        NSLayoutConstraint.activate([
+            imageTopConstraint,
+            imageLeadingConstraint,
+            imageTrailingConstraint,
+            imageHeightConstraint
+        ])
         
         // Title Label Constraints
         
@@ -123,6 +135,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             constant: 2
         )
         
-        NSLayoutConstraint.activate([titleLabelTopConstraint, titleLabelBottomConstraint, titleLabelLeadingConstraint, titleLabelTrailingConstraint])
+        NSLayoutConstraint.activate([
+            titleLabelTopConstraint,
+            titleLabelBottomConstraint,
+            titleLabelLeadingConstraint,
+            titleLabelTrailingConstraint
+        ])
+        
+        self.imageView = imageView
+        self.titleLabel = titleLabel
     }
 }
