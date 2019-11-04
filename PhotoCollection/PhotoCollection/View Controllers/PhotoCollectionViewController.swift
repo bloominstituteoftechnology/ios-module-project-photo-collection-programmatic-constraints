@@ -13,7 +13,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
-    private let insetSize: CGFloat = 8
+    private let insetSize: CGFloat = 10
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -99,16 +99,20 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return insetSize * 2
+        return insetSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let screenWidth = view.bounds.width
-        let cellWidth = (screenWidth / 2) - (insetSize * 3)
+        let cellWidth = (screenWidth / 2) - (insetSize * 2)
         let cellHeight = cellWidth + 20
 
         
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return insetSize * 2
     }
 }
