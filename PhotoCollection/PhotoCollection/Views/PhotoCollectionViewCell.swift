@@ -16,10 +16,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         guard let photo = photo,
             let image = UIImage(data: photo.imageData)
             else { return }
+        
         let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        addSubview(imageView)
         
         let titleLabel = UILabel()
         titleLabel.text = photo.title
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+        
+        // Image Constraints
         
         let imageTopConstraint = NSLayoutConstraint(
             item: imageView,
@@ -62,5 +70,49 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         )
         
         NSLayoutConstraint.activate([imageTopConstraint, imageLeadingConstraint, imageTrailingConstraint, imageHeightConstraint])
+        
+        // Title Label Constraints
+        
+        let titleLabelTopConstraint = NSLayoutConstraint(
+            item: titleLabel,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: imageView,
+            attribute: .bottom,
+            multiplier: 1,
+            constant: 4
+        )
+        
+        let titleLabelLeadingConstraint = NSLayoutConstraint(
+            item: titleLabel,
+            attribute: .leading,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .leading,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let titleLabelTrailingConstraint = NSLayoutConstraint(
+            item: titleLabel,
+            attribute: .trailing,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .trailing,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let titleLabelBottomConstraint = NSLayoutConstraint(
+            item: titleLabel,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .bottom,
+            multiplier: 1,
+            constant: 2
+        )
+        
+        NSLayoutConstraint.activate([titleLabelTopConstraint, titleLabelBottomConstraint, titleLabelLeadingConstraint, titleLabelTrailingConstraint])
     }
 }
