@@ -12,6 +12,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpSubViews()
+    }
+    
     func setUpSubViews() {
         guard let photo = photo,
             let image = UIImage(data: photo.imageData)
