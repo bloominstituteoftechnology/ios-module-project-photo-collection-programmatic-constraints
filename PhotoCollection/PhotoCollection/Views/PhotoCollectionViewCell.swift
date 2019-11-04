@@ -10,7 +10,11 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
