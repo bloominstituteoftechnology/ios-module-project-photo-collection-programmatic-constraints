@@ -13,6 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     var imageView: UIImageView!
     var titleTextField: UITextField!
+    var addImageButton: UIButton!
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -115,5 +116,68 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    private func setUpSubViews() {
+        imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        
+        addImageButton = UIButton()
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addImageButton)
+        
+        titleTextField = UITextField()
+        titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        
+        let imageMargin: CGFloat = 10
+        // that feeling when you realize you've misread the directions and done the opposite of what they've asked...
+//        imageView.topAnchor.constraint(
+//            equalTo: view.safeAreaLayoutGuide.topAnchor,
+//            constant: -imageMargin
+//        ).isActive = true
+//        imageView.leadingAnchor.constraint(
+//            equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+//            constant: imageMargin
+//        ).isActive = true
+//        imageView.trailingAnchor.constraint(
+//            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+//            constant: -imageMargin
+//        ).isActive = true
+//        imageView.heightAnchor.constraint(
+//            equalTo: imageView.widthAnchor
+//        ).isActive = true
+//        addImageButton.topAnchor.constraint(
+//            equalTo: imageView.bottomAnchor,
+//            constant: -imageMargin
+//        ).isActive = true
+//        addImageButton.leadingAnchor.constraint(
+//            equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+//            constant: imageMargin
+//        ).isActive = true
+//        addImageButton.bottomAnchor.constraint(
+//            greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
+//            constant: imageMargin
+//        ).isActive = true
+//        titleTextField.topAnchor.constraint(
+//            equalTo: imageView.bottomAnchor,
+//            constant: -imageMargin
+//        ).isActive = true
+//        titleTextField.bottomAnchor.constraint(
+//            greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
+//            constant: imageMargin
+//        ).isActive = true
+//        titleTextField.leadingAnchor.constraint(
+//            equalTo: addImageButton.trailingAnchor,
+//            constant: imageMargin
+//        ).isActive = true
+//        titleTextField.trailingAnchor.constraint(
+//            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+//            constant: -imageMargin
+//        ).isActive = true
     }
 }
