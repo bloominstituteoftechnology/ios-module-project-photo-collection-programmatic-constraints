@@ -151,6 +151,42 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
 //        imageView.heightAnchor.constraint(
 //            equalTo: imageView.widthAnchor
 //        ).isActive = true
+        let imageConstraints = [
+            NSLayoutConstraint(
+                item: imageView!,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .top,
+                multiplier: 1,
+                constant: -imageMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: imageMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: imageMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: imageView!,
+                attribute: .width,
+                multiplier: 1,
+                constant: 0
+            )
+        ]
+        NSLayoutConstraint.activate(imageConstraints)
 //        addImageButton.topAnchor.constraint(
 //            equalTo: imageView.bottomAnchor,
 //            constant: -imageMargin
@@ -163,6 +199,34 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
 //            greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
 //            constant: imageMargin
 //        ).isActive = true
+        let addImageButtonConstraints = [
+            NSLayoutConstraint(
+                item: addImageButton!,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: imageView,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: -imageMargin
+            ), NSLayoutConstraint(
+                item: addImageButton!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: imageMargin
+            ), NSLayoutConstraint(
+                item: addImageButton!,
+                attribute: .bottom,
+                relatedBy: .greaterThanOrEqual,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: imageMargin
+            )
+        ]
+        NSLayoutConstraint.activate(addImageButtonConstraints)
 //        titleTextField.topAnchor.constraint(
 //            equalTo: imageView.bottomAnchor,
 //            constant: -imageMargin
@@ -179,5 +243,41 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
 //            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
 //            constant: -imageMargin
 //        ).isActive = true
+        let titleTextFieldConstraints = [
+            NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: imageView,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: -imageMargin
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .bottom,
+                relatedBy: .greaterThanOrEqual,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: imageMargin
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: addImageButton,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: imageMargin
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: -imageMargin
+            )
+        ]
+        NSLayoutConstraint.activate(titleTextFieldConstraints)
     }
 }
