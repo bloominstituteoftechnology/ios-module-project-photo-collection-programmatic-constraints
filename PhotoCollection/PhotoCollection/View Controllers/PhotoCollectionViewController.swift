@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -35,6 +35,15 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         return cell
     }
+    
+//    func collectionview(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewFlowLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        
+//        let itemsPerRow: CGFloat = 2
+//        
+//        
+//        
+//        
+//    }
     
     private func setTheme() {
     
