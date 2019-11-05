@@ -38,8 +38,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    
-    
     func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
@@ -108,10 +106,10 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         let cellWidth = (screenWidth / 2) - (insetSize * 2)
         let cellHeight = cellWidth + 20
 
-        
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
+
+    // this is the thing I wasn't sure about! It wasn't in the instructions but it makes it work how I want it to, and it wasn't working how I expected without it, so ¯\_(ツ)_/¯
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return insetSize * 2
     }

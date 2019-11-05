@@ -143,7 +143,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         let interItemMargin: CGFloat = 8
 
         // putting button/field above image so keyboard doesn't get in the way
-        let addImageButtonConstraints = [
+        NSLayoutConstraint.activate([
             NSLayoutConstraint(
                 item: addImageButton!,
                 attribute: .top,
@@ -161,14 +161,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
                 multiplier: 1,
                 constant: imageMargin
             )
-        ]
+        ])
         addImageButton.setContentHuggingPriority(
             addImageButton.contentHuggingPriority(for: .horizontal) + 1,
             for: .horizontal
         )
-        NSLayoutConstraint.activate(addImageButtonConstraints)
         
-        let titleTextFieldConstraints = [
+        NSLayoutConstraint.activate([
             NSLayoutConstraint(
                 item: titleTextField!,
                 attribute: .centerY,
@@ -194,10 +193,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
                 multiplier: 1,
                 constant: -imageMargin
             )
-        ]
-        NSLayoutConstraint.activate(titleTextFieldConstraints)
+        ])
         
-        let imageConstraints = [
+        NSLayoutConstraint.activate([
             NSLayoutConstraint(
                 item: imageView!,
                 attribute: .top,
@@ -239,14 +237,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
                 multiplier: 1,
                 constant: 0
             )
-        ]
-        NSLayoutConstraint.activate(imageConstraints)
+        ])
         
-        let saveButton = UIBarButtonItem(
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .save,
             target: self,
             action: #selector(savePhoto)
         )
-        navigationItem.rightBarButtonItem = saveButton
     }
 }
