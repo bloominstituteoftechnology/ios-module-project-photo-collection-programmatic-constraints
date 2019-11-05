@@ -116,4 +116,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
+    private func setupSubviews() {
+        
+        let imageView = UIImageView()
+        let addImageButton = UIButton()
+        
+        addImageButton.setTitle("Add Image", for: .normal)
+    }
+    
 }
