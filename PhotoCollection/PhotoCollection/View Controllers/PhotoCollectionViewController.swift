@@ -13,8 +13,6 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
-    private let itemsPerRiw: CGFloat = 3
-    
     private let sectionInsets = UIEdgeInsets(top: 50.0,
     left: 20.0,
     bottom: 50.0,
@@ -50,7 +48,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
 
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRiw
+        let widthPerItem = availableWidth / itemsPerRow
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
