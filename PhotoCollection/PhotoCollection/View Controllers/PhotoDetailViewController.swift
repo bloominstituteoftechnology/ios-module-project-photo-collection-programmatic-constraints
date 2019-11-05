@@ -50,14 +50,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(imageView)
         
         let button = UIButton(type: .system)
+            button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Add Image", for: .normal)
         button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        view.addSubview(button)
+//        view.addSubview(button)
         
         let textField  = UITextField()
-        textField.placeholder = "Give This Photo A Title"
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            textField.placeholder = "Give This Photo A Title"
+            view.addSubview(textField)
         
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: 300).isActive = true
@@ -65,11 +68,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             
-            textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 16).isActive = true
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            textField.widthAnchor.constraint(equalToConstant: 300).isActive = true
-            textField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
+            textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 30).isActive = true
+           textField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            textField.widthAnchor.constraint(equalToConstant: 180).isActive = true
+            textField.heightAnchor.constraint(equalToConstant: 180).isActive = true
+
             self.imageView = imageView
             self.titleTextField = textField
             
