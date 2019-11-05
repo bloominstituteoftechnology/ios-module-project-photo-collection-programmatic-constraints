@@ -141,31 +141,79 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         let imageMargin: CGFloat = 40
         let interItemMargin: CGFloat = 8
-        // that feeling when you realize you've misread the directions and done the opposite of what they've asked...
-//        imageView.topAnchor.constraint(
-//            equalTo: view.safeAreaLayoutGuide.topAnchor,
-//            constant: -imageMargin
-//        ).isActive = true
-//        imageView.leadingAnchor.constraint(
-//            equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-//            constant: imageMargin
-//        ).isActive = true
-//        imageView.trailingAnchor.constraint(
-//            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-//            constant: -imageMargin
-//        ).isActive = true
-//        imageView.heightAnchor.constraint(
-//            equalTo: imageView.widthAnchor
-//        ).isActive = true
-        let imageConstraints = [
+
+        // putting button/field above image so keyboard doesn't get in the way
+        let addImageButtonConstraints = [
             NSLayoutConstraint(
-                item: imageView!,
+                item: addImageButton!,
                 attribute: .top,
                 relatedBy: .equal,
                 toItem: view.safeAreaLayoutGuide,
                 attribute: .top,
                 multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: addImageButton!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: imageMargin
+            )
+        ]
+        addImageButton.setContentHuggingPriority(
+            addImageButton.contentHuggingPriority(for: .horizontal) + 1,
+            for: .horizontal
+        )
+        NSLayoutConstraint.activate(addImageButtonConstraints)
+        
+        let titleTextFieldConstraints = [
+            NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .centerY,
+                relatedBy: .equal,
+                toItem: addImageButton,
+                attribute: .centerY,
+                multiplier: 1,
                 constant: 0
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: addImageButton,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: -imageMargin
+            )
+        ]
+        NSLayoutConstraint.activate(titleTextFieldConstraints)
+        
+        let imageConstraints = [
+            NSLayoutConstraint(
+                item: imageView!,
+                attribute: .top,
+                relatedBy: .greaterThanOrEqual,
+                toItem: titleTextField,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .top,
+                relatedBy: .greaterThanOrEqual,
+                toItem: addImageButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: interItemMargin
             ), NSLayoutConstraint(
                 item: imageView!,
                 attribute: .leading,
@@ -193,95 +241,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             )
         ]
         NSLayoutConstraint.activate(imageConstraints)
-//        addImageButton.topAnchor.constraint(
-//            equalTo: imageView.bottomAnchor,
-//            constant: -imageMargin
-//        ).isActive = true
-//        addImageButton.leadingAnchor.constraint(
-//            equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-//            constant: imageMargin
-//        ).isActive = true
-//        addImageButton.bottomAnchor.constraint(
-//            greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
-//            constant: imageMargin
-//        ).isActive = true
-        let addImageButtonConstraints = [
-            NSLayoutConstraint(
-                item: addImageButton!,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: imageView,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: imageMargin
-            ), NSLayoutConstraint(
-                item: addImageButton!,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: imageView,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0
-            ), NSLayoutConstraint(
-                item: addImageButton!,
-                attribute: .bottom,
-                relatedBy: .greaterThanOrEqual,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: interItemMargin
-            )
-        ]
-        addImageButtonConstraints[2].priority = .defaultLow
-        addImageButton.setContentHuggingPriority(
-            addImageButton.contentHuggingPriority(for: .horizontal) + 1,
-            for: .horizontal
-        )
-        NSLayoutConstraint.activate(addImageButtonConstraints)
-//        titleTextField.topAnchor.constraint(
-//            equalTo: imageView.bottomAnchor,
-//            constant: -imageMargin
-//        ).isActive = true
-//        titleTextField.bottomAnchor.constraint(
-//            greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
-//            constant: imageMargin
-//        ).isActive = true
-//        titleTextField.leadingAnchor.constraint(
-//            equalTo: addImageButton.trailingAnchor,
-//            constant: imageMargin
-//        ).isActive = true
-//        titleTextField.trailingAnchor.constraint(
-//            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-//            constant: -imageMargin
-//        ).isActive = true
-        let titleTextFieldConstraints = [
-            NSLayoutConstraint(
-                item: titleTextField!,
-                attribute: .centerY,
-                relatedBy: .equal,
-                toItem: addImageButton,
-                attribute: .centerY,
-                multiplier: 1,
-                constant: 0
-            ), NSLayoutConstraint(
-                item: titleTextField!,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: addImageButton,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: interItemMargin
-            ), NSLayoutConstraint(
-                item: titleTextField!,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: -interItemMargin
-            )
-        ]
-        NSLayoutConstraint.activate(titleTextFieldConstraints)
         
         let saveButton = UIBarButtonItem(
             barButtonSystemItem: .save,
