@@ -13,14 +13,18 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     var imageView: UIImageView!
     var titleTextField: UITextField!
+    var addImageButton: UIButton!
     
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubViews()
         setTheme()
         updateViews()
     }
@@ -38,7 +42,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +65,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -77,7 +81,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func updateViews() {
-        
         guard let photo = photo else {
             title = "Create Photo"
             return
@@ -115,5 +118,131 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    private func setUpSubViews() {
+        imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        
+        addImageButton = UIButton(type: .system)
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addImageButton)
+        
+        titleTextField = UITextField()
+        titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.borderStyle = .roundedRect
+        
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        
+        let imageMargin: CGFloat = 40
+        let interItemMargin: CGFloat = 8
+
+        // putting button/field above image so keyboard doesn't get in the way
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(
+                item: addImageButton!,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .top,
+                multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: addImageButton!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: imageMargin
+            )
+        ])
+        addImageButton.setContentHuggingPriority(
+            addImageButton.contentHuggingPriority(for: .horizontal) + 1,
+            for: .horizontal
+        )
+        
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .centerY,
+                relatedBy: .equal,
+                toItem: addImageButton,
+                attribute: .centerY,
+                multiplier: 1,
+                constant: 0
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: addImageButton,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: titleTextField!,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: -imageMargin
+            )
+        ])
+        
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(
+                item: imageView!,
+                attribute: .top,
+                relatedBy: .greaterThanOrEqual,
+                toItem: titleTextField,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .top,
+                relatedBy: .greaterThanOrEqual,
+                toItem: addImageButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: interItemMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: imageMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: -imageMargin
+            ), NSLayoutConstraint(
+                item: imageView!,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: imageView!,
+                attribute: .width,
+                multiplier: 1,
+                constant: 0
+            )
+        ])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .save,
+            target: self,
+            action: #selector(savePhoto)
+        )
     }
 }

@@ -13,6 +13,8 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    private let insetSize: CGFloat = 10
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -36,7 +38,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    private func setTheme() {
+    func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
         
@@ -65,6 +67,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.collectionVC = self
             
         case "CreatePhoto":
             
@@ -85,5 +88,29 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: insetSize, left: insetSize, bottom: insetSize, right: insetSize)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return insetSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let screenWidth = view.bounds.width
+        let cellWidth = (screenWidth / 2) - (insetSize * 2)
+        let cellHeight = cellWidth + 20
+
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+
+    // this is the thing I wasn't sure about! It wasn't in the instructions but it makes it work how I want it to, and it wasn't working how I expected without it, so ¯\_(ツ)_/¯
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return insetSize * 2
     }
 }
