@@ -14,11 +14,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
     
-    func updateViews() {
-        imageView.image = UIImage(data: photo!.imageData)
-        titleLabel.text = photo?.title
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
-     
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpViews()
+    }
+    
      
     func setUpViews() {
         let imageView = UIImageView()
@@ -75,20 +79,25 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: label,
                            attribute: .leading,
                            relatedBy: .equal,
-                           toItem: nil,
+                           toItem: self,
                            attribute: .leading,
-                           multiplier: 0,
+                           multiplier: 1,
                            constant: 2).isActive = true
         NSLayoutConstraint(item: label,
                            attribute: .trailing,
                            relatedBy: .equal,
-                           toItem: nil,
+                           toItem: self,
                            attribute: .trailing,
-                           multiplier: 0,
+                           multiplier: 1,
                            constant: -2).isActive = true
         
         self.titleLabel = label
     }
+    
+    func updateViews() {
+         imageView.image = UIImage(data: photo!.imageData)
+         titleLabel.text = photo?.title
+     }
     
      
 }
