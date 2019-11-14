@@ -10,48 +10,50 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
+    var imageView: UIImageView!
+    var label: UILabel!
+    
     var photo: Photo? {
         didSet {
             updateViews()
         }
     }
-    private var imageView: UIImageView!
-    private var nameLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpSubViews()
+        setUpSubviews()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUpSubViews()
-}
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUpSubviews()
+    }
     
-    private func updateViews() {
-        guard let imageDate = photo?.imageData else { return }
-        self.imageView?.image = UIImage(data: imageDate)
-        nameLabel.text = photo?.title
+    func updateViews() {
+        guard let photo = photo else { return }
         
+        imageView.image = UIImage(data: photo.imageData)
+        label.text = photo.title
     }
     
-    func setUpSubViews() {
+    func setUpSubviews() {
+        
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        
+        
         addSubview(imageView)
+        self.imageView = imageView
         
         
-        //Programmatic Constraints:
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .top,
                            multiplier: 1,
-                           constant: 4).isActive = true
-        
-        
+                           constant: 2).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .leading,
@@ -59,7 +61,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 4).isActive = true
+                           constant: 2).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
@@ -67,39 +69,48 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: -4).isActive = true
+                           constant: -2).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .height,
                            relatedBy: .equal,
                            toItem: imageView,
                            attribute: .width,
-                           multiplier: 1,
+                           multiplier: 2/3,
                            constant: 0).isActive = true
-        
-        
-//        guard let imageDate = photo?.imageData else { return }
-//        self.imageView?.image = UIImage(data: imageDate)
-        
-        
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        
         addSubview(label)
+        self.label = label
         
-        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
         
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 4).isActive = true
         
-        label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 2).isActive = true
         
-        self.nameLabel = label
+        NSLayoutConstraint(item: label,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -2).isActive = true
         
     }
-    
-    
-    
-    
     
 }

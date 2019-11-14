@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -20,7 +20,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         setTheme()
     }
     
-    // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let itemsPerRow: CGFloat = 2
@@ -32,9 +31,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         let itemSpacing = (self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: 0)) * (itemsPerRow - 1)
         
         let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / itemsPerRow
-        
+    
         return CGSize(width: width, height: width * 1.2)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -43,10 +41,9 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
-        
     }
     
-//MARK: UICollectionViewDataSource:
+    // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
