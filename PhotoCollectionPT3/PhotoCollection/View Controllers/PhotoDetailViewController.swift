@@ -20,7 +20,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubViews()
         setTheme()
         updateViews()
     }
@@ -108,7 +108,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
         navigationItem.rightBarButtonItem = saveButton
-        
     }
     
     private func updateViews() {
