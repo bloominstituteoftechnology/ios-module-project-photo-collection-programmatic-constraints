@@ -32,7 +32,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
-        
+        cell.updateViews()
         return cell
     }
     

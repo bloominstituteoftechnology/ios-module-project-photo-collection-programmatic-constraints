@@ -14,14 +14,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
     
-    ////    Constrain these views to the cell programmatically using only the NSLayoutConstraint initializer. (Yes, the long one. No anchors yet. 😉)
-    ////    You will want to call this function only once. Otherwise you will end up adding image views and labels over and over again to the cell.
-
-    
+    func updateViews() {
+        imageView.image = UIImage(data: photo!.imageData)
+        titleLabel.text = photo?.title
+    }
+     
+     
     func setUpViews() {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(data: photo!.imageData)
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         
@@ -89,6 +90,5 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         self.titleLabel = label
     }
     
-        ////    Create an updateViews() function that passes the information from the Photo to the image view and label. (If you need help turning Data into a UIImage look at UIImage's initializers in the documentation. Call this function sometime after the photo variable has been given a value from the cellForItem at method in the PhotosCollectionViewController. There are a couple places you could decide to do this.
-    
+     
 }
