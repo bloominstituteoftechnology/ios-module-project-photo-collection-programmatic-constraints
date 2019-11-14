@@ -13,21 +13,14 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         collectionView?.reloadData()
         setTheme()
     }
     
     // MARK: UICollectionViewDataSource
-//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
@@ -39,10 +32,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
-//        cell.setUpSubviews()
-       
+        
         return cell
     }
+    
     
     private func setTheme() {
     
@@ -80,7 +73,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
-            destinationVC.setUpDetailSubViews()
+            destinationVC.setUpSubViews()
             
         case "ViewPhoto":
             
@@ -98,15 +91,16 @@ class PhotoCollectionViewController: UICollectionViewController {
 }
 
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return 8.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 0.0, height: 80.0)
+        return CGSize(width: 90.0, height: 180.0)
     }
 }
