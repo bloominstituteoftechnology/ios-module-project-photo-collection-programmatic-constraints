@@ -73,6 +73,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
+            destinationVC.setUpSubViews()
             
         case "ViewPhoto":
             
@@ -100,6 +101,6 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100.0, height: 100.0)
+        return CGSize(width: 90.0, height: 180.0)
     }
 }
