@@ -155,9 +155,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         
     }
-    //        func updateViews () {
-    //            let
-    //        }
+    
+    
     
     
 }

@@ -10,7 +10,11 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -50,7 +54,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         guard let photo = photo else { return }
-        photoViewImage.image = UIImage(data: photo.imageData)
+        
         photoTitleLabel.text = photo.title
     }
     
