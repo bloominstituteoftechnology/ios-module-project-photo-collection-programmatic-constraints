@@ -98,8 +98,7 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        #warning("might need to account for interitem spacing as well (probably)")
-        return CGSize(width: self.view.frame.width / 2 - 16, height: 100) //-16 for insets
+        return CGSize(width: collectionView.frame.width / 2 - 16, height: 120) //-16 for insets
     }
     
 }
