@@ -10,15 +10,25 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
-    
+    @IBOutlet var titleLabel: UILabel!
     
     var photo: Photo? {
         didSet {
-            setupViews()
+            updateViews()
         }
     }
     
-    func setupViews() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupSubViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupSubViews()
+    }
+    
+    func setupSubViews() {
         let imageView = UIImageView()
         let label = UILabel()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +55,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             labelTraiingConstraint,
             labelBottomConstraint
         ])
+        self.imageView = imageView
+        self.titleLabel = label
+    }
+    
+    func updateViews() {
+        imageView.image = UIImage(data: photo?.imageData ?? Data())
+        titleLabel.text = photo?.title
     }
     
 }
