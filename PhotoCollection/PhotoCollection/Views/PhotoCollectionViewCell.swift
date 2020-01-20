@@ -30,14 +30,47 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func setupSubViews() {
         let imageView = UIImageView()
-        let label = UILabel()
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        addSubview(imageView)
+        
+        let label = UILabel()
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
-        addSubview(imageView)
         addSubview(label)
+        
+        let labelLeadingConstraint = NSLayoutConstraint(item: label,
+                                                              attribute: .leading,
+                                                              relatedBy: .equal,
+                                                              toItem: imageView,
+                                                              attribute: .leading,
+                                                              multiplier: 1,
+                                                              constant: 0)
+        
+        let labelTrailingConstraint = NSLayoutConstraint(item: label,
+                                                              attribute: .trailing,
+                                                              relatedBy: .equal,
+                                                              toItem: imageView,
+                                                              attribute: .trailing,
+                                                              multiplier: 1,
+                                                              constant: 0)
+        
+        let labelBottomConstraint = NSLayoutConstraint(item: label,
+                                                             attribute: .bottom,
+                                                             relatedBy: .equal,
+                                                             toItem: safeAreaLayoutGuide,
+                                                             attribute: .bottom,
+                                                             multiplier: 1,
+                                                             constant: 4)
+        
+        NSLayoutConstraint.activate([
+            labelLeadingConstraint,
+            labelTrailingConstraint,
+            labelBottomConstraint
+        ])
         
         //imageView constraints
         let imageViewLeadingConstraint = NSLayoutConstraint(item: imageView,
