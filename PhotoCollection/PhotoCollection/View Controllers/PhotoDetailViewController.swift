@@ -112,8 +112,21 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         let imageViewTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80)
         
         //button constraints
-        let buttonCenterXConstraint = NSLayoutConstraint(item: addButton, attribute: .centerX, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .centerX, multiplier: 1, constant: 0)
-        let buttonTopConstraint = NSLayoutConstraint(item: addButton, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 12)
+        let buttonCenterXConstraint = NSLayoutConstraint(item: addButton,
+                                                               attribute: .centerX,
+                                                               relatedBy: .equal,
+                                                               toItem: view.safeAreaLayoutGuide,
+                                                               attribute: .centerX,
+                                                               multiplier: 1,
+                                                               constant: 0)
+        
+        let buttonTopConstraint = NSLayoutConstraint(item: addButton,
+                                                           attribute: .top,
+                                                           relatedBy: .equal,
+                                                           toItem: imageView,
+                                                           attribute: .bottom,
+                                                           multiplier: 1,
+                                                           constant: 12)
         
         //textField constraints
         let textFieldLeadingConstraint = textField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0)
