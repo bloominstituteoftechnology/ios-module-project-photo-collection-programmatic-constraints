@@ -9,8 +9,8 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
+    var imageView: UIImageView!
+    var titleLabel: UILabel!
     
     var photo: Photo? {
         didSet {
