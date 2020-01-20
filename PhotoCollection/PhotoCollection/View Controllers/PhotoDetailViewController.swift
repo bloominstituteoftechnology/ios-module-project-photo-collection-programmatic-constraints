@@ -20,9 +20,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTheme()
-        updateViews()
+        setupSubViews()
+        updateViews() //this could be moved to within the end of the setupSubViews method since this is the only place it's being called and setupSubViews() is required for updateviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +61,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -89,15 +89,78 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         titleTextField.text = photo.title
     }
     
+    private func setupSubViews() {
+        let imageView = UIImageView()
+        let textField = UITextField()
+        let addButton = UIButton()
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Give this photo a title"
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.setTitle("Add Photo", for: .normal)
+        addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        view.addSubview(imageView)
+        view.addSubview(addButton)
+        view.addSubview(textField)
+        navigationItem.setRightBarButton(saveButton, animated: false)
+        //imageView constraints
+        let imageViewCenterX = imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0)
+        let imageViewHeight = imageView.heightAnchor.constraint(equalToConstant: 100)
+        let imageViewWidth = imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2)
+        let imageViewTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80)
+        
+        //button constraints
+        let buttonCenterXConstraint = NSLayoutConstraint(item: addButton,
+                                                               attribute: .centerX,
+                                                               relatedBy: .equal,
+                                                               toItem: view.safeAreaLayoutGuide,
+                                                               attribute: .centerX,
+                                                               multiplier: 1,
+                                                               constant: 0)
+        
+        let buttonTopConstraint = NSLayoutConstraint(item: addButton,
+                                                           attribute: .top,
+                                                           relatedBy: .equal,
+                                                           toItem: imageView,
+                                                           attribute: .bottom,
+                                                           multiplier: 1,
+                                                           constant: 12)
+        
+        //textField constraints
+        let textFieldLeadingConstraint = textField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0)
+        let textFieldTrailingConstraint = textField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 0)
+        let textFieldTopConstraint = textField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 8)
+        
+        //activate constraints
+        NSLayoutConstraint.activate([
+            imageViewCenterX,
+            imageViewTopConstraint,
+            imageViewWidth,
+            imageViewHeight,
+            buttonCenterXConstraint,
+            buttonTopConstraint,
+            textFieldLeadingConstraint,
+            textFieldTrailingConstraint,
+            textFieldTopConstraint,
+        ])
+        
+        //assign views
+        self.imageView = imageView
+        self.titleTextField = textField
+       }
+    
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     private func setTheme() {
