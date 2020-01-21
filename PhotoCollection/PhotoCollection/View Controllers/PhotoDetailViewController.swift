@@ -20,9 +20,43 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubviews()
         setTheme()
         updateViews()
+    }
+    
+    /*
+         Create a UIBarButtonItem. Set its title to "Save Photo". Set its action as the savePhoto method that already exists in this view controller. Then, set it as the navigation item's right bar button item. (the documentation on UINavigationItem is your friend here). Note: a view controller subclass already has a navigationItem property built-in.
+         Don't forget to call this method somewhere that makes sense!
+
+     Create an updateViews() function that passes the information from the Photo to the image view and text field. Call this function sometime after the photo variable has been given a value from the cellForItem at method in the PhotosCollectionViewController. Again, there are a couple places you could decide to do this
+     */
+    
+    func setUpSubviews() {
+        print("detail set up sub views called")
+        
+        // Image
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        self.view.addSubview(imageView)
+        
+        // Anchor layouts only
+        
+        // Button
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        self.view.addSubview(button)
+        
+        // TextField
+        let textField = UITextField()
+        
+        // Bar Button Item
+        let saveButtonItem = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
+        navigationController?.navigationItem.setRightBarButton(saveButtonItem, animated: true)
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +72,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +95,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
