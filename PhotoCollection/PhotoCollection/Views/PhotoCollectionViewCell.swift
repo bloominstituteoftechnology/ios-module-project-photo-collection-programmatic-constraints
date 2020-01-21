@@ -13,7 +13,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!
     var nameLabel: UILabel!
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +31,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func setupSubviews() {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        
+        addSubview(imageView)
+        addSubview(label)
         
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
@@ -60,17 +73,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: 0).isActive = true
         
-        self.imageView = imageView
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        addSubview(label)
-        
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
         label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
         label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
         
+        self.imageView = imageView
         self.nameLabel = label
     }
     
