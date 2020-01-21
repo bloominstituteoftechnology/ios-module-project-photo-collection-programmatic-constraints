@@ -87,3 +87,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+extension PhotoDetailViewController: UICollectionViewDelegateFlowLayout {
+    
+    
+}
