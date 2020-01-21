@@ -71,7 +71,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         self.imageView = imageView
         
         // Label
-        
         let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,8 +79,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let labelTopConstraint = NSLayoutConstraint(item: label,
                                                     attribute: .top,
                                                     relatedBy: .equal,
-                                                    toItem: self,
-                                                    attribute: .top,
+                                                    toItem: imageView,
+                                                    attribute: .bottom,
                                                     multiplier: 1,
                                                     constant: 4)
         

@@ -92,25 +92,27 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         self.imageView = imageView
         
         // Add Image Button
-        let addImageButton = UIButton()
+        let addImageButton = UIButton(type: .system)
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addImageButton)
         
         addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 40).isActive = true
-        addImageButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         
         // TextField
-        
         let textfield = UITextField()
         textfield.placeholder = "Add a title"
+        textfield.backgroundColor = .white
         textfield.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textfield)
         
         textfield.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 10).isActive = true
         textfield.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         textfield.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        textfield.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         self.titleTextField = textfield
         
