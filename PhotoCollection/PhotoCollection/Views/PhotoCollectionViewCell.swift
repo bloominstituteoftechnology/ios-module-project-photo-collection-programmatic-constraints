@@ -9,8 +9,15 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var label: UILabel!
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,6 +68,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                            multiplier: 0.75,
                                                            constant: 0)
         
+        self.imageView = imageView
+        
         // Label
         
         let label = UILabel()
@@ -91,8 +100,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                          attribute: .trailing,
                                                          multiplier: 1,
                                                          constant: -4)
+        
+        self.label = label
     
        NSLayoutConstraint.activate([imageViewTopConstraint, imageVewLeadingConstraint, imageViewTrailingConstraint, imageViewHeightConstraint, labelTopConstraint, labelLeadingConstraint, labelTrailingConstraint])
+        
     }
     
+    func updateViews() {
+        guard let photo = photo else { return }
+        imageView.image = UIImage(data: photo.imageData)
+        label.text = photo.title
+    }
 }
