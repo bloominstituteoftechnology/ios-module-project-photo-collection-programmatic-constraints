@@ -129,6 +129,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Add Photo Title"
         textField.textAlignment = .center
+        textField.borderStyle = .roundedRect
         
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setTitle("Add Photo", for: .normal)
