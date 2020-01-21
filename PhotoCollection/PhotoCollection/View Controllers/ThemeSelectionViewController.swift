@@ -12,7 +12,7 @@ class ThemeSelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSubViews()
+        setUpSubviews()
         
     }
     
