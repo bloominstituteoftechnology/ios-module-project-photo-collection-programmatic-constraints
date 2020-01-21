@@ -15,9 +15,9 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        collectionView?.reloadData()
         setTheme()
+        collectionView?.reloadData()
+        // this doesn't work when coming from the theme view controller segue
     }
     
     // MARK: UICollectionViewDataSource
@@ -32,7 +32,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
-        
+
         return cell
     }
     
@@ -95,11 +95,11 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(2)
+        return CGFloat(8)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 80)
+        return CGSize(width: 180, height: 210)
     }
     
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
-    var imageView: UIImageView! //!
+    var imageView: UIImageView!
     var nameLabel: UILabel!
 
     var photo: Photo? {
@@ -30,8 +30,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpSubviews() {
-        print("setupsubviews called")
-        
         // Image
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,13 +55,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        print("updateViews called")
         guard let photo = photo else {return}
-        
-        imageView.image = UIImage(data: photo.imageData) // ?
+        imageView.image = UIImage(data: photo.imageData)
         nameLabel.text = photo.title
-        
-        
     }
     
 }

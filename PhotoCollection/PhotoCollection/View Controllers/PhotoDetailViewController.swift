@@ -25,13 +25,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         updateViews()
     }
     
-    /*
-         Create a UIBarButtonItem. Set its title to "Save Photo". Set its action as the savePhoto method that already exists in this view controller. Then, set it as the navigation item's right bar button item. (the documentation on UINavigationItem is your friend here). Note: a view controller subclass already has a navigationItem property built-in.
-         Don't forget to call this method somewhere that makes sense!
-
-     Create an updateViews() function that passes the information from the Photo to the image view and text field. Call this function sometime after the photo variable has been given a value from the cellForItem at method in the PhotosCollectionViewController. Again, there are a couple places you could decide to do this
-     */
-    
     func setUpSubviews() {
         print("detail set up sub views called")
         
@@ -41,7 +34,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.contentMode = .scaleAspectFit
         self.view.addSubview(imageView)
         
-        // Anchor layouts only
+        imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -50).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 250).isActive = true
         
         // Button
         let button = UIButton(type: .system)
@@ -50,13 +46,28 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         self.view.addSubview(button)
         
+        button.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 0).isActive = true
+        button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
+        
         // TextField
         let textField = UITextField()
+
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Enter title"
+        textField.backgroundColor = .white
+        view.addSubview(textField)
+        
+        textField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        textField.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        textField.centerYAnchor.constraint(equalTo: button.centerYAnchor, constant: 30).isActive = true
+        textField.centerXAnchor.constraint(equalTo: button.centerXAnchor, constant: 0).isActive = true
         
         // Bar Button Item
         let saveButtonItem = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
-        navigationController?.navigationItem.setRightBarButton(saveButtonItem, animated: true)
+        navigationItem.setRightBarButton(saveButtonItem, animated: true)
         
+        self.imageView = imageView
+        self.titleTextField = textField
     }
     
     // MARK: - UIImagePickerControllerDelegate
