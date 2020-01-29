@@ -17,7 +17,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
-    let insetValue: CGFloat = 4.0
+    let insetValue: CGFloat = 20.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +70,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         let titleTextField = UITextField()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.placeholder = "Add a title:"
+        titleTextField.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        titleTextField.borderStyle = .roundedRect
+        view.addSubview(titleTextField)
+        self.titleTextField = titleTextField
         
         titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 20).isActive = true
         titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: insetValue).isActive = true

@@ -47,16 +47,17 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
-        addImageViewConstraints(to: imageView)
         
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         addSubview(titleLabel)
-        addLabelConstraints(to: titleLabel)
         
         self.imageView = imageView
         self.titleLabel = titleLabel
+        
+        addImageViewConstraints(to: imageView)
+        addLabelConstraints(to: titleLabel)
     }
     
     // MARK: - Add Constraints
@@ -91,7 +92,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            relatedBy: .equal,
                            toItem: imageView,
                            attribute: .width,
-                           multiplier: 1,
+                           multiplier: 0.75,
                            constant: 0).isActive = true
     }
     
@@ -99,7 +100,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: label,
                            attribute: .top,
                            relatedBy: .equal,
-                           toItem: imageView,
+                           toItem: self.imageView,
                            attribute: .bottom,
                            multiplier: 1,
                            constant: 4).isActive = true

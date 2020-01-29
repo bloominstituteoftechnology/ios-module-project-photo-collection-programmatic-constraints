@@ -13,7 +13,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     let itemsPerRow: Int = 2
-    let insetValue: CGFloat = 4.0
+    let insetValue: CGFloat = 16.0
     let itemAspectRatio: CGFloat = 1.0 // (itemWidth / itemHeight)
 
 
@@ -69,6 +69,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         case "CreatePhoto":
             
@@ -109,5 +110,11 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         let itemHeight = availableWidthForItems / itemAspectRatio
         
         return CGSize(width: itemWidth, height: itemHeight)
+    }
+}
+
+extension PhotoCollectionViewController: ThemeSelectionViewControllerDelegate {
+    func themeChanged() {
+        setTheme()
     }
 }
