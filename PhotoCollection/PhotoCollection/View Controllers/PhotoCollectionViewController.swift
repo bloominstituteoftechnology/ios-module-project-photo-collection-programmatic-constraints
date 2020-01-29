@@ -107,7 +107,7 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         let totalSpacingWidth = insetValue * (CGFloat(itemsPerRow) + 1)
         let availableWidthForItems = view.frame.width - totalSpacingWidth
         let itemWidth = availableWidthForItems / CGFloat(itemsPerRow)
-        let itemHeight = availableWidthForItems / itemAspectRatio
+        let itemHeight = itemWidth / itemAspectRatio
         
         return CGSize(width: itemWidth, height: itemHeight)
     }
