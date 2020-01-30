@@ -12,7 +12,11 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
-    
+    let itemsPerRow: Int = 2
+    let insetValue: CGFloat = 16.0
+    let itemAspectRatio: CGFloat = 1.0 // (itemWidth / itemHeight)
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -65,6 +69,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         case "CreatePhoto":
             
@@ -85,5 +90,31 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: insetValue, left: insetValue, bottom: insetValue, right: insetValue)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return insetValue
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // Dynamically set item width and height based on: itemsPerRow, itemAspectRatio, insetValue
+        let totalSpacingWidth = insetValue * (CGFloat(itemsPerRow) + 1)
+        let availableWidthForItems = view.frame.width - totalSpacingWidth
+        let itemWidth = availableWidthForItems / CGFloat(itemsPerRow)
+        let itemHeight = itemWidth / itemAspectRatio
+        
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+}
+
+extension PhotoCollectionViewController: ThemeSelectionViewControllerDelegate {
+    func themeChanged() {
+        setTheme()
     }
 }
