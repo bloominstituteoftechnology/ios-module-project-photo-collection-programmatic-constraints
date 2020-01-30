@@ -77,7 +77,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationItem.rightBarButtonItem = saveButton
 //        saveButton.title = "SAVE"
 //        saveButton.titleTextAttributes(for: .normal)
-//        saveButton.perform
+
         
         // save button constriants -- NOT Needed .. set automatically with navigationBarButton Item
        

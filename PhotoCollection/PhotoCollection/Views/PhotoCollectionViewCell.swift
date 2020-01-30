@@ -35,17 +35,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.image = UIImage(data: photo.imageData)
         nameLabel.text = photo.title
         
-        
     }
     
     func setUpSubviews() {
         // add imageView
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         self.imageView = imageView
-        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         // constraints for imageView
         
         imageView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
@@ -55,15 +53,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         // add labe below centered
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         addSubview(label)
         self.nameLabel = label
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         //constraints for label
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
-        label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+        label.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 2).isActive = true
+        label.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -2).isActive = true
+//        label.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+     
     }
     
 }
