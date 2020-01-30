@@ -8,16 +8,28 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    
+    var horizontalPlants: CGFloat = 2
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
         setTheme()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalPlants - 2)
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalPlants
+        
+        return CGSize(width: width, height: width * 1.2)
     }
     
     // MARK: UICollectionViewDataSource
@@ -32,9 +44,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
-        
+        cell.updateViews()
         return cell
     }
+    
     
     private func setTheme() {
     
@@ -65,6 +78,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         case "CreatePhoto":
             
@@ -87,3 +101,28 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+extension PhotoCollectionViewController: SetColorThemeDelegate {
+func setBackgroundColor() {
+    setTheme()
+    collectionView?.reloadData()
+}
+}
+
+//
+//extension PhotoDetailViewController: UICollectionViewDelegateFlowLayout {
+////    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+////        let edgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+////        return edgeInsets
+////    }
+////    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+////        return 0
+////    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let cGSize = CGSize(width: 40, height: 40)
+//        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+//        let itemSpacing = (collectionView as? UICollectionViewFlowLayout).minimumInteritemSpacing * (self.horizontalPlants)
+//
+//        return cGSize
+//    }
+//}
