@@ -12,7 +12,10 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    
     var horizontalPlants: CGFloat = 2
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -75,6 +78,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         case "CreatePhoto":
             
@@ -97,6 +101,14 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
 }
+
+extension PhotoCollectionViewController: SetColorThemeDelegate {
+func setBackgroundColor() {
+    setTheme()
+    collectionView?.reloadData()
+}
+}
+
 //
 //extension PhotoDetailViewController: UICollectionViewDelegateFlowLayout {
 ////    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

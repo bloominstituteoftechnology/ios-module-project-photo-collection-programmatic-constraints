@@ -22,13 +22,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
-        setUpViews()
+        setUpSubviews()
         updateViews()
     }
     
     // MARK: - ProgramaticConstraints
     
-    func setUpViews() {
+    func setUpSubviews() {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit

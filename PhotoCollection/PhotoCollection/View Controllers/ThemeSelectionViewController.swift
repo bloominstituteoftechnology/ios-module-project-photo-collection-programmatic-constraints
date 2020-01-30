@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol SetColorThemeDelegate: class {
+    func setBackgroundColor()
+}
+
 class ThemeSelectionViewController: UIViewController {
+    
+weak var delegate: SetColorThemeDelegate?
     
     override func viewDidLoad() {
         setUpSubViews()
+        
     }
 
     func setUpSubViews() {
@@ -54,21 +61,22 @@ class ThemeSelectionViewController: UIViewController {
         blueButton.topAnchor.constraint(equalTo: darkButton.topAnchor).isActive = true
         blueButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -90).isActive = true
 
-        
-        
-        
-        
     }
     
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
+        delegate?.setBackgroundColor()
         dismiss(animated: true, completion: nil)
+        
     }
     
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
+        delegate?.setBackgroundColor()
         dismiss(animated: true, completion: nil)
+        
     }
     
     var themeHelper: ThemeHelper?
+    
 }
