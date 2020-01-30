@@ -21,6 +21,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setTheme()
         updateViews()
     }
