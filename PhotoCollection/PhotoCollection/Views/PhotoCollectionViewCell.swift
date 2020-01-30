@@ -13,7 +13,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!
     var nameLabel: UILabel!
     
-    
 
     var photo: Photo? {
         didSet {
