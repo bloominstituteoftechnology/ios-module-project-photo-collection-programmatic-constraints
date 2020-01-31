@@ -12,5 +12,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
     
-    
+    func setUpSubViews() {
+        let image: UIImage!
+        let imageView: UIImageView!
+        let label: UILabel!
+    }
 }
