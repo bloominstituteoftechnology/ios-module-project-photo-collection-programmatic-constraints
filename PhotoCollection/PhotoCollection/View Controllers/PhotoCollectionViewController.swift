@@ -8,20 +8,43 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    let photoCollectionViewCell = PhotoCollectionViewCell()
+    
+    override func viewDidLoad() {
+        photoCollectionViewCell.setUpSubviews()
+        themeHelper.setThemePreferenceToDark()
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         collectionView?.reloadData()
         setTheme()
+        photoCollectionViewCell.updateViews()
+        
+        
         
     }
     
     // MARK: UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        <#code#>
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
@@ -34,13 +57,14 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         cell.photo = photo
         
+        photoCollectionViewCell.updateViews()
+        
         return cell
     }
     
     private func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
-        
         var backgroundColor: UIColor!
         
         switch themePreference {
@@ -55,20 +79,20 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView?.backgroundColor = backgroundColor
     }
     
+    
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
-            
-        case "SelectTheme":
+            case "SelectTheme":
             
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
             
         case "CreatePhoto":
-            
             guard let destinationVC = segue.destination as? PhotoDetailViewController else { return }
             
             destinationVC.photoController = photoController
@@ -88,3 +112,5 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+

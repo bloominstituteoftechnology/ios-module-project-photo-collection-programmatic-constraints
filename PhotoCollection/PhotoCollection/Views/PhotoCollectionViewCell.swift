@@ -32,7 +32,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: imageView.safeAreaLayoutGuide,
                            attribute: .top,
                            multiplier: 1,
-                           constant: 150)
+                           constant: 150).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .leading,
@@ -40,7 +40,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: imageView.safeAreaLayoutGuide,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 20)
+                           constant: 20).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
@@ -48,7 +48,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: imageView.safeAreaLayoutGuide,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: -20)
+                           constant: -20).isActive = true
         
         NSLayoutConstraint(item: photoTitleLabel,
                                   attribute: .bottom,
@@ -56,7 +56,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                   toItem: photoTitleLabel.safeAreaLayoutGuide,
                                   attribute: .bottom,
                                   multiplier: 1,
-                                  constant: 150)
+                                  constant: 150).isActive = true
         
         NSLayoutConstraint(item: photoTitleLabel,
                            attribute: .leading,
@@ -64,7 +64,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: photoTitleLabel.safeAreaLayoutGuide,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 20)
+                           constant: 20).isActive = true
         
         NSLayoutConstraint(item: photoTitleLabel,
                            attribute: .trailing,
@@ -72,11 +72,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: photoTitleLabel.safeAreaLayoutGuide,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: -20)
+                           constant: -20).isActive = true
         
     }
     
-    private func updateViews() {
+     func updateViews() {
         imageView.image = UIImage(contentsOfFile: "\(photo?.imageData)")
         photoTitleLabel.text = photo?.title
     }
