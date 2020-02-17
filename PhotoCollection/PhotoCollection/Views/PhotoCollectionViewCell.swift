@@ -10,8 +10,8 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
-    weak var photoCellImageView: UIImageView!
-    weak var photoNameLabel: UILabel!
+     var photoCellImageView: UIImageView!
+     var photoNameLabel: UILabel!
     
     var photo: Photo? {
         didSet {
@@ -37,14 +37,19 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     
     func setUpSubViews() {
-        func setUpSubviews(){
             
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFit
             addSubview(imageView)
             
-            let imageTopAnchorContraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 4)
+            let imageTopAnchorContraint = NSLayoutConstraint(item: imageView,
+                                                             attribute: .top,
+                                                             relatedBy: .equal,
+                                                             toItem: safeAreaLayoutGuide,
+                                                             attribute: .top,
+                                                             multiplier: 1,
+                                                             constant: 4)
             
             let imageLeadingConstraint = NSLayoutConstraint(item: imageView,
                                                             attribute: .leading,
@@ -65,21 +70,25 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             let imageHeightAnchor = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0)
             
             self.photoCellImageView = imageView
-            
-            
-            
-            
+
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             addSubview(label)
+            label.lineBreakMode = .byWordWrapping
+            label.numberOfLines = 0
             
-            
-            let labelTopAnchorContraint = NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 4)
+            let labelTopAnchorContraint = NSLayoutConstraint(item: label,
+                                                             attribute: .top,
+                                                             relatedBy: .equal,
+                                                             toItem: imageView,
+                                                             attribute: .bottom,
+                                                             multiplier: 1,
+                                                             constant: 4)
             
             let labelLeadingConstraint = NSLayoutConstraint(item: label,
                                                             attribute: .leading,
                                                             relatedBy: .equal,
-                                                            toItem: imageView,
+                                                            toItem: self,
                                                             attribute: .leading,
                                                             multiplier: 1,
                                                             constant: 0)
@@ -87,16 +96,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             let labelTrailingConstraint = NSLayoutConstraint(item: label,
                                                              attribute: .trailing,
                                                              relatedBy: .equal,
-                                                             toItem: imageView,
+                                                             toItem: self,
                                                              attribute: .trailing,
                                                              multiplier: 1,
                                                              constant: 0)
             NSLayoutConstraint.activate([imageTopAnchorContraint,imageLeadingConstraint,imageHeightAnchor,labelTopAnchorContraint,labelLeadingConstraint,labelTrailingConstraint,imageTrailingConstraint])
-            
-            
-            
-            
-        }
+      
         
     }
+    
+   
 }

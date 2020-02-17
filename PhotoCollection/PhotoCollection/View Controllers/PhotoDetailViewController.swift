@@ -44,11 +44,14 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             imageView.contentMode = .scaleAspectFit
             view.addSubview(imageView)
             
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                       constant: 4).isActive = true
+        
         imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1, constant: 0).isActive = true
-            
-            
+        
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
+                                              multiplier: 1,
+                                              constant: 0).isActive = true
             self.imageView = imageView
             
             
@@ -56,12 +59,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
             addPhotoButton.setTitle("Add Photo", for: .normal)
             view.addSubview(addPhotoButton)
-        addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         
-            
+            addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+            //Constraints for button
             
             addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
-        addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+            addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
      
             let textField = UITextField()
             textField.placeholder = "Give this photo a title: "
@@ -69,9 +73,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             view.addSubview(textField)
             
             textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 2).isActive = true
-        textField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+            textField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
             textField.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1, constant: 0).isActive = true
-            
+            textField.backgroundColor = .systemBackground
             self.titleTextField = textField
            
             
@@ -95,23 +99,26 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
-            
         case .notDetermined:
-            
             PHPhotoLibrary.requestAuthorization { (status) in
-                
                 guard status == .authorized else {
                     NSLog("User did not authorize access to the photo library")
                     return
                 }
-                self.presentImagePickerController()
+                DispatchQueue.main.async {
+                    self.presentImagePickerController()
+                }
             }
-        default:
-            break
+        case .denied:
+            return
+        case .restricted:
+            return
+        @unknown default:
+            print("A new Xcode or Swift update has created an unkown error.")
         }
     }
     
@@ -123,10 +130,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         if let photo = photo {
             photoController?.update(photo: photo, with: imageData, and: title)
+            imageView.reloadInputViews()
         } else {
             photoController?.createPhoto(with: imageData, title: title)
+            imageView.reloadInputViews()
         }
-        
         navigationController?.popViewController(animated: true)
     }
     
@@ -138,19 +146,15 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         title = photo.title
-        
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
     }
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
         let imagePicker = UIImagePickerController()
-        
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        
         present(imagePicker, animated: true, completion: nil)
     }
     
