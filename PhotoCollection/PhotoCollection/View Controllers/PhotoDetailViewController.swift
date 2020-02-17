@@ -9,11 +9,15 @@
 import UIKit
 import Photos
 
-class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     // MARK: - Properties
     var imageView: UIImageView!
+     
+    
     var titleTextField: UITextField!
+    
+    
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
@@ -25,16 +29,32 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         setUpSubviews()
         setTheme()
         updateViews()
+        titleTextField.delegate = self
+        
         
     }
+  
     
+    // Toggle save button when textfield has text
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        let value = NSString(string: textField.text!).replacingCharacters(in: range, with: string)
+
+        if value.count > 0 {
+            navigationItem.rightBarButtonItem!.isEnabled = true
+        } else {
+            navigationItem.rightBarButtonItem!.isEnabled = false
+        }
+
+        return true
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
     }
  
-    
     
     // MARK: - Constraint programmatically
     private func setUpSubviews() {
@@ -61,10 +81,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         textField.borderStyle = .roundedRect
         textField.becomeFirstResponder()
         textField.clearButtonMode = .whileEditing
+        textField.delegate = self
         self.titleTextField = textField
         view.addSubview(textField)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+       navigationItem.rightBarButtonItem?.isEnabled = false
         
         
         NSLayoutConstraint.activate([
