@@ -167,9 +167,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         switch themePreference {
         case "Dark":
             backgroundColor = .lightGray
-        case "Blue":
-//            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-            backgroundColor  = UIColor.white
+        case "Yellow":
+            backgroundColor = .yellow
+
         default:
             break
         }

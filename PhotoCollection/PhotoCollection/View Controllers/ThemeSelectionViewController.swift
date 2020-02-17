@@ -10,15 +10,71 @@ import UIKit
 
 class ThemeSelectionViewController: UIViewController {
 
-    func selectDarkTheme() {
+    @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
     
-    func selectBlueTheme() {
+    @objc func selectYellowTheme() {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpSubviews()
+    }
+    
+    func setUpSubviews() {
+        let label: UILabel = {
+           let lb = UILabel()
+            lb.text = "Change theme color "
+            lb.font = lb.font.withSize(30)
+            return lb
+        }()
+        
+        let button: UIButton = {
+            let button = UIButton()
+            button.setTitle("Dark", for: .normal)
+            button.backgroundColor = .gray
+            button.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+            return button
+        }()
+     
+        
+        let secondButton : UIButton = {
+            let bt = UIButton()
+            bt.setTitle("Light", for: .normal)
+            bt.setTitleColor(.black, for: .normal)
+            bt.addTarget(self, action: #selector(selectYellowTheme), for: .touchUpInside)
+            bt.backgroundColor = .yellow
+            return bt
+        }()
+        
+        
+        let buttonStackView : UIStackView  = {
+            let stackView = UIStackView(arrangedSubviews: [button,secondButton])
+            stackView.alignment = .fill
+            stackView.distribution = .fillEqually
+            stackView.axis = .horizontal
+         
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            return stackView
+        }()
+      
+        
+        let verticalStackView: UIStackView = {
+            let stackView = UIStackView(arrangedSubviews: [buttonStackView,label])
+            stackView.alignment = .fill
+            stackView.distribution = .fillEqually
+            stackView.axis = .vertical
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            return stackView
+        }()
+        view.addSubview(verticalStackView)
+        verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        verticalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
     
     var themeHelper: ThemeHelper?
 }
