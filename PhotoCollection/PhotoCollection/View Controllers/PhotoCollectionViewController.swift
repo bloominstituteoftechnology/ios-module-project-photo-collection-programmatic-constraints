@@ -13,12 +13,15 @@ class PhotoCollectionViewController: UICollectionViewController  {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setTheme()
         collectionView?.reloadData()
-      
+        
     }
+    
   
     // MARK: UICollectionViewDataSource
     
@@ -44,17 +47,20 @@ class PhotoCollectionViewController: UICollectionViewController  {
         
         var backgroundColor: UIColor!
         
-        switch themePreference {
+        switch themePreference
+        {
         case "Dark":
             backgroundColor = .dark
+            
         case "Yellow":
             backgroundColor = .customYellow
 
         default:
             break
         }
-        view.backgroundColor = backgroundColor
         collectionView?.backgroundColor = backgroundColor
+        view.backgroundColor = backgroundColor
+      
     }
     
     // MARK: - Navigation

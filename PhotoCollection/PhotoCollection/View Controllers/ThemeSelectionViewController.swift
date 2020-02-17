@@ -9,7 +9,11 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
-
+    
+    
+  
+    var themeHelper: ThemeHelper?
+    
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
@@ -19,11 +23,17 @@ class ThemeSelectionViewController: UIViewController {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
+    
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubviews()
     }
     
+    
+    
+    // MARK: - Constraints Programmatically
     func setUpSubviews() {
         let label: UILabel = {
            let lb = UILabel()
@@ -97,5 +107,5 @@ class ThemeSelectionViewController: UIViewController {
     }
     
     
-    var themeHelper: ThemeHelper?
+  
 }

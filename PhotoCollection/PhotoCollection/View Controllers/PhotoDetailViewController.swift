@@ -13,10 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Properties
     var imageView: UIImageView!
-     
-    
     var titleTextField: UITextField!
-    
     
     var photo: Photo?
     var photoController: PhotoController?
