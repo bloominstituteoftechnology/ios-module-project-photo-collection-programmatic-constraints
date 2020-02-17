@@ -12,6 +12,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
     
+    private var imageView: UIImageView!
+    private var titleLabel: UILabel!
     
     private func setUpSubviews() {
            let imageView = UIImageView()
@@ -25,5 +27,64 @@ class PhotoCollectionViewCell: UICollectionViewCell {
            addSubview(titleLabel)
         
        }
+    private func addImageViewConstraints(to imageView: UIImageView) {
+        NSLayoutConstraint(item: imageView,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -4).isActive = true
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .height,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .width,
+                           multiplier: 0.75,
+                           constant: 0).isActive = true
+    }
+    
+    private func addLabelConstraints(to label: UILabel) {
+        NSLayoutConstraint(item: label,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: self.imageView,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: label,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: label,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -4).isActive = true
+    }
     
 }
