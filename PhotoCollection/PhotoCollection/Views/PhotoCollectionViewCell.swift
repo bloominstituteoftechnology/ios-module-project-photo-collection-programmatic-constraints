@@ -10,10 +10,21 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
+    
+    private func updateViews() {
+        guard let photo = photo else { return }
+        
+        imageView.image = UIImage(data: photo.imageData)
+        titleLabel.text = photo.title
+    }
     
     private func setUpSubviews() {
            let imageView = UIImageView()
@@ -25,8 +36,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
            titleLabel.translatesAutoresizingMaskIntoConstraints = false
            titleLabel.textAlignment = .center
            addSubview(titleLabel)
-        
-       }
+    
+    self.imageView = imageView
+    self.titleLabel = titleLabel
+    
+    }
+    
     private func addImageViewConstraints(to imageView: UIImageView) {
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
