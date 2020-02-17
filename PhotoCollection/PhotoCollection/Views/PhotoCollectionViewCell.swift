@@ -26,6 +26,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         titleLabel.text = photo.title
     }
     
+    override init(frame: CGRect) {
+           super.init(frame: frame)
+           setUpSubviews()
+       }
+       
+       required init?(coder: NSCoder) {
+           super.init(coder: coder)
+           setUpSubviews()
+       }
+       
     private func setUpSubviews() {
            let imageView = UIImageView()
            imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +49,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     self.imageView = imageView
     self.titleLabel = titleLabel
+        
+    addImageViewConstraints(to: imageView)
+    addLabelConstraints(to: titleLabel)
     
     }
     
