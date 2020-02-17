@@ -35,7 +35,7 @@ class ThemeSelectionViewController: UIViewController {
         let button: UIButton = {
             let button = UIButton()
             button.setTitle("Dark", for: .normal)
-            button.backgroundColor = .gray
+            button.backgroundColor = .dark
             button.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
             return button
         }()
@@ -46,7 +46,7 @@ class ThemeSelectionViewController: UIViewController {
             bt.setTitle("Light", for: .normal)
             bt.setTitleColor(.black, for: .normal)
             bt.addTarget(self, action: #selector(selectYellowTheme), for: .touchUpInside)
-            bt.backgroundColor = .yellow
+            bt.backgroundColor = .customYellow
             return bt
         }()
         

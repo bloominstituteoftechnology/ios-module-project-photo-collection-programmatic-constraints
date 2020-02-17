@@ -195,10 +195,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         switch themePreference {
         case "Dark":
-            backgroundColor = .lightGray
+            backgroundColor = .dark
         case "Yellow":
             backgroundColor = .yellow
-
         default:
             break
         }
@@ -206,3 +205,5 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.backgroundColor = backgroundColor
     }
 }
+
+

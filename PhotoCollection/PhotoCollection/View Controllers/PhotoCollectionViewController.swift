@@ -46,9 +46,9 @@ class PhotoCollectionViewController: UICollectionViewController  {
         
         switch themePreference {
         case "Dark":
-            backgroundColor = .lightGray
+            backgroundColor = .dark
         case "Yellow":
-            backgroundColor = UIColor.yellow
+            backgroundColor = .customYellow
 
         default:
             break
