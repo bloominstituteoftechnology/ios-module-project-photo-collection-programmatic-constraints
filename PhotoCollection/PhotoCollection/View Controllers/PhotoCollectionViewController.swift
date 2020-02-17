@@ -15,11 +15,11 @@ class PhotoCollectionViewController: UICollectionViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        collectionView?.reloadData()
         setTheme()
+        collectionView?.reloadData()
+      
     }
-    
+  
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -53,7 +53,7 @@ class PhotoCollectionViewController: UICollectionViewController  {
         default:
             break
         }
-        
+        view.backgroundColor = backgroundColor
         collectionView?.backgroundColor = backgroundColor
     }
     
@@ -90,6 +90,8 @@ class PhotoCollectionViewController: UICollectionViewController  {
         }
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 extension PhotoCollectionViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)

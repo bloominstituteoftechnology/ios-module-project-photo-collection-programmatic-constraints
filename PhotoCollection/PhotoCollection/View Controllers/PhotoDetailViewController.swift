@@ -11,17 +11,15 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: - Properties
     var imageView: UIImageView!
     var titleTextField: UITextField!
-    
-    var photo: Photo? {
-        didSet {
-            updateViews()
-        }
-    }
+    var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
+    
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubviews()
@@ -30,6 +28,15 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViews()
+    }
+ 
+    
+    
+    // MARK: - Constraint programmatically
     private func setUpSubviews() {
         
         let image = UIImageView()
@@ -84,7 +91,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - UIImagePickerControllerDelegate
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
         
