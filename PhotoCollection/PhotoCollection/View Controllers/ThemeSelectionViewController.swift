@@ -70,9 +70,29 @@ class ThemeSelectionViewController: UIViewController {
             stackView.translatesAutoresizingMaskIntoConstraints = false
             return stackView
         }()
+        
         view.addSubview(verticalStackView)
         verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         verticalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let heartImage : UIImageView = {
+           let img = UIImageView()
+            img.translatesAutoresizingMaskIntoConstraints = false
+            img.image = UIImage(systemName: "heart")
+            img.tintColor = .red
+            return img
+        }()
+        view.addSubview(heartImage)
+        
+        NSLayoutConstraint.activate([
+            
+            heartImage.bottomAnchor.constraint(equalTo: verticalStackView.topAnchor,constant: -50),
+            heartImage.heightAnchor.constraint(equalToConstant: 240),
+            heartImage.widthAnchor.constraint(equalToConstant: 240),
+            heartImage.centerXAnchor.constraint(equalTo: verticalStackView.centerXAnchor)
+        
+        ])
+        
     }
     
     
