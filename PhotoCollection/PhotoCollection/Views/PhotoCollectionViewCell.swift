@@ -40,6 +40,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     
+   // MARK: - Constraint programmatically
     
     private func setUpSubviews() {
         let imageView = UIImageView()
