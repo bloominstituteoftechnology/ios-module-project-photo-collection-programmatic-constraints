@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController  {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -35,6 +35,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         return cell
     }
+    
+ 
     
     private func setTheme() {
     
@@ -86,4 +88,15 @@ class PhotoCollectionViewController: UICollectionViewController {
             break
         }
     }
+}
+extension PhotoCollectionViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+     }
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+     }
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width / 2, height: collectionView.frame.height / 2)
+     }
 }
