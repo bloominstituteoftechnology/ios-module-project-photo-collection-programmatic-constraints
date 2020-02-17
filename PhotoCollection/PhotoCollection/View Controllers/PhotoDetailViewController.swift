@@ -14,7 +14,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -23,28 +27,38 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         setUpSubviews()
         setTheme()
         updateViews()
+        
     }
     
     private func setUpSubviews() {
+        
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.backgroundColor = .yellow
+       
+        self.imageView = image
         view.addSubview(image)
+        
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Add a photo", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
-        button.layer.cornerRadius = 15
-        
+        button.backgroundColor = .blue
+      
         button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         view.addSubview(button)
+        
         let textField = UITextField()
         textField.placeholder = "Give this photo a cool title..."
         textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
+        textField.becomeFirstResponder()
+        textField.clearButtonMode = .whileEditing
+        self.titleTextField = textField
         view.addSubview(textField)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        
         
         NSLayoutConstraint.activate([
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -61,12 +75,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -16),
             textField.topAnchor.constraint(equalTo: button.bottomAnchor,constant: 16),
             textField.heightAnchor.constraint(equalToConstant: 50)
-            
-        
+     
         
         ])
     }
-    
+
     
     
     // MARK: - UIImagePickerControllerDelegate
@@ -105,7 +118,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -135,13 +148,15 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+                   
+                   imagePicker.sourceType = .photoLibrary
+                   imagePicker.delegate = self
+                   
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+       
     }
     
     private func setTheme() {

@@ -30,7 +30,7 @@ class PhotoCollectionViewController: UICollectionViewController  {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
         let photo = photoController.photos[indexPath.row]
-        
+        cell.backgroundColor = .gray
         cell.photo = photo
         
         return cell
@@ -48,7 +48,8 @@ class PhotoCollectionViewController: UICollectionViewController  {
         case "Dark":
             backgroundColor = .lightGray
         case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+//            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+            backgroundColor = .white
         default:
             break
         }
@@ -91,12 +92,18 @@ class PhotoCollectionViewController: UICollectionViewController  {
 }
 extension PhotoCollectionViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
      }
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 10
      }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
+    }
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 2, height: collectionView.frame.height / 2)
+      let padding: CGFloat =  20
+        let collectionViewSize = collectionView.frame.size.width - padding
+
+        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
      }
 }
