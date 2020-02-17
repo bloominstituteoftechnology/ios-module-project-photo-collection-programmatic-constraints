@@ -96,6 +96,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: -2).isActive = true
         
+        NSLayoutConstraint(item: titleLabel,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
     }
     
     
