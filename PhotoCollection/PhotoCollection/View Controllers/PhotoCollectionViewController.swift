@@ -30,7 +30,7 @@ class PhotoCollectionViewController: UICollectionViewController  {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
         let photo = photoController.photos[indexPath.row]
-        cell.backgroundColor = .gray
+     
         cell.photo = photo
         
         return cell

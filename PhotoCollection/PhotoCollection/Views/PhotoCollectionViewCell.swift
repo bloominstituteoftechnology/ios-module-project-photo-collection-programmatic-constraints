@@ -47,14 +47,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
-        
+      
+        layer.borderWidth = 5
+        layer.borderColor = UIColor.black.cgColor
         
         NSLayoutConstraint(item: imageView,
                            attribute: .bottom,
                            relatedBy: .equal,
                            toItem: self, attribute: .bottom,
             multiplier: 1,
-            constant: -40).isActive = true
+            constant: -30).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute:.leading ,
@@ -89,6 +91,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         
         addSubview(label)
         
