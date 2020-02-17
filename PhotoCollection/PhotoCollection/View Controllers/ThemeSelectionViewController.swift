@@ -65,6 +65,7 @@ class ThemeSelectionViewController: UIViewController {
         let verticalStackView: UIStackView = {
             let stackView = UIStackView(arrangedSubviews: [buttonStackView,label])
             stackView.alignment = .fill
+            stackView.spacing = 20
             stackView.distribution = .fillEqually
             stackView.axis = .vertical
             stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,8 +88,8 @@ class ThemeSelectionViewController: UIViewController {
         NSLayoutConstraint.activate([
             
             heartImage.bottomAnchor.constraint(equalTo: verticalStackView.topAnchor,constant: -50),
-            heartImage.heightAnchor.constraint(equalToConstant: 240),
-            heartImage.widthAnchor.constraint(equalToConstant: 240),
+            heartImage.heightAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.5),
+            heartImage.widthAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.5),
             heartImage.centerXAnchor.constraint(equalTo: verticalStackView.centerXAnchor)
         
         ])
