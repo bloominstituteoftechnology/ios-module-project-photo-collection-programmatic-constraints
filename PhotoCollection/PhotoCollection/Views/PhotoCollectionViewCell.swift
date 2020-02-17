@@ -15,7 +15,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             updateViews()
         }
     }
-    
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
     
@@ -25,17 +24,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.image = UIImage(data: photo.imageData)
         titleLabel.text = photo.title
     }
-    
     override init(frame: CGRect) {
            super.init(frame: frame)
            setUpSubviews()
        }
-       
        required init?(coder: NSCoder) {
            super.init(coder: coder)
            setUpSubviews()
        }
-       
     private func setUpSubviews() {
            let imageView = UIImageView()
            imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +50,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     addLabelConstraints(to: titleLabel)
     
     }
-    
     private func addImageViewConstraints(to imageView: UIImageView) {
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
@@ -88,7 +83,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 0.75,
                            constant: 0).isActive = true
     }
-    
     private func addLabelConstraints(to label: UILabel) {
         NSLayoutConstraint(item: label,
                            attribute: .top,
@@ -114,5 +108,4 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: -4).isActive = true
     }
-    
 }

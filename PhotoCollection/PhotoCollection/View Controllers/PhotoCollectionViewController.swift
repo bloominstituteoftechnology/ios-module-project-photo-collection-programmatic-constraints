@@ -18,31 +18,25 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         collectionView?.reloadData()
         setTheme()
     }
     
     // MARK: UICollectionViewDataSource
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
     }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
         let photo = photoController.photos[indexPath.row]
-        
         cell.photo = photo
         
         return cell
     }
     
     private func setTheme() {
-    
         guard let themePreference = themeHelper.themePreference else { return }
-        
         var backgroundColor: UIColor!
         
         switch themePreference {
@@ -53,31 +47,26 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
-        
         collectionView?.backgroundColor = backgroundColor
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         switch segue.identifier {
             
         case "SelectTheme":
-            
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
             
         case "CreatePhoto":
-            
             guard let destinationVC = segue.destination as? PhotoDetailViewController else { return }
             
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
             
         case "ViewPhoto":
-            
             guard let destinationVC = segue.destination as? PhotoDetailViewController,
                 let indexPath = collectionView?.indexPathsForSelectedItems?.first else { return }
             
@@ -90,16 +79,13 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
-
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: insetValue, left: insetValue, bottom: insetValue, right: insetValue)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return insetValue
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // Dynamically set item width and height based on: itemsPerRow, itemAspectRatio, insetValue
         let totalSpacingWidth = insetValue * (CGFloat(itemsPerRow) + 1)
@@ -110,7 +96,6 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
 }
-
 extension PhotoCollectionViewController: ThemeSelectionViewControllerDelegate {
     func themeChanged() {
         setTheme()

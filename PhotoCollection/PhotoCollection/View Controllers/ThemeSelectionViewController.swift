@@ -13,7 +13,6 @@ protocol ThemeSelectionViewControllerDelegate: class {
 }
 
 class ThemeSelectionViewController: UIViewController {
-
     let insetValue: CGFloat = 20.0
     var delegate: ThemeSelectionViewControllerDelegate?
     
@@ -22,20 +21,17 @@ class ThemeSelectionViewController: UIViewController {
         delegate?.themeChanged()
         dismiss(animated: true, completion: nil)
     }
-    
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
         delegate?.themeChanged()
         dismiss(animated: true, completion: nil)
     }
-    
     var themeHelper: ThemeHelper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubviews()
     }
-    
     private func setUpSubviews() {
         
         // Select Theme Label
@@ -51,7 +47,6 @@ class ThemeSelectionViewController: UIViewController {
         label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -insetValue).isActive = true
         
         // Dark Theme Button
-        
         let darkThemeButton = UIButton(type: .system)
         darkThemeButton.translatesAutoresizingMaskIntoConstraints = false
         darkThemeButton.setTitle("Dark", for: .normal)
@@ -62,7 +57,6 @@ class ThemeSelectionViewController: UIViewController {
         darkThemeButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: (view.frame.width / 3)).isActive = true
         
         // Blue Theme Button
-        
         let blueThemeButton = UIButton(type: .system)
         blueThemeButton.translatesAutoresizingMaskIntoConstraints = false
         blueThemeButton.setTitle("Blue", for: .normal)
