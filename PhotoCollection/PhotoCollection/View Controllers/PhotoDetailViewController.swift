@@ -197,7 +197,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         case "Dark":
             backgroundColor = .dark
         case "Yellow":
-            backgroundColor = .yellow
+            backgroundColor = .customYellow
         default:
             break
         }
