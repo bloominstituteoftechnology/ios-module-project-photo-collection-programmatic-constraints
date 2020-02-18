@@ -43,7 +43,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
        
         imageView.contentMode = .scaleAspectFit
         
-         addSubview(imageView)
+        addSubview(imageView)
        
        // Title Label
         title.translatesAutoresizingMaskIntoConstraints = false
