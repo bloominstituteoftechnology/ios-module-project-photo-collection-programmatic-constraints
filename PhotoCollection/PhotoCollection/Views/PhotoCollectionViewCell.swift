@@ -47,7 +47,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         let label = UILabel()
         label.textAlignment = .center
-        
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -74,7 +73,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                toItem: self,
                                attribute: .trailing,
                                multiplier: 1,
-                               constant: -2)
+                               constant: -2),
+            
+            label.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         self.titleLabel = label

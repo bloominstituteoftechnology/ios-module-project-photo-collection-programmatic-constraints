@@ -12,7 +12,6 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
-    
     let horizontalPhotos: CGFloat = 2
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,17 +26,6 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         return photoController.photos.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
-        
-        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalPhotos)
-        
-        let width = (collectionView.frame.width - horizontalInsets - )
-        
-        return CGSize(width: <#T##CGFloat#>, height: <#T##CGFloat#>)
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
@@ -46,6 +34,23 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         cell.photo = photo
         
         return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalPhotos)
+        return itemSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        let width = (collectionView.frame.width - horizontalInsets / self.horizontalPhotos)
+        
+        return CGSize(width: width, height: width)
     }
     
     private func setTheme() {
