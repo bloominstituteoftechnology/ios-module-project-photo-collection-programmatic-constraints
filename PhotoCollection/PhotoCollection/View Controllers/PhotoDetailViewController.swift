@@ -44,14 +44,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             imageView.contentMode = .scaleAspectFit
             view.addSubview(imageView)
             
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                       constant: 4).isActive = true
-        
-        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                           constant: 4).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
                                               multiplier: 1,
                                               constant: 0).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
             self.imageView = imageView
             
             
@@ -59,11 +58,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
             addPhotoButton.setTitle("Add Photo", for: .normal)
             view.addSubview(addPhotoButton)
-        
             addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        
-            //Constraints for button
-            
             addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
             addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
      
@@ -71,7 +66,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             textField.placeholder = "Give this photo a title: "
             textField.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(textField)
-            
             textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 2).isActive = true
             textField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
             textField.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1, constant: 0).isActive = true

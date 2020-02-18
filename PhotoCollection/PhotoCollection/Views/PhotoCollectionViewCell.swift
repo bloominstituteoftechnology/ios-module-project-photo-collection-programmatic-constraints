@@ -40,67 +40,73 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .scaleAspectFit
+//            imageView.contentMode = .scaleAspectFit
             addSubview(imageView)
+            photoCellImageView = imageView
             
-            let imageTopAnchorContraint = NSLayoutConstraint(item: imageView,
+                                          NSLayoutConstraint(item: imageView,
                                                              attribute: .top,
                                                              relatedBy: .equal,
-                                                             toItem: safeAreaLayoutGuide,
+                                                             toItem: self,
                                                              attribute: .top,
                                                              multiplier: 1,
-                                                             constant: 4)
+                                                             constant: 4).isActive = true
             
-            let imageLeadingConstraint = NSLayoutConstraint(item: imageView,
+                                         NSLayoutConstraint(item: imageView,
                                                             attribute: .leading,
                                                             relatedBy: .equal,
                                                             toItem: self,
                                                             attribute: .leading,
                                                             multiplier: 1,
-                                                            constant: 4)
+                                                            constant: 4).isActive = true
             
-            let imageTrailingConstraint = NSLayoutConstraint(item: imageView,
+                                          NSLayoutConstraint(item: imageView,
                                                              attribute: .trailing,
                                                              relatedBy: .equal,
                                                              toItem: self,
                                                              attribute: .trailing,
                                                              multiplier: 1,
-                                                             constant: -4)
+                                                             constant: -4).isActive = true
             
-            let imageHeightAnchor = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0)
-            
-            self.photoCellImageView = imageView
+                                          NSLayoutConstraint(item: imageView,
+                                                             attribute: .height,
+                                                             relatedBy: .equal,
+                                                             toItem: imageView,
+                                                             attribute: .width,
+                                                             multiplier: 1,
+                                                             constant: 0).isActive = true
 
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             addSubview(label)
-            label.lineBreakMode = .byWordWrapping
-            label.numberOfLines = 0
+            photoNameLabel = label
+//            label.lineBreakMode = .byWordWrapping
+//            label.numberOfLines = 0
             
-            let labelTopAnchorContraint = NSLayoutConstraint(item: label,
+                                          NSLayoutConstraint(item: label,
                                                              attribute: .top,
                                                              relatedBy: .equal,
                                                              toItem: imageView,
                                                              attribute: .bottom,
                                                              multiplier: 1,
-                                                             constant: 4)
+                                                             constant: 4).isActive = true
             
-            let labelLeadingConstraint = NSLayoutConstraint(item: label,
+                                         NSLayoutConstraint(item: label,
                                                             attribute: .leading,
                                                             relatedBy: .equal,
                                                             toItem: self,
                                                             attribute: .leading,
                                                             multiplier: 1,
-                                                            constant: 0)
+                                                            constant: 0).isActive = true
             
-            let labelTrailingConstraint = NSLayoutConstraint(item: label,
+                                          NSLayoutConstraint(item: label,
                                                              attribute: .trailing,
                                                              relatedBy: .equal,
                                                              toItem: self,
                                                              attribute: .trailing,
                                                              multiplier: 1,
-                                                             constant: 0)
-            NSLayoutConstraint.activate([imageTopAnchorContraint,imageLeadingConstraint,imageHeightAnchor,labelTopAnchorContraint,labelLeadingConstraint,labelTrailingConstraint,imageTrailingConstraint])
+                                                             constant: 0).isActive = true
+//            NSLayoutConstraint.activate([imageTopAnchorContraint,imageLeadingConstraint,imageHeightAnchor,labelTopAnchorContraint,labelLeadingConstraint,labelTrailingConstraint,imageTrailingConstraint])
       
         
     }
