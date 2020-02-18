@@ -67,7 +67,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                             multiplier: 1,
                                                             constant: 4)
         let imageViewWidthConstraint = NSLayoutConstraint(item: imageView,
-                                                          attribute: .width,
+                                                          attribute: .height,
                                                           relatedBy: .equal,
                                                           toItem: imageView,
                                                           attribute: .width, multiplier: 1, constant: 0)
