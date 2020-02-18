@@ -20,7 +20,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubviews()
         setTheme()
         updateViews()
     }
@@ -36,32 +36,92 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = image
     }
     
+    private func setUpSubviews(){
+            
+            
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
+            self.imageView = imageView
+            
+            
+            let addPhotoButton = UIButton(type: .system)
+            addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+            addPhotoButton.setTitle("Add Photo", for: .normal)
+            view.addSubview(addPhotoButton)
+            addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+//            addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+//            addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 44).isActive = true
+        addPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+     
+            let textField = UITextField()
+            textField.placeholder = "Give this photo a title: "
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(textField)
+//            textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 2).isActive = true
+//            textField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+//            textField.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1, constant: 0).isActive = true
+//            textField.backgroundColor = .systemBackground
+        textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 8).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: 44).isActive = true
+            self.titleTextField = textField
+           
+            
+            let barButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: .none, action: #selector(savePhoto))
+            self.navigationItem.setRightBarButton(barButton, animated: true)
+            
+            
+            
+           
+                   
+            //        let labelHeightAnchor = NSLayoutConstraint(item: label, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0)
+            //
+            
+            
+            
+            
+        }
+    
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
-            
         case .notDetermined:
-            
             PHPhotoLibrary.requestAuthorization { (status) in
-                
                 guard status == .authorized else {
                     NSLog("User did not authorize access to the photo library")
                     return
                 }
-                self.presentImagePickerController()
+                DispatchQueue.main.async {
+                    self.presentImagePickerController()
+                }
             }
-        default:
-            break
+        case .denied:
+            return
+        case .restricted:
+            return
+        @unknown default:
+            print("A new Xcode or Swift update has created an unkown error.")
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -69,10 +129,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         if let photo = photo {
             photoController?.update(photo: photo, with: imageData, and: title)
+            imageView.reloadInputViews()
         } else {
             photoController?.createPhoto(with: imageData, title: title)
+            imageView.reloadInputViews()
         }
-        
         navigationController?.popViewController(animated: true)
     }
     
@@ -84,19 +145,15 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         title = photo.title
-        
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
     }
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
         let imagePicker = UIImagePickerController()
-        
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        
         present(imagePicker, animated: true, completion: nil)
     }
     
