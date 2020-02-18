@@ -32,51 +32,27 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     func setUpSubviews() {
         
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.5)
-        ])
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
         
         self.imageView = imageView
         
+        // Label
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: label,
-                               attribute: .top,
-                               relatedBy: .equal,
-                               toItem: imageView,
-                               attribute: .bottom,
-                               multiplier: 1,
-                               constant: 4),
-            
-            NSLayoutConstraint(item: label,
-                               attribute: .leading,
-                               relatedBy: .equal,
-                               toItem: self,
-                               attribute: .leading,
-                               multiplier: 1,
-                               constant: 2),
-            
-            NSLayoutConstraint(item: label,
-                               attribute: .trailing,
-                               relatedBy: .equal,
-                               toItem: self,
-                               attribute: .trailing,
-                               multiplier: 1,
-                               constant: -2),
-            
-            label.heightAnchor.constraint(equalToConstant: 20)
-        ])
+        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
+        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
+        label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+        //label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
         
         self.titleLabel = label
     }

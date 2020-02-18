@@ -145,7 +145,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         textfield.backgroundColor = .white
         textfield.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textfield)
-
+            
+        textfield.layer.cornerRadius = 5
         textfield.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 20).isActive = true
         textfield.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         textfield.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true

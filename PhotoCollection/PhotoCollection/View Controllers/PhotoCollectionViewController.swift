@@ -36,21 +36,20 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalPhotos)
-        return itemSpacing
+        
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
-        let width = (collectionView.frame.width - horizontalInsets / self.horizontalPhotos)
+        let width = ((collectionView.frame.width - 40) / self.horizontalPhotos)
         
-        return CGSize(width: width, height: width)
+        return CGSize(width: width, height: width * 1.25)
     }
     
     private func setTheme() {
@@ -60,12 +59,12 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         var backgroundColor: UIColor!
         
         switch themePreference {
-        case "Dark":
-            backgroundColor = .lightGray
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-        default:
-            break
+            case "Dark":
+                backgroundColor = .lightGray
+            case "Blue":
+                backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+            default:
+                break
         }
         
         collectionView?.backgroundColor = backgroundColor
