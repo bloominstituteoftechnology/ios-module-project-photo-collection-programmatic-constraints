@@ -11,8 +11,6 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
 
     
-    var imageView = UIImageView()
-    var title = UILabel()
     
     var photo: Photo?  {
         didSet{
@@ -36,62 +34,34 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         title.text = photo.title
     }
     
-    func setUpSubviews() {
-        
-        // ImageViww
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-       
-        imageView.contentMode = .scaleAspectFit
-        
-        addSubview(imageView)
-       
-       // Title Label
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    let title: UILabel = {
+        let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.numberOfLines = 0
         title.textAlignment = .center
+        return title
+    }()
+    
+    func setUpSubviews() {
+        // Constrain image View
+        addSubview(imageView)
+        NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1, constant: 0).isActive = true
+        
+        // Constrain label
         addSubview(title)
-        
-        
-        
-        // Leading Constraints
-        
-        let imageViewLeadingConstraint = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .leading, multiplier: 1.0, constant: 0)
-        
-        let titleLeadingConstraint = NSLayoutConstraint(item: title, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1.0, constant: 0)
-        
-        // Trailing Constants
-        
-        let imageViewTrailingConstraint = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .trailing, multiplier: 1.0, constant: 0)
-        
-          let titleTrailingConstraint = NSLayoutConstraint(item: title, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1.0, constant: 0)
-        
-        // Top Constraint
-        
-        let imageViewTopConstraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0 )
-        
-        // Bottom Constraints
-        
-        let imageViewBottomConstraint = NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: title, attribute: .bottom, multiplier: 1, constant: 0)
-       
-        let titleBottomConstraint = NSLayoutConstraint(item: title,
-        attribute: .bottom,
-        relatedBy: .equal,
-        toItem: safeAreaLayoutGuide,
-        attribute: .bottom,
-        multiplier: 1,
-        constant: 5)
-        
-        // Height Constraints - AKA .height
-        
-        let imageViewHeightConstraint = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1.0, constant: 0)
-        
-        let titleHeightConstraint = NSLayoutConstraint(item: title, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .leading, multiplier: 1.0, constant: 50)
-        
-
-        NSLayoutConstraint.activate([imageViewLeadingConstraint, titleLeadingConstraint, imageViewTrailingConstraint, titleTrailingConstraint, imageViewTopConstraint, imageViewTopConstraint, imageViewHeightConstraint, titleHeightConstraint, imageViewBottomConstraint, titleBottomConstraint])
-        
+        NSLayoutConstraint(item: title, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: title, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: title, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: title, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
     }
-    
-    
-   
 }
