@@ -126,7 +126,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 250).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
         
         self.imageView = imageView
 
