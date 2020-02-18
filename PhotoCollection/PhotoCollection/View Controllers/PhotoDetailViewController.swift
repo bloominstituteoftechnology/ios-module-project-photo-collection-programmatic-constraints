@@ -44,13 +44,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             imageView.contentMode = .scaleAspectFit
             view.addSubview(imageView)
             
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                           constant: 4).isActive = true
-            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
-                                              multiplier: 1,
-                                              constant: 0).isActive = true
-            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
             self.imageView = imageView
             
             
@@ -59,17 +56,25 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             addPhotoButton.setTitle("Add Photo", for: .normal)
             view.addSubview(addPhotoButton)
             addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-            addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
-            addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+//            addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+//            addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 44).isActive = true
+        addPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
      
             let textField = UITextField()
             textField.placeholder = "Give this photo a title: "
             textField.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(textField)
-            textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 2).isActive = true
-            textField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-            textField.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1, constant: 0).isActive = true
-            textField.backgroundColor = .systemBackground
+//            textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 2).isActive = true
+//            textField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+//            textField.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1, constant: 0).isActive = true
+//            textField.backgroundColor = .systemBackground
+        textField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 8).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: 44).isActive = true
             self.titleTextField = textField
            
             
