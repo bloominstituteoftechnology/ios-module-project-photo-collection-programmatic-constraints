@@ -11,9 +11,32 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    // MARK: - Properties
+    // set up image view
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        return imageView
+    }()
     
+    // setup TF
+    let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Give this photo a title:"
+        return textField
+    }()
+
+    let addImageButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        return button
+    }()
+  
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
@@ -36,58 +59,26 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = image
     }
     
+    
     // MARK: - Private Methods
     
     func setUpSubviews() {
-        
-        // setup imageView
-        var imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
-        
-        
-        // Anchor version of in-line contraints
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
-        
-        
-        // Set views imageView to be the I just defiend
-        self.imageView = imageView
-        
-        
-        // Add UIButton adn program in constraints
-        var addImageButton = UIButton(type: .system)
-        addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        addImageButton.setTitle("Add Image", for: .normal)
-        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -70).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 210).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.5).isActive = true
+
         view.addSubview(addImageButton)
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
 
-        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
-        addImageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        addImageButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        
-        // Create TF
-        var textField = UITextField()
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Enter photo title"
-        view.addSubview(textField)
+        view.addSubview(titleTextField)
+        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 10).isActive = true
 
-        // constraints
-        textField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 20).isActive = true
-        textField.leadingAnchor.constraint(equalTo: addImageButton.leadingAnchor).isActive = true
-        textField.trailingAnchor.constraint(equalTo: addImageButton.trailingAnchor).isActive = true
-        
-        self.titleTextField = textField
-        
-        
-        let saveButton = UIBarButtonItem.init(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
-
-        navigationItem.rightBarButtonItem = saveButton
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
     }
     
     @objc private func addImage() {
