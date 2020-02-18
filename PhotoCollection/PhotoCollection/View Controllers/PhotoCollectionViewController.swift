@@ -12,7 +12,10 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+   
+    var horizontalItems: CGFloat = 2
     
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -87,3 +90,14 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+  extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+          let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+          let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalItems - 1)
+          let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalItems
+          
+          return CGSize(width: width, height: width * 1.2)
+        
+       
+      }
+  }
