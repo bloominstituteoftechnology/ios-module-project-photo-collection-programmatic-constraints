@@ -26,6 +26,10 @@ class ThemeHelper {
     }
     
     func setThemePreferenceToBlue() {
-        UserDefaults.standard.set("Blue", forKey: themePreferenceKey)
+        UserDefaults.standard.set("Yellow", forKey: themePreferenceKey)
     }
+}
+extension UIColor {
+    static let dark =  UIColor(red: 176/255, green: 196/255, blue: 222/255, alpha: 1)
+    static let customYellow = UIColor(red: 255/255, green: 248/255, blue: 220/255, alpha: 1)
 }

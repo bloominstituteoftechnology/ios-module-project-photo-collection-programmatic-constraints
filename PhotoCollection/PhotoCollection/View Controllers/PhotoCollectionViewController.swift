@@ -8,18 +8,21 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController  {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        collectionView?.reloadData()
         setTheme()
+        collectionView?.reloadData()
+        
     }
     
+  
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -30,11 +33,13 @@ class PhotoCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
         let photo = photoController.photos[indexPath.row]
-        
+     
         cell.photo = photo
         
         return cell
     }
+    
+ 
     
     private func setTheme() {
     
@@ -42,16 +47,20 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         var backgroundColor: UIColor!
         
-        switch themePreference {
+        switch themePreference
+        {
         case "Dark":
-            backgroundColor = .lightGray
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+            backgroundColor = .dark
+            
+        case "Yellow":
+            backgroundColor = .customYellow
+
         default:
             break
         }
-        
         collectionView?.backgroundColor = backgroundColor
+        view.backgroundColor = backgroundColor
+      
     }
     
     // MARK: - Navigation
@@ -86,4 +95,23 @@ class PhotoCollectionViewController: UICollectionViewController {
             break
         }
     }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension PhotoCollectionViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+     }
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
+    }
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+      let padding: CGFloat =  20
+        let collectionViewSize = collectionView.frame.size.width - padding
+
+        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+     }
 }
