@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
+    
     //MARK: - Variables
     var photo: Photo? {
         didSet {
@@ -60,14 +60,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 4).isActive = true
         
-        NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 4).isActive = true
+        NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 2).isActive = true
         
-        NSLayoutConstraint(item: label, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -4).isActive = true
+        NSLayoutConstraint(item: label, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -2).isActive = true
         
         self.titleLabel = label
     }
     
-    private func updateViews() {
+    func updateViews() {
         guard let photo = photo else { return }
         imageView.image = UIImage(data: photo.imageData)
         titleLabel.text = photo.title
