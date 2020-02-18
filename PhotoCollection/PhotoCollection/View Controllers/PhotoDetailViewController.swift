@@ -13,6 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     var imageView: UIImageView!
     var titleTextField: UITextField!
+    var addButton: UIButton!
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -23,6 +24,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -116,6 +118,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 40).isActive = true
         addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        self.addButton = addImageButton
         
         // TextField
         let textfield = UITextField()

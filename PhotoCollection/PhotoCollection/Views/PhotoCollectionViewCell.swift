@@ -54,25 +54,26 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            constant: 8).isActive = true
         
         NSLayoutConstraint(item: imageView,
-                           attribute: .centerX,
+                           attribute: .trailing,
                            relatedBy: .equal,
                            toItem: self,
-                           attribute: .centerX,
-                           multiplier: 1,
-                           constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: imageView,
-                           attribute: .bottom,
-                           relatedBy: .equal,
-                           toItem: self,
-                           attribute: .bottom,
+                           attribute: .trailing,
                            multiplier: 1,
                            constant: -8).isActive = true
         
+        NSLayoutConstraint(item: imageView,
+                           attribute: .height,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .height,
+                           multiplier: 0.85,
+                           constant: 0).isActive = true
+    
         self.photoImage = imageView
         
         // Label
         let label = UILabel()
+        label.text = "Hills"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
@@ -83,7 +84,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: imageView,
                            attribute: .bottom,
                            multiplier: 1,
-                           constant: 8).isActive = true
+                           constant: 2).isActive = true
         
         NSLayoutConstraint(item: label,
                            attribute: .centerX,
@@ -92,6 +93,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .centerX,
                            multiplier: 1,
                            constant: 0).isActive = true
+        
+        NSLayoutConstraint(item: label,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: -8).isActive = true
         
         self.photoLabel = label
     }
