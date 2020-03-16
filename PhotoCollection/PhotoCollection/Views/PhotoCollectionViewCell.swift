@@ -26,9 +26,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     private func updateViews() {
-        
         uiImage.image = UIImage(data: photo!.imageData)
-        
         titleLabel.text = photo?.title
     }
     
