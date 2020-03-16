@@ -8,10 +8,27 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5)
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                          layout collectionViewLayout: UICollectionViewLayout,
+                          minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    internal func collectionView(_ collectionView: UICollectionView,
+           layout collectionViewLayout: UICollectionViewLayout,
+           sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.bounds.width / 2 - 10
+        let height = width + 10
+        return CGSize(width: width, height: height)
+    
+    }
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
