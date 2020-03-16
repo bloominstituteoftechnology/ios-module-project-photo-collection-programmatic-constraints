@@ -81,6 +81,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         // TEXT FIELD
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.borderStyle = UITextField.BorderStyle.roundedRect
         
         view.addSubview(titleTextField)
         
