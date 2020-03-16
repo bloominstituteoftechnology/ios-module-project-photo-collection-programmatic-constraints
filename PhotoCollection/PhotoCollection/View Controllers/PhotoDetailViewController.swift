@@ -11,10 +11,43 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView = UIImageView()
+    var button = UIButton(type: .system)
+    var textField = UITextField()
     
-    var photo: Photo?
+    func setUpSubviews() {
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.5).isActive = true
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        view.addSubview(button)
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50).isActive = true
+        
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Add Title"
+        textField.textAlignment = .center
+        view.addSubview(textField)
+        textField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        let barButton = UIBarButtonItem.init(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        navigationItem.rightBarButtonItem = barButton
+        
+    }
+    
+    var photo: Photo? 
+
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -22,6 +55,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
+        setUpSubviews()
         updateViews()
     }
     
@@ -38,7 +72,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,11 +95,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
-            let title = titleTextField.text else { return }
+            let title = textField.text else { return }
         
         if let photo = photo {
             photoController?.update(photo: photo, with: imageData, and: title)
@@ -86,7 +120,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         title = photo.title
         
         imageView.image = UIImage(data: photo.imageData)
-        titleTextField.text = photo.title
+        textField.text = photo.title
     }
     
     private func presentImagePickerController() {
