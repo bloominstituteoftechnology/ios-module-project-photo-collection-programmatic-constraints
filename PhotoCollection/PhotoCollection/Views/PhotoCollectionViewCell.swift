@@ -13,7 +13,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView: UIImageView!
     private var photoTitleLabel: UILabel!
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            setUpSubviews()
+        }
+    }
     
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
@@ -24,7 +28,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private func setUpSubviews() {
         // Image View
         let imageView = UIImageView()
-                
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         addSubview(imageView)
@@ -64,7 +67,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         // Label
         photoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        photoTitleLabel.text = photo?.title
         photoTitleLabel.textAlignment = .center
         addSubview(photoTitleLabel)
         
@@ -91,11 +93,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .trailing,
                            multiplier: 1,
                            constant: -4).isActive = true
-        
-        
-        
-
-        
     }
     
+    
+    func updateViews() {
+        photoTitleLabel.text = photo?.title
+
+      
+}
+
 }
