@@ -25,7 +25,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTheme()
+        if let themeHelper = themeHelper {
+            view.setTheme(with: themeHelper)
+        }
+        
         setupViews()
         updateViews()
     }
@@ -103,23 +106,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imagePicker.delegate = self
         
         present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func setTheme() {
-        guard let themePreference = themeHelper?.themePreference else { return }
-        
-        var backgroundColor: UIColor!
-        
-        switch themePreference {
-        case "Dark":
-            backgroundColor = UIColor(white: 0.1, alpha: 1)
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-        default:
-            break
-        }
-        
-        view.backgroundColor = backgroundColor
     }
     
     

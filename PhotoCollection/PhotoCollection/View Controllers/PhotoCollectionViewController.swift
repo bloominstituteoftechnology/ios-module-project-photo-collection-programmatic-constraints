@@ -22,7 +22,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
-        setTheme()
+        collectionView.setTheme(with: themeHelper)
     }
     
     
@@ -40,27 +40,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         cell.photo = photo
 
         return cell
-    }
-    
-    
-    // MARK: - Private
-    
-    private func setTheme() {
-    
-        guard let themePreference = themeHelper.themePreference else { return }
-        
-        var backgroundColor: UIColor!
-        
-        switch themePreference {
-        case "Dark":
-            backgroundColor = UIColor(white: 0.1, alpha: 1)
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-        default:
-            break
-        }
-        
-        collectionView?.backgroundColor = backgroundColor
     }
     
     // MARK: - Navigation
@@ -103,7 +82,7 @@ class PhotoCollectionViewController: UICollectionViewController {
 
 extension PhotoCollectionViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        setTheme()
+        collectionView.setTheme(with: themeHelper)
     }
 }
 

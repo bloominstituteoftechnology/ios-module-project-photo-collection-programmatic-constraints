@@ -22,13 +22,12 @@ class ThemeSelectionViewController: UIViewController {
     // MARK: - Private
     
     private func setUpSubviews() {
-    
         themeSelectionLabel.font = .systemFont(ofSize: 20, weight: .semibold)
         themeSelectionLabel.textColor = .white
         themeSelectionLabel.text = "Select a Theme"
         
         themeSelector.backgroundColor = .lightGray
-        themeSelector.selectedSegmentIndex = 0
+        themeSelector.selectedSegmentIndex = themeHelper?.themePreference == "Dark" ? 0 : 1
         themeSelector.addTarget(self, action: #selector(themeSelected(_:)), for: .valueChanged)
         
         let stackView = UIStackView(arrangedSubviews: [themeSelectionLabel, themeSelector])
@@ -46,44 +45,19 @@ class ThemeSelectionViewController: UIViewController {
         ])
     }
     
-    private func selectDarkTheme() {
-        themeHelper?.setThemePreferenceToDark()
-        setTheme()
-    }
-    
-    private func selectBlueTheme() {
-        themeHelper?.setThemePreferenceToBlue()
-        setTheme()
-    }
-    
-    private func setTheme() {
-        guard let themePreference = themeHelper?.themePreference else { return }
-        
-        var backgroundColor: UIColor!
-        
-        switch themePreference {
-        case "Dark":
-            backgroundColor = UIColor(white: 0.1, alpha: 1)
-            themeSelector.selectedSegmentIndex = 0
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-            themeSelector.selectedSegmentIndex = 1
-        default:
-            break
-        }
-        
-        view.backgroundColor = backgroundColor
-    }
-    
     
     // MARK: - Action Handlers
     
     @objc private func themeSelected(_ sender: UISegmentedControl) {
+        guard let themeHelper = themeHelper else { return }
+        
         if sender.selectedSegmentIndex == 0 {
-            selectDarkTheme()
+            themeHelper.setThemePreferenceToDark()
         } else {
-            selectBlueTheme()
+            themeHelper.setThemePreferenceToBlue()
         }
+        
+        view.setTheme(with: themeHelper)
     }
     
     
@@ -92,7 +66,10 @@ class ThemeSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubviews()
-        setTheme()
+        
+        if let themeHelper = themeHelper {
+            view.setTheme(with: themeHelper)
+        }
     }
 }
 
