@@ -37,12 +37,14 @@ class ThemeSelectionViewController: UIViewController {
         let darkButton = UIButton()
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         darkButton.setTitle("Dark", for: .normal)
+        darkButton.setTitleColor(.black, for: .normal)
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         view.addSubview(darkButton)
         
         let blueButton = UIButton()
         blueButton.translatesAutoresizingMaskIntoConstraints = false
         blueButton.setTitle("Blue", for: .normal)
+        blueButton.setTitleColor(.black, for: .normal)
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         view.addSubview(blueButton)
         
@@ -58,7 +60,6 @@ class ThemeSelectionViewController: UIViewController {
         darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20).isActive = true
         darkButton.leadingAnchor.constraint(equalTo: label.leadingAnchor, constant: 20).isActive = true
         darkButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        darkButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         // blueButton
         blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20).isActive = true
