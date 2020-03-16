@@ -60,8 +60,35 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                   multiplier: 1,
                                                   constant: 0)
         
+        // MARK: - Label
         
+        // Size
+        let labelLeadingConstraint = NSLayoutConstraint(item: titleLabel,
+                                                        attribute: .leading,
+                                                        relatedBy: .equal,
+                                                        toItem: uiImage,
+                                                        attribute: .leading,
+                                                        multiplier: 1,
+                                                        constant: 0)
         
-        NSLayoutConstraint.activate([imageHeightConstraint, imageWidthConstraint, imageYConstraint, imageXConstraint])
+        let labelTrailingConstraint = NSLayoutConstraint(item: titleLabel,
+                                                         attribute: .trailing,
+                                                         relatedBy: .equal,
+                                                         toItem: uiImage,
+                                                         attribute: .trailing,
+                                                         multiplier: 1,
+                                                         constant: 0)
+        
+        // Position
+        
+        let labelTopConstraint = NSLayoutConstraint(item: titleLabel,
+                                                    attribute: .top,
+                                                    relatedBy: .equal,
+                                                    toItem: uiImage,
+                                                    attribute: .bottom,
+                                                    multiplier: 1,
+                                                    constant: 20)
+        
+        NSLayoutConstraint.activate([imageHeightConstraint, imageWidthConstraint, imageYConstraint, imageXConstraint, labelLeadingConstraint, labelTrailingConstraint, labelTopConstraint])
     }
 }
