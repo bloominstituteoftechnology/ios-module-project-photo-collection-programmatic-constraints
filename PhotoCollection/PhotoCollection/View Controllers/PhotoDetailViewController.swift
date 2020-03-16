@@ -52,7 +52,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(selectPhotoButton)
         view.addSubview(titleTextField)
         
-        //imageView.backgroundColor = .yellow
         imageView.image = UIImage(systemName: "x.square")
         imageView.tintColor = .lightGray
         imageView.preferredSymbolConfiguration = .init(weight: .thin)
@@ -151,7 +150,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         switch themePreference {
         case "Dark":
-            backgroundColor = .lightGray
+            backgroundColor = UIColor(white: 0.1, alpha: 1)
         case "Blue":
             backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
         default:

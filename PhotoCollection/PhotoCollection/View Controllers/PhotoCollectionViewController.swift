@@ -46,9 +46,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         switch themePreference {
         case "Dark":
             backgroundColor = UIColor(white: 0.1, alpha: 1)
-            navigationController?.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.white
-            ]
         case "Blue":
             backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
         default:
