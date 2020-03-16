@@ -9,8 +9,93 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
+    
+    private var imageView: UIImageView!
+    private var photoTitleLabel: UILabel!
 
     var photo: Photo?
     
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setUpSubviews()
+//    }
+    
+    
+    private func setUpSubviews() {
+        // Image View
+        let imageView = UIImageView()
+                
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleToFill
+        addSubview(imageView)
+        
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 6).isActive = true
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .top,
+                           multiplier: 1,
+            constant: 6).isActive = true
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -6).isActive = true
+        
+        NSLayoutConstraint(item: imageView,
+                           attribute: .height,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .width,
+                           multiplier: 1,
+                           constant: 0).isActive = true
+        
+        // Label
+        photoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        photoTitleLabel.text = photo?.title
+        photoTitleLabel.textAlignment = .center
+        addSubview(photoTitleLabel)
+        
+        NSLayoutConstraint(item: photoTitleLabel,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: photoTitleLabel,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: photoTitleLabel,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -4).isActive = true
+        
+        
+        
+
+        
+    }
     
 }
