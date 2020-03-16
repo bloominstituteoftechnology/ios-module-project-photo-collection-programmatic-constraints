@@ -11,12 +11,13 @@ import UIKit
 class ThemeSelectionViewController: UIViewController {
 
     @objc func selectDarkTheme() {
-        themeHelper?.setThemePreferenceToDark()
+        print("Dark Theme clicked")
+        themeHelper!.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
     
     @objc func selectBlueTheme() {
-        themeHelper?.setThemePreferenceToBlue()
+        themeHelper!.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
     
