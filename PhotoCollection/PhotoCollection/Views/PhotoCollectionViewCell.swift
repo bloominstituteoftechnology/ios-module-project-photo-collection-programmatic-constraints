@@ -10,20 +10,33 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
+    let titleLabel = UILabel()
+    let uiImage = UIImageView()
+    
     var photo: Photo? {
         didSet {
             setUpSubviews()
         }
     }
     
-    private func setUpSubviews() {
-        let uiImage = UIImageView()
+    override func awakeFromNib() {
+        updateViews()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func updateViews() {
+        
         uiImage.image = UIImage(data: photo!.imageData)
+        
+        titleLabel.text = photo?.title
+    }
+    
+    private func setUpSubviews() {
+        
         uiImage.contentMode = .scaleAspectFit
         addSubview(uiImage)
         
-        let titleLabel = UILabel()
-        titleLabel.text = photo?.title
         titleLabel.textAlignment = .center
         addSubview(titleLabel)
         
