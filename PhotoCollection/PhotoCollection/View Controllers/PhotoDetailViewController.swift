@@ -8,22 +8,30 @@
 
 import UIKit
 import Photos
+import SwiftUI
+
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+
+    @UseAutoLayout var imageView = UIImageView()
+    @UseAutoLayout var selectPhotoButton = UIButton()
+    @UseAutoLayout var titleTextField = UITextField()
     
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTheme()
+        setupViews()
         updateViews()
     }
+    
     
     // MARK: - UIImagePickerControllerDelegate
     
@@ -36,9 +44,43 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = image
     }
     
+    
     // MARK: - Private Methods
     
-    private func addImage() {
+    private func setupViews() {
+        view.addSubview(imageView)
+        view.addSubview(selectPhotoButton)
+        view.addSubview(titleTextField)
+        
+        //imageView.backgroundColor = .yellow
+        imageView.image = UIImage(systemName: "x.square")
+        imageView.tintColor = .lightGray
+        imageView.preferredSymbolConfiguration = .init(weight: .thin)
+        imageView.contentMode = .scaleAspectFit
+        
+        selectPhotoButton.setTitle("Select a Photo", for: .normal)
+        selectPhotoButton.setTitleColor(.systemBlue, for: .normal)
+        selectPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        titleTextField.borderStyle = .roundedRect
+        titleTextField.placeholder = "Give your photo a name"
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.3),
+            selectPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            titleTextField.topAnchor.constraint(equalTo: selectPhotoButton.bottomAnchor, constant: 20),
+            titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+        ])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+    }
+    
+    @objc func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -54,14 +96,16 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
                     NSLog("User did not authorize access to the photo library")
                     return
                 }
-                self.presentImagePickerController()
+                DispatchQueue.main.async {
+                    self.presentImagePickerController()
+                }
             }
         default:
             break
         }
     }
     
-    private func savePhoto() {
+    @objc func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -115,5 +159,20 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+}
+
+struct ViewWrapper: UIViewRepresentable {
+    func makeUIView(context: UIViewRepresentableContext<ViewWrapper>) -> UIView {
+        return PhotoDetailViewController().view
+    }
+    
+    func updateUIView(_ uiView: ViewWrapper.UIViewType, context: UIViewRepresentableContext<ViewWrapper>) {
+    }
+}
+
+struct ViewWrapper_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewWrapper()
     }
 }

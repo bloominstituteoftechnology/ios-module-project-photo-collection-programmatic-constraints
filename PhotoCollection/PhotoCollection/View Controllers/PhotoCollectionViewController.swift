@@ -30,8 +30,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
         let photo = photoController.photos[indexPath.row]
-        
+
         cell.photo = photo
+
         
         return cell
     }
@@ -44,7 +45,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         switch themePreference {
         case "Dark":
-            backgroundColor = .lightGray
+            backgroundColor = UIColor(white: 0.1, alpha: 1)
+            navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ]
         case "Blue":
             backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
         default:
@@ -86,4 +90,33 @@ class PhotoCollectionViewController: UICollectionViewController {
             break
         }
     }
+}
+
+private enum Layout {
+    static let numCellsPerRow: CGFloat = 2
+    static let horizontalMargin: CGFloat = 20
+    static let verticalMargin: CGFloat = 20
+    static let horizontalPadding: CGFloat = 10
+    static let verticalPadding: CGFloat = 10
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: Layout.verticalMargin, left: Layout.horizontalMargin, bottom: Layout.verticalMargin, right: Layout.horizontalMargin)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return Layout.horizontalPadding
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Layout.verticalPadding
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let horizontalSpace = Layout.horizontalPadding * (Layout.numCellsPerRow - 1) + Layout.horizontalMargin * 2
+        let cellWidth = (collectionView.frame.width - horizontalSpace) / Layout.numCellsPerRow
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
+    
 }
