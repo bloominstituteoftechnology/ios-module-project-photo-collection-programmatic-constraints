@@ -13,6 +13,9 @@ import SwiftUI
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    
+    // MARK: - Properties
+    
     @UseAutoLayout var imageView = UIImageView()
     @UseAutoLayout var selectPhotoButton = UIButton()
     @UseAutoLayout var titleTextField = UITextField()
@@ -160,6 +163,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.backgroundColor = backgroundColor
     }
 }
+
+
+// MARK: - SwiftUI Preview
 
 struct ViewWrapper: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<ViewWrapper>) -> UIView {

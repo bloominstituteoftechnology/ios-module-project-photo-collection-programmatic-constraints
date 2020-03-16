@@ -89,6 +89,9 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
 }
 
+
+// MARK: - Layout
+
 private enum Layout {
     static let numCellsPerRow: CGFloat = 2
     static let horizontalMargin: CGFloat = 20
