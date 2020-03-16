@@ -13,12 +13,7 @@ import SwiftUI
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    
     // MARK: - Properties
-    
-    @UseAutoLayout var imageView = UIImageView()
-    @UseAutoLayout var selectPhotoButton = UIButton()
-    @UseAutoLayout var titleTextField = UITextField()
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -48,7 +43,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Private
+    
+    @UseAutoLayout private var imageView = UIImageView()
+    @UseAutoLayout private var selectPhotoButton = UIButton()
+    @UseAutoLayout private var titleTextField = UITextField()
     
     private func setupViews() {
         view.addSubview(imageView)
@@ -82,7 +81,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
     }
     
-    @objc func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -107,7 +106,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    @objc func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),

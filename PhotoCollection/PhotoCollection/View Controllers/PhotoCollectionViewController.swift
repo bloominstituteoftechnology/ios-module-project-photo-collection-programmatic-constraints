@@ -10,8 +10,13 @@ import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
     
-    let photoController = PhotoController()
-    let themeHelper = ThemeHelper()
+    // MARK: - Properties
+    
+    private let photoController = PhotoController()
+    private let themeHelper = ThemeHelper()
+    
+    
+    // MARK: - View Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,6 +41,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         return cell
     }
+    
+    // MARK: - Private
     
     private func setTheme() {
     
@@ -66,6 +73,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.presentationController?.delegate = self
             
         case "CreatePhoto":
             
@@ -86,6 +94,12 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        setTheme()
     }
 }
 
