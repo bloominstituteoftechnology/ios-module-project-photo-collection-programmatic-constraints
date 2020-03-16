@@ -11,8 +11,8 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView = UIImageView()
+    var titleTextField = UITextField()
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -115,5 +115,22 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    func setUpSubviews() {
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        let addImageButton = UIButton()
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.contentMode = .scaleAspectFit
+        addImageButton.titleLabel?.text = "Add Image"
+        addImageButton.target(forAction: #selector(addImage), withSender: <#T##Any?#>)
+        view.addSubview(imageView)
+        view.addSubview(titleTextField)
+        view.addSubview(addImageButton)
+        
+        
+        
     }
 }

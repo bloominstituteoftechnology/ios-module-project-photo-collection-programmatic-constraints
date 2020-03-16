@@ -87,3 +87,24 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return insets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //let size = CGSize(width: 150, height: 190)
+        let viewWidth = self.view.frame.size.width
+        let cellWidth = (viewWidth/2.0 - 16.0)
+        let cellHeight = cellWidth + 40.0
+        let size = CGSize(width: cellWidth, height: cellHeight)
+        //print(self.view.frame.size)
+        return size
+    }
+}
