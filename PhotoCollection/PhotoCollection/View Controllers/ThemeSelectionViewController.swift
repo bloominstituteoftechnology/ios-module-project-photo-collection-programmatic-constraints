@@ -21,6 +21,31 @@ class ThemeSelectionViewController: UIViewController {
     
     // MARK: - Private
     
+    private func setUpSubviews() {
+    
+        themeSelectionLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        themeSelectionLabel.textColor = .white
+        themeSelectionLabel.text = "Select a Theme"
+        
+        themeSelector.backgroundColor = .lightGray
+        themeSelector.selectedSegmentIndex = 0
+        themeSelector.addTarget(self, action: #selector(themeSelected(_:)), for: .valueChanged)
+        
+        let stackView = UIStackView(arrangedSubviews: [themeSelectionLabel, themeSelector])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 20
+        
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+    }
+    
     private func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         setTheme()
@@ -50,35 +75,8 @@ class ThemeSelectionViewController: UIViewController {
         view.backgroundColor = backgroundColor
     }
     
-    private func setUpSubviews() {
     
-        themeSelectionLabel.font = .systemFont(ofSize: 20, weight: .semibold)
-        themeSelectionLabel.textColor = .white
-        themeSelectionLabel.text = "Select a Theme"
-        
-        themeSelector.backgroundColor = .lightGray
-        themeSelector.selectedSegmentIndex = 0
-        themeSelector.addTarget(self, action: #selector(themeSelected(_:)), for: .valueChanged)
-
-        
-        let stackView = UIStackView(arrangedSubviews: [themeSelectionLabel, themeSelector])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 20
-        
-        view.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-        
-        
-    }
-    
-    // MARK: - Action Handler
+    // MARK: - Action Handlers
     
     @objc private func themeSelected(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -88,6 +86,7 @@ class ThemeSelectionViewController: UIViewController {
         }
     }
     
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -96,8 +95,6 @@ class ThemeSelectionViewController: UIViewController {
         setTheme()
     }
 }
-
-
 
 
 // MARK: - SwiftUI Preview

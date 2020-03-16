@@ -54,8 +54,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(selectPhotoButton)
         view.addSubview(titleTextField)
         
-        imageView.image = UIImage(systemName: "x.square")
-        imageView.tintColor = .lightGray
+        imageView.image = UIImage(systemName: "photo")
+        imageView.tintColor = UIColor(white: 1.0, alpha: 0.5)
         imageView.preferredSymbolConfiguration = .init(weight: .thin)
         imageView.contentMode = .scaleAspectFit
         
@@ -80,6 +80,50 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
     }
+    
+    private func updateViews() {
+        
+        guard let photo = photo else {
+            title = "Create Photo"
+            return
+        }
+        
+        imageView.image = UIImage(data: photo.imageData)
+        
+        title = photo.title
+        titleTextField.text = photo.title
+    }
+    
+    private func presentImagePickerController() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+        
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func setTheme() {
+        guard let themePreference = themeHelper?.themePreference else { return }
+        
+        var backgroundColor: UIColor!
+        
+        switch themePreference {
+        case "Dark":
+            backgroundColor = UIColor(white: 0.1, alpha: 1)
+        case "Blue":
+            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+        default:
+            break
+        }
+        
+        view.backgroundColor = backgroundColor
+    }
+    
+    
+    // MARK: - Action Handlers
     
     @objc private func addImage() {
         
@@ -119,47 +163,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func updateViews() {
-        
-        guard let photo = photo else {
-            title = "Create Photo"
-            return
-        }
-        
-        title = photo.title
-        
-        imageView.image = UIImage(data: photo.imageData)
-        titleTextField.text = photo.title
-    }
-    
-    private func presentImagePickerController() {
-        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func setTheme() {
-        guard let themePreference = themeHelper?.themePreference else { return }
-        
-        var backgroundColor: UIColor!
-        
-        switch themePreference {
-        case "Dark":
-            backgroundColor = UIColor(white: 0.1, alpha: 1)
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-        default:
-            break
-        }
-        
-        view.backgroundColor = backgroundColor
     }
 }
 

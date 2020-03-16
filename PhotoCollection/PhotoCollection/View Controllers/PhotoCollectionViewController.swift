@@ -25,6 +25,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         setTheme()
     }
     
+    
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -38,9 +39,9 @@ class PhotoCollectionViewController: UICollectionViewController {
 
         cell.photo = photo
 
-        
         return cell
     }
+    
     
     // MARK: - Private
     
@@ -96,6 +97,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+
+// MARK: - Presentation Controller Delegate
 
 extension PhotoCollectionViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
