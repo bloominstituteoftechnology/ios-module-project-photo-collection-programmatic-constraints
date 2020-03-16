@@ -10,16 +10,22 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            setUpSubviews()
+        }
+    }
     
     private func setUpSubviews() {
         let uiImage = UIImageView()
         uiImage.image = UIImage(data: photo!.imageData)
         uiImage.contentMode = .scaleAspectFit
+        addSubview(uiImage)
         
         let titleLabel = UILabel()
         titleLabel.text = photo?.title
         titleLabel.textAlignment = .center
+        addSubview(titleLabel)
         
         uiImage.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
