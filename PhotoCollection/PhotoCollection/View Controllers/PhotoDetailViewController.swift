@@ -11,20 +11,29 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+  var imageView = UIImageView()
+    var titleTextField = UITextField()
+    var photoSelectButton = UIButton()
     
     var photo: Photo?
+    
+    
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTheme()
+        setUpSubviews()
         updateViews()
     }
     
+    func setUpSubviews() {
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: <#T##CGFloat#>)
+    }
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -116,4 +125,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
+   
 }

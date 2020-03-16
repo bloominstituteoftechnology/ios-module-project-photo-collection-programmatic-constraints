@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
-    
+   
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
@@ -85,5 +85,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+        
+
+        
     }
+    
 }
