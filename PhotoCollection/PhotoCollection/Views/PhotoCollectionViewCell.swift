@@ -20,14 +20,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     override func awakeFromNib() {
-        updateViews()
     }
     
     // MARK: - Private Methods
     
     private func updateViews() {
-        uiImage.image = UIImage(data: photo!.imageData)
-        titleLabel.text = photo?.title
+        guard let photo = photo else { fatalError()}
+        uiImage.image = UIImage(data: photo.imageData)
+        titleLabel.text = photo.title
     }
     
     private func setUpSubviews() {
@@ -107,5 +107,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                     constant: 20)
         
         NSLayoutConstraint.activate([imageHeightConstraint, imageWidthConstraint, imageYConstraint, imageXConstraint, labelLeadingConstraint, labelTrailingConstraint, labelTopConstraint])
+        updateViews()
     }
 }
