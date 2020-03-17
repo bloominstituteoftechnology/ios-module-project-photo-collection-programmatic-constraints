@@ -85,15 +85,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         addSubview(titleLabel)
-        
+
         let labelTopConstraint = NSLayoutConstraint(item: titleLabel,
                                                     attribute: .top,
                                                     relatedBy: .equal,
                                                     toItem: imageView,
-                                                    attribute: .top,
+                                                    attribute: .bottom,
                                                     multiplier: 1,
                                                     constant: 4)
-        
+
         let labelLeadingConstraint = NSLayoutConstraint(item: titleLabel,
                                                         attribute: .leading,
                                                         relatedBy: .equal,
