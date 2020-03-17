@@ -11,8 +11,9 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView = UIImageView()
+    var titleTextField = UITextField()
+    let addImageButton = UIButton(type: .system)
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -28,32 +29,35 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     func setUpSubViews() {
         // Image View
-        let imageView = UIImageView(image: <#T##UIImage?#>)
+//        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 8).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, constant: 1).isActive = true
         
         
         // Button
-        let addImageButton = UIButton(type: .system)
+        
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         
         view.addSubview(addImageButton)
         
-        addImageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        addImageButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 200).isActive = true
+        
         
         
         
         // Text field
+//        let titleTextField = UITextField()
         titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.text = nil
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleTextField)
         
@@ -73,11 +77,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        picker.dismiss(animated: true, completion: nil)
-        
         guard let image = info[.originalImage] as? UIImage else { return }
-        
+    
         imageView.image = image
+        
+        picker.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Private Methods
@@ -153,7 +157,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         case "Dark":
             backgroundColor = .lightGray
         case "Sienna":
-            backgroundColor = UIColor(red: 237, green: 114, blue: 88, alpha: 1, alpha: 1)
+            backgroundColor = UIColor(displayP3Red: 237, green: 114, blue: 88, alpha: 1)
         default:
             break
         }
@@ -161,3 +165,5 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.backgroundColor = backgroundColor
     }
 }
+
+
