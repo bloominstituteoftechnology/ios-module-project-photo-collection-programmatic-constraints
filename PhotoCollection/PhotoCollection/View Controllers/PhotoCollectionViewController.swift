@@ -72,6 +72,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         case "ViewPhoto":
             
@@ -81,9 +82,46 @@ class PhotoCollectionViewController: UICollectionViewController {
             destinationVC.photo = photoController.photos[indexPath.row]
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         default:
             break
         }
     }
 }
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let theInsets = (UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0,
+        right: 20.0))
+        return theInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+      
+      return CGSize(width: 170, height: 200)
+    }
+}
+
+extension PhotoCollectionViewController: AddPhotoDelegate {
+    func photoWasAdded(_ photo: Photo) {
+        photoController.createPhoto(with: photo.imageData, title: photo.title)
+        collectionView.reloadData()
+    }
+    
+    func photoWasUpdated(oldPhoto: Photo, title: String, imageData: Data) {
+        photoController.update(photo: oldPhoto, with: imageData, and: title)
+        collectionView.reloadData()
+    }
+}
+
+
