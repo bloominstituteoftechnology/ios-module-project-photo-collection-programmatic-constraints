@@ -26,11 +26,41 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func setUpSubViews() {
+        // Image View
         let imageView = UIImageView(image: <#T##UIImage?#>)
-        let addImageButton = UIButton()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 8).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, constant: 1).isActive = true
+        
+        
+        // Button
+        let addImageButton = UIButton(type: .system)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(addImageButton)
+        
+        addImageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        
+        
+        // Text field
         titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        
+        titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 4).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 4).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -4).isActive = true
+        
+        
         
     }
     
