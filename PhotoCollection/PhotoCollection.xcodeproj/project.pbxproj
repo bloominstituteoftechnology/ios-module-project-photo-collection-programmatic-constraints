@@ -18,6 +18,7 @@
 		460DE0042112D9E300E7FF73 /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460DE0032112D9E300E7FF73 /* PhotoCollectionViewController.swift */; };
 		460DE0062112DA8400E7FF73 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460DE0052112DA8400E7FF73 /* PhotoCollectionViewCell.swift */; };
 		460DE0082112DDBA00E7FF73 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */; };
+		C43BA6B224204ABC003478C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BA6B124204ABC003478C8 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		460DE0032112D9E300E7FF73 /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		460DE0052112DA8400E7FF73 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		C43BA6B124204ABC003478C8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				460DE0012112D82700E7FF73 /* ThemeHelper.swift */,
+				C43BA6B124204ABC003478C8 /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				460DDFFC2112D6E500E7FF73 /* Photo.swift in Sources */,
+				C43BA6B224204ABC003478C8 /* Extensions.swift in Sources */,
 				460DE0042112D9E300E7FF73 /* PhotoCollectionViewController.swift in Sources */,
 				460DE0002112D80000E7FF73 /* ThemeSelectionViewController.swift in Sources */,
 				460DDFFE2112D70C00E7FF73 /* PhotoController.swift in Sources */,
