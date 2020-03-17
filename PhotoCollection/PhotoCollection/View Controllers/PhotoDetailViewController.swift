@@ -166,6 +166,6 @@ struct ViewWrapper: UIViewRepresentable {
 
 struct ViewWrapper_Previews: PreviewProvider {
     static var previews: some View {
-        ViewWrapper()
+        ViewWrapper().background(Color(white: 0.1)).edgesIgnoringSafeArea(.all)
     }
 }

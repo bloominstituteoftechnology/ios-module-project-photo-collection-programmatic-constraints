@@ -87,6 +87,6 @@ struct ThemeSelectionWrapper: UIViewRepresentable {
 
 struct ThemeSelectionWrapper_Previews: PreviewProvider {
     static var previews: some View {
-        ThemeSelectionWrapper().background(Color.init(UIColor(white: 0.1, alpha: 1)))
+        ThemeSelectionWrapper().background(Color(white: 0.1)).edgesIgnoringSafeArea(.all)
     }
 }
