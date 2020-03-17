@@ -12,6 +12,7 @@ import Photos
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var imageView: UIImageView!
+    var addPhotoButton: UIButton!
     var titleTextField: UITextField!
     
     var photo: Photo?
@@ -21,6 +22,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubviews()
         setTheme()
         updateViews()
     }
@@ -38,7 +40,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -116,4 +118,52 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+
+    private func setUpSubviews() {
+        imageView = UIImageView()
+
+        // Image View
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        
+        // Constrain image top
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: 20).isActive = true
+
+        // Constrain image leading
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        
+        // Constrain image trailing
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        // Image height is the same as the width
+        // TODO: How do I do a square?
+        
+        // Button
+        let addPhotoButton = UIButton(type: .system)
+        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        addPhotoButton.setTitle("Add Photo", for: .normal)
+        addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(addPhotoButton)
+
+        addPhotoButton.topAnchor.constraint(equalToSystemSpacingBelow: imageView.bottomAnchor, multiplier: 20).isActive = true
+        
+        addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        // Text Field
+        let titleTextField = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Give this photo a title:"
+        // FIXME: This doesn't work.
+        titleTextField.backgroundColor = UIColor(white: 1, alpha: 0.0)
+
+        view.addSubview(titleTextField)
+
+        titleTextField.topAnchor.constraint(equalToSystemSpacingBelow: addPhotoButton.bottomAnchor, multiplier: 10).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+    }
+    
 }
