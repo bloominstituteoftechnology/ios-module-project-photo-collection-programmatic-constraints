@@ -12,17 +12,17 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     private var imageView: UIImageView!
     private var photoTitleLabel: UILabel!
-
+    
     var photo: Photo? {
         didSet {
             setUpSubviews()
         }
     }
     
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        setUpSubviews()
-//    }
+    //    override init(frame: CGRect) {
+    //        super.init(frame: frame)
+    //        setUpSubviews()
+    //    }
     
     
     private func setUpSubviews() {
@@ -47,7 +47,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .top,
                            multiplier: 1,
-            constant: 6).isActive = true
+                           constant: 6).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
@@ -98,8 +98,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         photoTitleLabel.text = photo?.title
-
-      
-}
-
+        
+        let imageFromData = UIImage(named: "\(photo?.imageData)")
+        let image = UIImageView(image: imageFromData)
+        imageView = image
+    }
 }
