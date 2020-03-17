@@ -41,6 +41,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         // Image View
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        // FIXME: Remove
+        imageView.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1.0)
         addSubview(imageView)
         
         // Constrain image top
@@ -87,7 +89,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let labelTopConstraint = NSLayoutConstraint(item: titleLabel,
                                                     attribute: .top,
                                                     relatedBy: .equal,
-                                                    toItem: imageView.bottomAnchor,
+                                                    toItem: imageView,
                                                     attribute: .top,
                                                     multiplier: 1,
                                                     constant: 4)
