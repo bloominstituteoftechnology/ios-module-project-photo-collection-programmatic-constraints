@@ -11,6 +11,8 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+  
+    
   var imageView = UIImageView()
     var titleTextField = UITextField()
     var photoSelectButton = UIButton()
@@ -32,7 +34,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: <#T##CGFloat#>)
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.widthAnchor, constant: 30).isActive = true
     }
     // MARK: - UIImagePickerControllerDelegate
     
