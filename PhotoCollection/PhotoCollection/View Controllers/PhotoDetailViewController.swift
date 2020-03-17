@@ -33,10 +33,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, constant: 1).isActive = true
         
         
@@ -62,13 +62,14 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(titleTextField)
         
         titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 4).isActive = true
-        titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 4).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -30).isActive = true
         titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -4).isActive = true
         
         // Bar button
         let barButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(savePhoto))
         barButton.title = "Save Photo"
         navigationItem.rightBarButtonItem = barButton
+        
         
         
     }

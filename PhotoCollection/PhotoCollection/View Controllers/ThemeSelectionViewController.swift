@@ -10,6 +10,10 @@ import UIKit
 
 class ThemeSelectionViewController: UIViewController {
     
+    private var setThemeLabel: UILabel!
+    private var darkThemeButton: UIButton!
+    private var burntSiennaButton: UIButton!
+    
     override func viewDidLoad() {
         setUpSubViews()
     }
