@@ -125,19 +125,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func setUpSubviews() {
+        // set translates autoresize to false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        //let addImageButton = UIButton()
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        //var saveButton = UIBarButtonItem()
         
+        // setup views and add elements to view
         imageView.contentMode = .scaleAspectFit
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         titleTextField.placeholder = "Give this photo a title"
         titleTextField.borderStyle = .line
-        //saveButton.title = "Save Photo"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
-        //navigationItem.rightBarButtonItem = saveButton
         view.addSubview(imageView)
         view.addSubview(titleTextField)
         view.addSubview(addImageButton)
@@ -155,8 +153,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         // ImageButton
         addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
-        //addImageButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        //addImageButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         addImageButton.frame.size.width = width / 2
         addImageButton.frame.size.height = 30
         addImageButton.setTitle("Add Image", for: .normal)
