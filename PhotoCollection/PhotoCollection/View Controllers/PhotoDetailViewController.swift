@@ -8,37 +8,84 @@
 
 import UIKit
 import Photos
+import SwiftUI
+
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+
+    // MARK: - Properties
     
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    // MARK: - Private
+    
+    @UseAutoLayout private var imageView = UIImageView()
+    @UseAutoLayout private var selectPhotoButton = UIButton()
+    @UseAutoLayout private var titleTextField = UITextField()
+    
+    private func setupViews() {
+        view.addSubview(imageView)
+        view.addSubview(selectPhotoButton)
+        view.addSubview(titleTextField)
         
-        setTheme()
-        updateViews()
+        imageView.image = UIImage(systemName: "photo")
+        imageView.tintColor = UIColor(white: 1.0, alpha: 0.5)
+        imageView.preferredSymbolConfiguration = .init(weight: .thin)
+        imageView.contentMode = .scaleAspectFit
+        
+        selectPhotoButton.setTitle("Select a Photo", for: .normal)
+        selectPhotoButton.setTitleColor(.systemBlue, for: .normal)
+        selectPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        titleTextField.borderStyle = .roundedRect
+        titleTextField.placeholder = "Give your photo a name"
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.3),
+            selectPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            selectPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            titleTextField.topAnchor.constraint(equalTo: selectPhotoButton.bottomAnchor, constant: 20),
+            titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+        ])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
     }
     
-    // MARK: - UIImagePickerControllerDelegate
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    private func updateViews() {
         
-        picker.dismiss(animated: true, completion: nil)
+        guard let photo = photo else {
+            title = "Create Photo"
+            return
+        }
         
-        guard let image = info[.originalImage] as? UIImage else { return }
+        imageView.image = UIImage(data: photo.imageData)
         
-        imageView.image = image
+        title = photo.title
+        titleTextField.text = photo.title
     }
     
-    // MARK: - Private Methods
+    private func presentImagePickerController() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+        
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
     
-    private func addImage() {
+    
+    // MARK: - Action Handlers
+    
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -54,14 +101,16 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
                     NSLog("User did not authorize access to the photo library")
                     return
                 }
-                self.presentImagePickerController()
+                DispatchQueue.main.async {
+                    self.presentImagePickerController()
+                }
             }
         default:
             break
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -76,44 +125,47 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationController?.popViewController(animated: true)
     }
     
-    private func updateViews() {
+    
+    // MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        guard let photo = photo else {
-            title = "Create Photo"
-            return
+        if let themeHelper = themeHelper {
+            view.setTheme(with: themeHelper)
         }
         
-        title = photo.title
-        
-        imageView.image = UIImage(data: photo.imageData)
-        titleTextField.text = photo.title
+        setupViews()
+        updateViews()
     }
     
-    private func presentImagePickerController() {
-        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        let imagePicker = UIImagePickerController()
+        picker.dismiss(animated: true, completion: nil)
         
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
+        guard let image = info[.originalImage] as? UIImage else { return }
         
-        present(imagePicker, animated: true, completion: nil)
+        imageView.image = image
+    }
+}
+
+
+// MARK: - SwiftUI Preview
+
+struct ViewWrapper: UIViewRepresentable {
+    func makeUIView(context: UIViewRepresentableContext<ViewWrapper>) -> UIView {
+        return PhotoDetailViewController().view
     }
     
-    private func setTheme() {
-        guard let themePreference = themeHelper?.themePreference else { return }
-        
-        var backgroundColor: UIColor!
-        
-        switch themePreference {
-        case "Dark":
-            backgroundColor = .lightGray
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
-        default:
-            break
-        }
-        
-        view.backgroundColor = backgroundColor
+    func updateUIView(_ uiView: ViewWrapper.UIViewType, context: UIViewRepresentableContext<ViewWrapper>) {
+    }
+}
+
+struct ViewWrapper_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewWrapper().background(Color(white: 0.1)).edgesIgnoringSafeArea(.all)
     }
 }

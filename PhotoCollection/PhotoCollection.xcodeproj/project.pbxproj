@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0442E4D7241FBAED004FE6C0 /* UseAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442E4D6241FBAED004FE6C0 /* UseAutoLayout.swift */; };
 		460DDFEA2112CF0B00E7FF73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460DDFE92112CF0B00E7FF73 /* AppDelegate.swift */; };
 		460DDFEF2112CF0B00E7FF73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 460DDFED2112CF0B00E7FF73 /* Main.storyboard */; };
 		460DDFF12112CF0C00E7FF73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460DDFF02112CF0C00E7FF73 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0442E4D6241FBAED004FE6C0 /* UseAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseAutoLayout.swift; sourceTree = "<group>"; };
 		460DDFE62112CF0B00E7FF73 /* PhotoCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		460DDFE92112CF0B00E7FF73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		460DDFEE2112CF0B00E7FF73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		4639ABC32284C1AD00285343 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0442E4D6241FBAED004FE6C0 /* UseAutoLayout.swift */,
 				460DE0012112D82700E7FF73 /* ThemeHelper.swift */,
 			);
 			path = Helpers;
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				460DDFFC2112D6E500E7FF73 /* Photo.swift in Sources */,
+				0442E4D7241FBAED004FE6C0 /* UseAutoLayout.swift in Sources */,
 				460DE0042112D9E300E7FF73 /* PhotoCollectionViewController.swift in Sources */,
 				460DE0002112D80000E7FF73 /* ThemeSelectionViewController.swift in Sources */,
 				460DDFFE2112D70C00E7FF73 /* PhotoController.swift in Sources */,
@@ -364,6 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/PhotoCollection/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -382,6 +387,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/PhotoCollection/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
