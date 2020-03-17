@@ -14,6 +14,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var imageView: UIImageView!
     var addPhotoButton: UIButton!
     var titleTextField: UITextField!
+    var saveButton: UIBarButtonItem!
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -63,7 +64,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -164,6 +165,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         titleTextField.topAnchor.constraint(equalToSystemSpacingBelow: addPhotoButton.bottomAnchor, multiplier: 10).isActive = true
         titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        // Save Bar Button Item
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        
+        navigationItem.rightBarButtonItem = saveButton
     }
     
 }
