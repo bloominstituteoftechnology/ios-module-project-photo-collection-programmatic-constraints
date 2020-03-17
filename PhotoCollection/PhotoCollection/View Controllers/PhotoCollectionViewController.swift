@@ -17,6 +17,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
+        // FIXME: Why doesn't this get called when the modal gets dismissed?
         setTheme()
     }
     
