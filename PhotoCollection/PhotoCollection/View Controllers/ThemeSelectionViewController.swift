@@ -13,13 +13,13 @@ class ThemeSelectionViewController: UIViewController {
     
     // MARK: - Properties
     
-    @UseAutoLayout private var themeSelectionLabel = UILabel()
-    @UseAutoLayout private var themeSelector = UISegmentedControl(items: ["Dark", "Blue"])
-    
     var themeHelper: ThemeHelper?
     
     
     // MARK: - Private
+    
+    @UseAutoLayout private var themeSelectionLabel = UILabel()
+    @UseAutoLayout private var themeSelector = UISegmentedControl(items: ["Dark", "Blue"])
     
     private func setUpSubviews() {
         themeSelectionLabel.font = .systemFont(ofSize: 20, weight: .semibold)

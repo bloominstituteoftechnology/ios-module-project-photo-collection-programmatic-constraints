@@ -20,32 +20,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var themeHelper: ThemeHelper?
     
     
-    // MARK: - View Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let themeHelper = themeHelper {
-            view.setTheme(with: themeHelper)
-        }
-        
-        setupViews()
-        updateViews()
-    }
-    
-    
-    // MARK: - UIImagePickerControllerDelegate
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        picker.dismiss(animated: true, completion: nil)
-        
-        guard let image = info[.originalImage] as? UIImage else { return }
-        
-        imageView.image = image
-    }
-    
-    
     // MARK: - Private
     
     @UseAutoLayout private var imageView = UIImageView()
@@ -149,6 +123,32 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    
+    // MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let themeHelper = themeHelper {
+            view.setTheme(with: themeHelper)
+        }
+        
+        setupViews()
+        updateViews()
+    }
+    
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        imageView.image = image
     }
 }
 
