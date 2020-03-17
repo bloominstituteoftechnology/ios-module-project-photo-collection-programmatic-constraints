@@ -162,7 +162,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         // Text Field
-        let titleTextField = UITextField()
+        titleTextField = UITextField()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.placeholder = "Give this photo a title:"
         // FIXME: This doesn't work.
