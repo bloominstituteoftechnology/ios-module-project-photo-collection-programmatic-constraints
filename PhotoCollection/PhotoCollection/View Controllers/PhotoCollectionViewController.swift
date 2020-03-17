@@ -11,12 +11,14 @@ import UIKit
 class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
+    let photoDetailViewController = PhotoDetailViewController()
     let themeHelper = ThemeHelper()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
+        photoDetailViewController.updateViews()
         setTheme()
     }
     

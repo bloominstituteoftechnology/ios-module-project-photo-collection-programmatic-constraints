@@ -22,6 +22,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
+        setUpSubViews()
         updateViews()
     }
     
@@ -60,6 +61,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 4).isActive = true
         titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -4).isActive = true
         
+        // Bar button
+        let barButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(savePhoto))
+        barButton.title = "Save Photo"
+        navigationItem.rightBarButtonItem = barButton
         
         
     }
@@ -100,7 +105,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -115,7 +120,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationController?.popViewController(animated: true)
     }
     
-    private func updateViews() {
+    func updateViews() {
         
         guard let photo = photo else {
             title = "Create Photo"
