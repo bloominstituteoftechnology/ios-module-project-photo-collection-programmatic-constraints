@@ -47,8 +47,8 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         switch themePreference {
         case "Dark":
             backgroundColor = .lightGray
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+        case "Sienna":
+            backgroundColor = UIColor(red: 235, green: 100, blue: 100, alpha: 1)
         default:
             break
         }

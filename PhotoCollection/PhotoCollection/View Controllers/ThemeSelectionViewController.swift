@@ -10,15 +10,28 @@ import UIKit
 
 class ThemeSelectionViewController: UIViewController {
 
-    func selectDarkTheme() {
+   @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
     
-    func selectBlueTheme() {
-        themeHelper?.setThemePreferenceToBlue()
+   @objc func selectSiennaTheme() {
+        themeHelper?.setThemePreferenceToSienna()
         dismiss(animated: true, completion: nil)
     }
     
     var themeHelper: ThemeHelper?
+    
+    func setUpSubViews() {
+        let setThemeLabel = UILabel()
+        let darkThemeButton = UIButton()
+        
+        darkThemeButton.setTitle("Dark", for: .normal)
+        darkThemeButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+        let burntSiennaButton = UIButton()
+        burntSiennaButton.setTitle("Sienna", for: .normal)
+        burntSiennaButton.addTarget(self, action: #selector(selectSiennaTheme), for: <#T##UIControl.Event#>)
+        
+        
+    }
 }
