@@ -10,7 +10,7 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
-    private var imageView: UIImageView!
+    private var imageView = UIImageView()
     private var photoTitleLabel: UILabel!
     
     var photo: Photo? {
@@ -27,7 +27,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     private func setUpSubviews() {
         // Image View
-        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         addSubview(imageView)
