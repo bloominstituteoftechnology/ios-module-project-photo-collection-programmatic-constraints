@@ -12,7 +12,9 @@ import Photos
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var imageView: UIImageView!
+    var addPhotoButton: UIButton!
     var titleTextField: UITextField!
+    var saveButton: UIBarButtonItem!
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -21,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubviews()
         setTheme()
         updateViews()
     }
@@ -38,7 +41,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +64,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -116,4 +119,65 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+
+    private func setUpSubviews() {
+        imageView = UIImageView()
+
+        // Image View
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        
+        // Constrain image top
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: 20).isActive = true
+
+        // Constrain image leading
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        
+        // Constrain image trailing
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        // Image height is the same as the width
+        // FIXME: Change to anchor
+        // TODO: Why is this giving a force unwrap error and the others don't?
+        NSLayoutConstraint(item: imageView!,
+                           attribute: .height,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .width,
+                           multiplier: 1,
+                           constant: 0).isActive = true
+
+        // Button
+        let addPhotoButton = UIButton(type: .system)
+        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        addPhotoButton.setTitle("Add Photo", for: .normal)
+        addPhotoButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(addPhotoButton)
+
+        addPhotoButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        
+        addPhotoButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        // Text Field
+        titleTextField = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Give this photo a title:"
+        // FIXME: This doesn't work.
+        titleTextField.backgroundColor = UIColor(white: 1, alpha: 0.0)
+
+        view.addSubview(titleTextField)
+
+        titleTextField.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 20).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+
+        // Save Bar Button Item
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        
+        navigationItem.rightBarButtonItem = saveButton
+    }
+    
 }

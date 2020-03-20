@@ -17,6 +17,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
+        // FIXME: Why doesn't this get called when the modal gets dismissed?
         setTheme()
     }
     
@@ -85,5 +86,25 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    // insetForSectionAt
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    // minimumInteritemSpacingForSectionAt
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return CGFloat(0)
+    }
+    
+    // sizeForItemAt
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 225)
     }
 }
