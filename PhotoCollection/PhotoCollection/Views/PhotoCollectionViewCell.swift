@@ -13,8 +13,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
 
-    var photo: Photo?
-    
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
+
     // This init runs when defining the cell in the storboard, but the subviews are laid out programatically
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +30,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setUpSubviews()
     }
 
+    
     private func updateViews() {
         // Unwrap photo object and
         // Convert data blob into a UIImage
@@ -84,6 +89,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         // Label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
+        
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         addSubview(titleLabel)
 
         let labelTopConstraint = NSLayoutConstraint(item: titleLabel,
@@ -109,9 +117,20 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                          attribute: .trailing,
                                                          multiplier: 1,
                                                          constant: -2)
-                
+
+        // FIXME: Why is this needed?
+        // Why does both toItem imageView and titleLabel crash?
+//        let labelHeightConstraint = NSLayoutConstraint(item: titleLabel,
+//                                                       attribute: .height,
+//                                                       relatedBy: .equal,
+//                                                       toItem: imageView,
+//                                                       attribute: .bottom,
+//                                                       multiplier: 1,
+//                                                       constant: 14)
+
         NSLayoutConstraint.activate([labelTopConstraint,
                                      labelLeadingConstraint,
-                                     labelTrailingConstraint])
+                                     labelTrailingConstraint,
+                                     ])//labelHeightConstraint])
     }
 }
