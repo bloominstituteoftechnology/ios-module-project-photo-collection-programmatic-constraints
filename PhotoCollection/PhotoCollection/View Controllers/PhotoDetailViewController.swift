@@ -11,20 +11,60 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+  
     
-    var photo: Photo?
+  var imageView = UIImageView()
+    var titleTextField = UITextField()
+    var photoSelectButton = UIButton()
+    
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTheme()
+        setUpSubviews()
         updateViews()
     }
     
+    func setUpSubviews() {
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        titleTextField.placeholder = "Add a photo"
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        photoSelectButton.setTitle("Select Photo", for: .normal)
+        photoSelectButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        photoSelectButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(photoSelectButton)
+        
+        
+        
+        
+//        constraints
+        imageView.backgroundColor = .brown
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 400).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        photoSelectButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+        photoSelectButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        photoSelectButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: photoSelectButton.bottomAnchor, constant: 15).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        
+        
+         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        
+    }
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -38,7 +78,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +101,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -116,4 +156,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
+   
 }
