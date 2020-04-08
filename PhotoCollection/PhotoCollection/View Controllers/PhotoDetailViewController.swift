@@ -11,8 +11,9 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    let imageView = UIImageView()
+    let addImageButton = UIButton(type: .system)
+    let titleTextField = UITextField()
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -38,7 +39,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -87,6 +88,30 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
+    }
+    
+    private func setUpSubviews() {
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        
+        //TODO: Add missing constraints
+        
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(addImageButton)
+        
+        //TODO: Add missing constraints
+        
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Give this photo a title"
+        
+        view.addSubview(titleTextField)
+        
+        //TODO: Add missing constraints
     }
     
     private func presentImagePickerController() {
