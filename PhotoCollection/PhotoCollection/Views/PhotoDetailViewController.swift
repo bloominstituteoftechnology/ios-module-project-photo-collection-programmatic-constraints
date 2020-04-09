@@ -143,8 +143,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         photoTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(photoTitleTextField)
+        photoTitleTextField.backgroundColor = .white
         self.photoTitleTextField = photoTitleTextField
         
+        // y
+        photoTitleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 8).isActive = true
+        
+        // x
+        photoTitleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        
+        // width
+        photoTitleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 15).isActive = true
     }
     
     
