@@ -9,6 +9,8 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    let chooseThemeLabel = UILabel()
 
     func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
@@ -21,4 +23,13 @@ class ThemeSelectionViewController: UIViewController {
     }
     
     var themeHelper: ThemeHelper?
+    
+    private func setUpSubviews() {
+        
+        chooseThemeLabel.translatesAutoresizingMaskIntoConstraints = false
+        chooseThemeLabel.text = "Select a Theme:"
+        view.addSubview(chooseThemeLabel)
+        
+        chooseThemeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
 }
