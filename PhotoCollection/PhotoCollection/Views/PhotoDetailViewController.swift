@@ -77,7 +77,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -106,6 +106,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func setUpSubViews() {
+        let savePhotoButton = UIButton(type: .system)
+        savePhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        savePhotoButton.setTitle("Save Photo", for: .normal)
+        savePhotoButton.addTarget(self, action: #selector(savePhoto), for: .touchUpInside)
+        view.addSubview(savePhotoButton)
+        
+        savePhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        
+        savePhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
