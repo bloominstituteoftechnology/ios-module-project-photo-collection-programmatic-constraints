@@ -38,10 +38,35 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    private func setUpSubviews() {
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2).isActive = true
+        
+        let addImageButton = UIButton()
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        addImageButton.addTarget(addImageButton, action: #selector(addImage), for: .touchUpInside)
+        addImageButton.setTitle("Add Image", for: .normal)
+        view.addSubview(addImageButton)
+        
+        let photoTitleTextField = UITextField()
+        photoTitleTextField.translatesAutoresizingMaskIntoConstraints = false
+        photoTitleTextField.placeholder = "Give this photo a title:"
+        photoTitleTextField.textAlignment = .left
+        view.addSubview(photoTitleTextField)
+        
+        
+    }
+    
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
