@@ -138,14 +138,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         // x
         addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        // height
-//        NSLayoutConstraint(item: addImageButton,
-//                           attribute: .height,
-//                           relatedBy: .equal,
-//                           toItem: self,
-//                           attribute: .height,
-//                           multiplier: 1,
-//                           constant: 10).isActive = true
+ 
+        let photoTitleTextField = UITextField()
+        photoTitleTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(photoTitleTextField)
+        self.photoTitleTextField = photoTitleTextField
         
     }
     
