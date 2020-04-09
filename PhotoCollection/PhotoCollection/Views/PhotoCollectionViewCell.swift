@@ -11,7 +11,7 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
     
     private var imageView = UIImageView()
-    private var titleLabel: UILabel!
+    private var titleLabel = UILabel()
     
     var photo: Photo? {
         didSet {

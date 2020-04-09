@@ -12,6 +12,7 @@ class ThemeSelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         setUpSubViews()
+        setTheme()
     }
     
     func setUpSubViews() {
@@ -37,7 +38,7 @@ class ThemeSelectionViewController: UIViewController {
         darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30).isActive = true
         
         // x
-        darkButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 30).isActive = true
+        darkButton.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: 10).isActive = true
         
         let blueButton = UIButton(type: .system)
         blueButton.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +51,7 @@ class ThemeSelectionViewController: UIViewController {
         let blueButtonCenterYConstraint = blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30)
         
         // x
-        let blueButtonLeadingConstraint = blueButton.centerYAnchor.constraint(equalTo: darkButton.centerYAnchor)
+        let blueButtonLeadingConstraint = blueButton.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
         
         
         NSLayoutConstraint.activate([labelYConstraint, labelLeadingConstraint, blueButtonCenterYConstraint, blueButtonLeadingConstraint])
@@ -69,5 +70,20 @@ class ThemeSelectionViewController: UIViewController {
     
     var themeHelper: ThemeHelper?
     
-    
+    private func setTheme() {
+        guard let themePreference = themeHelper?.themePreference else { return }
+        
+        var backgroundColor: UIColor!
+        
+        switch themePreference {
+        case "Dark":
+            backgroundColor = .lightGray
+        case "Blue":
+            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+        default:
+            break
+        }
+        
+        view.backgroundColor = backgroundColor
+    }
 }
