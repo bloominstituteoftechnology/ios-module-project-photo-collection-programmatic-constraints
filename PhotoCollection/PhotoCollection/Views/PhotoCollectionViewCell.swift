@@ -100,6 +100,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .trailing,
                            multiplier: 1,
                            constant: -2).isActive = true
+        
     }
     
     private func updateViews() {
