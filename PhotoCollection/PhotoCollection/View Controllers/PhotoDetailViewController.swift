@@ -53,6 +53,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         addImageButton.addTarget(addImageButton, action: #selector(addImage), for: .touchUpInside)
         addImageButton.setTitle("Add Image", for: .normal)
         view.addSubview(addImageButton)
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         
         let photoTitleTextField = UITextField()
         photoTitleTextField.translatesAutoresizingMaskIntoConstraints = false
