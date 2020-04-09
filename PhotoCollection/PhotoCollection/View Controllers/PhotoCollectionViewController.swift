@@ -22,6 +22,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
     
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
     }
@@ -37,7 +38,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     private func setTheme() {
-    
+        
         guard let themePreference = themeHelper.themePreference else { return }
         
         var backgroundColor: UIColor!
@@ -85,5 +86,20 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoDetailViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: 55)
     }
 }

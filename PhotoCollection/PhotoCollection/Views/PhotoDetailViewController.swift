@@ -11,18 +11,34 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView = UIImageView()
     
-    var photo: Photo?
+    var addImageButton: UIButton!
+    var photoTitleTextField: UITextField!
+    var savePhotoButton: UIBarButtonItem!
+    
+    
+    var photo: Photo? {
+        didSet {
+            setUpSubViews()
+        }
+    }
+    
+    
+    
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTheme()
         updateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpSubViews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +54,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -65,7 +81,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
-            let title = titleTextField.text else { return }
+            let title = photoTitleTextField.text else { return }
         
         if let photo = photo {
             photoController?.update(photo: photo, with: imageData, and: title)
@@ -86,10 +102,53 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         title = photo.title
         
         imageView.image = UIImage(data: photo.imageData)
-        titleTextField.text = photo.title
+        photoTitleTextField.text = photo.title
     }
     
-    private func presentImagePickerController() {
+    private func setUpSubViews() {
+        let imageView = UIImageView()
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        self.imageView = imageView
+        // y
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
+        
+        // x
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 65).isActive = true
+        
+        // width
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -65).isActive = true
+        
+        // height
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
+        
+        guard let addImageButton = addImageButton else { return }
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+         // y
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 25).isActive = true
+        
+        // x
+        addImageButton.leadingAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        // height
+//        NSLayoutConstraint(item: addImageButton,
+//                           attribute: .height,
+//                           relatedBy: .equal,
+//                           toItem: self,
+//                           attribute: .height,
+//                           multiplier: 1,
+//                           constant: 10).isActive = true
+        
+    }
+    
+    
+    @objc private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
         
         let imagePicker = UIImagePickerController()

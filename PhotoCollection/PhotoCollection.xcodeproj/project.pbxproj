@@ -81,7 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				460DDFFF2112D80000E7FF73 /* ThemeSelectionViewController.swift */,
-				460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */,
 				460DE0032112D9E300E7FF73 /* PhotoCollectionViewController.swift */,
 			);
 			path = "View Controllers";
@@ -118,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				460DE0052112DA8400E7FF73 /* PhotoCollectionViewCell.swift */,
+				460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
