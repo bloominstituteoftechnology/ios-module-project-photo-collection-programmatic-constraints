@@ -125,16 +125,18 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         // height
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
         
-        guard let addImageButton = addImageButton else { return }
+        let addImageButton = UIButton(type: .system)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        view.addSubview(addImageButton)
+        self.addImageButton = addImageButton
         
          // y
-        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 25).isActive = true
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
         
         // x
-        addImageButton.leadingAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         // height
 //        NSLayoutConstraint(item: addImageButton,
