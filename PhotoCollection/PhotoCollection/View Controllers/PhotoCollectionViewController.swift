@@ -86,4 +86,8 @@ class PhotoCollectionViewController: UICollectionViewController {
             break
         }
     }
+    
+    // Mark :- UICollectionViewDelegateFlowLayout
+    // Do photoCollectionViewController 
+    
 }
