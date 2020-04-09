@@ -93,7 +93,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func updateViews() {
-        
+        setTheme()
         guard let photo = photo else {
             title = "Create Photo"
             return

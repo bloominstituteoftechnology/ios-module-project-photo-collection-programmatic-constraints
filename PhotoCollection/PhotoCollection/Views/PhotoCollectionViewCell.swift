@@ -84,9 +84,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: titleLabel,
                            attribute: .top,
                            relatedBy: .equal,
-                           toItem: self,
-                           attribute: .top,
-            multiplier: 1, constant: 4).isActive = true
+                           toItem: imageView,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 4).isActive = true
         
         // x
         NSLayoutConstraint(item: titleLabel,
@@ -99,12 +100,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         // width
         NSLayoutConstraint(item: titleLabel,
-                           attribute: .centerX,
+                           attribute: .trailing,
                            relatedBy: .equal,
                            toItem: self,
-                           attribute: .centerX,
+                           attribute: .trailing,
                            multiplier: 1,
-            constant: -2).isActive = true
+                           constant: -2).isActive = true
         
     }
    
