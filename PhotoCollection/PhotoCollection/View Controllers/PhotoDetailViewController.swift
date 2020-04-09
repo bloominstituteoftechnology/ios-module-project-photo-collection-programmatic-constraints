@@ -161,6 +161,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
                
-        self.navigationItem.rightBarButtonItem = saveButton
+        navigationItem.rightBarButtonItem = saveButton
     }
 }
