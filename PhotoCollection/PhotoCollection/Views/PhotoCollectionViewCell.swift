@@ -76,10 +76,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         photoLabel.textAlignment = .center
         addSubview(photoLabel)
         
-        photoLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5).isActive = true
-        
+        photoLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15).isActive = true
         photoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
-        
         photoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
         
     }
