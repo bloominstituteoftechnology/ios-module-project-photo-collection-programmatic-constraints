@@ -9,6 +9,11 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpSubviews()
+    }
 
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
@@ -26,16 +31,19 @@ class ThemeSelectionViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Select a theme"
+        view.addSubview(label)
         
         let darkButton = UIButton()
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         darkButton.setTitle("Dark", for: .normal)
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+        view.addSubview(darkButton)
         
         let blueButton = UIButton()
         blueButton.translatesAutoresizingMaskIntoConstraints = false
         blueButton.setTitle("Blue", for: .normal)
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        view.addSubview(blueButton)
         
         NSLayoutConstraint(item: label,
                            attribute: .top,
