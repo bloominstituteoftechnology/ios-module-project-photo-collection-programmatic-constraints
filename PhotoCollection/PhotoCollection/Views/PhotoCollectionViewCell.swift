@@ -9,10 +9,12 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    
+    let imageView = UIImageView()
+    let nameLabel = UILabel()
+   
     var photo: Photo? {
         didSet {
-            setUpSubviews()
+            updateViews()
         }
     }
     
@@ -27,11 +29,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setUpSubviews()
     }
     
+    private func updateViews() {
+        guard let photo = photo else { return }
+        nameLabel.text = photo.title
+        imageView.image = UIImage(data: photo.imageData)
+    }
+    
     private func setUpSubviews() {
         guard let photo = photo else { return }
-        
-        let imageView = UIImageView()
-        let nameLabel = UILabel()
         
         nameLabel.text = photo.title
         imageView.image = UIImage(data: photo.imageData)
