@@ -14,3 +14,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     
 }
+
+func setUpSubviews() {
+    
+}
