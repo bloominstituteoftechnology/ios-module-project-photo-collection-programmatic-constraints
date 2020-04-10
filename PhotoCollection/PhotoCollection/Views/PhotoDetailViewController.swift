@@ -105,18 +105,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = UIImage(data: photo.imageData)
         photoTitleTextField.text = photo.title
     }
-    
+    /// This sets up the UI buttons and labels
     private func setUpSubViews() {
-        let savePhotoButton = UIButton(type: .system)
-        savePhotoButton.translatesAutoresizingMaskIntoConstraints = false
-        savePhotoButton.setTitle("Save Photo", for: .normal)
-        savePhotoButton.addTarget(self, action: #selector(savePhoto), for: .touchUpInside)
-        view.addSubview(savePhotoButton)
         
-        savePhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        
-        savePhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        
+        let savePhotoButton = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
+        navigationItem.rightBarButtonItem = savePhotoButton
         
         let imageView = UIImageView()
         

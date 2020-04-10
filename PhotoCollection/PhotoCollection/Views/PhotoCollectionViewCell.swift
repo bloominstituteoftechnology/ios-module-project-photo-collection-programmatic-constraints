@@ -76,7 +76,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            relatedBy: .equal,
                            toItem: imageView,
                            attribute: .width,
-                           multiplier: 1,
+                           multiplier: 3/5,
                            constant: 0).isActive = true
         // Label
         let label = UILabel()
