@@ -9,7 +9,7 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
-
+    
     var themeHelper: ThemeHelper?
     
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ class ThemeSelectionViewController: UIViewController {
         let labelXAnchor = label.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         
         // Dark Button
-        let darkButton = UIButton()
+        let darkButton = UIButton(type: .system)
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         darkButton.setTitle("Dark", for: .normal)
         view.addSubview(darkButton)
@@ -45,15 +45,16 @@ class ThemeSelectionViewController: UIViewController {
         let darkButtonTopConstraint = darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30)
         let darkButtonTrailingConstraint = darkButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: -10)
         
-        let blueButton = UIButton()
-             blueButton.translatesAutoresizingMaskIntoConstraints = false
-             blueButton.setTitle("Blue", for: .normal)
-             view.addSubview(blueButton)
-             blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
-             let blueButtonTopConstraint = blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30)
+        // Blue Button
+        let blueButton = UIButton(type: .system)
+        blueButton.translatesAutoresizingMaskIntoConstraints = false
+        blueButton.setTitle("Blue", for: .normal)
+        view.addSubview(blueButton)
+        blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        let blueButtonTopConstraint = blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30)
         let blueButtonLeadingConstraint = blueButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 10)
         
-        NSLayoutConstraint.activate([labelTopAnchor, labelXAnchor,darkButtonTopConstraint, darkButtonTrailingConstraint, blueButtonTopConstraint, blueButtonLeadingConstraint])
+        NSLayoutConstraint.activate([labelTopAnchor, labelXAnchor, darkButtonTopConstraint, darkButtonTrailingConstraint, blueButtonTopConstraint, blueButtonLeadingConstraint])
     }
     
 }

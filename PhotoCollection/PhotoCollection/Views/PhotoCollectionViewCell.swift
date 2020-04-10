@@ -19,8 +19,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubviews()
+    }
     
-    private func updateViews() {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpSubviews()
+    }
+    
+    
+    func updateViews() {
         guard let photo = photo else { return }
         imageView.image = UIImage(data: photo.imageData)
         photosTitle.text = photo.title
