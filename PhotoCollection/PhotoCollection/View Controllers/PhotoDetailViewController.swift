@@ -11,20 +11,23 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView = UIImageView()
+    var titleTextField = UITextField()
     
     var photo: Photo?
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(savePhoto))
+        
         setTheme()
         updateViews()
         setUpSubviews()
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -43,7 +46,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
@@ -77,7 +80,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         navigationController?.popViewController(animated: true)
     }
-   
+    
     private func updateViews() {
         
         guard let photo = photo else {
@@ -97,9 +100,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
         
-        let imageTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
-        let imageCenterYConstraint = imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        let imageTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
         
+        let imageLeadingConstraint = imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        
+        let imageBottomConstraint = imageView.bottomAnchor.constraint(equalTo: imageView.topAnchor, constant: 250)
         
         let addButton = UIButton(type: .system)
         addButton.translatesAutoresizingMaskIntoConstraints = false
@@ -108,19 +113,23 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(addButton)
         
         let addTopConstraint = addButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10)
-        let addCenterYConstraint = addButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
+        
+        let addLeadingConstraint = addButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 2)
+        
+        let addTrailingConstraint = addButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -2)
+        
         
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.placeholder = "Give This Photo a title"
-        titleTextField.text = ""
+        // titleTextField.text = ""
         view.addSubview(titleTextField)
         
         let titleTopConstraint = titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10)
-        let titleCenterYAnchor = titleTextField.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
         
-        NSLayoutConstraint.activate([imageTopConstraint, imageCenterYConstraint, addTopConstraint, addCenterYConstraint, titleTopConstraint, titleCenterYAnchor])
+        let titleCenterXConstraint = titleTextField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         
-        _ = UIBarButtonItem(title: "Save", style: UIBarButtonItem.Style.plain, target: self, action: #selector(savePhoto))
+        NSLayoutConstraint.activate([imageTopConstraint, imageLeadingConstraint, imageBottomConstraint, addTopConstraint, addLeadingConstraint, addTrailingConstraint, titleTopConstraint, titleCenterXConstraint])
+        
         
     }
     

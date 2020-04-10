@@ -30,9 +30,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateViews() {
-        guard let photo = photo else { return }
-        nameLabel.text = photo.title
-        imageView.image = UIImage(data: photo.imageData)
+        setUpSubviews()
     }
     
     private func setUpSubviews() {
@@ -62,14 +60,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         addSubview(nameLabel)
         
         // puts label at bottom of the imageView, this is the y
-        nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
+        NSLayoutConstraint(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: -4).isActive = true
         
         //this is the x
-        nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
+        NSLayoutConstraint(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 2).isActive = true
         
         //this is the width
-        nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
-        
+        NSLayoutConstraint(item: nameLabel, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -2).isActive = true
     }
     
 }
