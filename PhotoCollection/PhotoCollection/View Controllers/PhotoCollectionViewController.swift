@@ -90,14 +90,16 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     // MARK: - Private functions
     
     @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5.0
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 150)
+        let screenWidth = UIScreen.main.bounds.width
+        let imageSquare = (screenWidth / 2) - 10
+        return CGSize(width: imageSquare, height: imageSquare + 30)
     }
 }

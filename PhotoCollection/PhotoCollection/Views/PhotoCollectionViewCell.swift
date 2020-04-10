@@ -35,6 +35,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Functions
     
+    private func updateViews() {
+        guard let photo = photo else { return }
+        
+        imageView.image = UIImage(data: photo.imageData)
+        photoLabel.text = photo.title
+    }
+    
     private func setUpSubviews() {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,12 +108,5 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: -2).isActive = true
         
-    }
-    
-    private func updateViews() {
-        guard let photo = photo else { return }
-        
-        imageView.image = UIImage(data: photo.imageData)
-        photoLabel.text = photo.title
     }
 }
