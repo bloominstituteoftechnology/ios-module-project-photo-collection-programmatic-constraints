@@ -40,27 +40,27 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .top,
                            multiplier: 1,
-                           constant: 4).isActive = true
+                           constant: 10).isActive = true
         
-        // Leading / X position
+        // X position
         
-        let imageLeadingContraint = NSLayoutConstraint(item: imageView,
-                                                       attribute: .leading,
-                                                       relatedBy: .equal,
-                                                       toItem: self,
-                                                       attribute: .leading,
-                                                       multiplier: 1,
-                                                       constant: 4).isActive = true
+       NSLayoutConstraint(item: imageView,
+                          attribute: .leading,
+                          relatedBy: .equal,
+                          toItem: self,
+                          attribute: .leading,
+                          multiplier: 1,
+                          constant: 10).isActive = true
         
         // width / negative / left / trailing
         
-        let imageWidthConstraint = NSLayoutConstraint(item: imageView,
-                                                      attribute: .trailing,
-                                                      relatedBy: .equal,
-                                                      toItem: self,
-                                                      attribute: .trailing,
-                                                      multiplier: 1,
-                                                      constant: -4).isActive = true
+        NSLayoutConstraint(item: imageView,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -10).isActive = true
         
         // height
         
@@ -72,6 +72,39 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: 0).isActive = true
         
+        photoLabel.translatesAutoresizingMaskIntoConstraints = false
+        photoLabel.textAlignment = .center
+        addSubview(photoLabel)
+        
+        NSLayoutConstraint(item: photoLabel,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        
+        NSLayoutConstraint(item: photoLabel,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 0).isActive = true
+        
+        NSLayoutConstraint(item: photoLabel,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: imageView,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: 0).isActive = true
+        
+    func updateViews() {
+           guard let photo = photo else { return }
+            imageView.image = UIImage(data: photo.imageData)
+            photoLabel.text = photo.title
+        }
     }
     
 }
