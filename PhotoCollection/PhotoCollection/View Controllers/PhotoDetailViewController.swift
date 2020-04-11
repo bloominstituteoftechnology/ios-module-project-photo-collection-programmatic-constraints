@@ -21,8 +21,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpSubviews()
         setTheme()
+        setUpSubviews()
         updateViews()
     }
     
@@ -39,10 +39,46 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
+    private func setUpSubviews() {
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        
+        view.addSubview(imageView)
+        self.imageView = imageView
+        NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 40).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 20).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: -20).isActive = true
+        NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 3/4, constant: 0).isActive = true
+        
+        let addImageButton = UIButton(type: .system)
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        view.addSubview(addImageButton)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: addImageButton, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 40).isActive = true
+        NSLayoutConstraint(item: addImageButton, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: addImageButton, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        
+        let titleTextField = UITextField()
+        titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.borderStyle = .roundedRect
+        view.addSubview(titleTextField)
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.titleTextField = titleTextField
+        NSLayoutConstraint(item: titleTextField, attribute: .top, relatedBy: .equal, toItem: addImageButton, attribute: .bottom, multiplier: 1, constant: 40).isActive = true
+        NSLayoutConstraint(item: titleTextField, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: titleTextField, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        
+        let savePhotoBarButton = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
+        navigationItem.setRightBarButton(savePhotoBarButton, animated: false)
+    }
+    
     @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
@@ -75,40 +111,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func setUpSubviews() {
-        guard
-            let imageView = imageView,
-            let titleTextField = titleTextField else { return }
-        
-        imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 40).isActive = true
-        NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 20).isActive = true
-        NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: 20).isActive = true
-        NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 3/4, constant: 0).isActive = true
-        
-        let addImageButton = UIButton(type: .system)
-        addImageButton.setTitle("Add Image", for: .normal)
-        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        view.addSubview(addImageButton)
-        addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: addImageButton, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 40).isActive = true
-        NSLayoutConstraint(item: addImageButton, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: addImageButton, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        
-        titleTextField.placeholder = "Give this photo a title:"
-        view.addSubview(titleTextField)
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: titleTextField, attribute: .top, relatedBy: .equal, toItem: addImageButton, attribute: .bottom, multiplier: 1, constant: 40).isActive = true
-        NSLayoutConstraint(item: titleTextField, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: titleTextField, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        
-        let savePhotoBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(savePhoto))
-        savePhotoBarButton.title = "Save Photo"
-        navigationItem.rightBarButtonItem = savePhotoBarButton
     }
     
     private func updateViews() {
