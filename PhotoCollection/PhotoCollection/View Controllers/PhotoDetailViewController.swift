@@ -38,6 +38,16 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
+    private func setupSubviews() {
+        let imageView = UIImageView()
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+        
+    }
+    
     private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()

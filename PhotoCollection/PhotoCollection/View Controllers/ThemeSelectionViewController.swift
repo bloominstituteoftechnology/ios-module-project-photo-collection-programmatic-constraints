@@ -42,9 +42,19 @@ class ThemeSelectionViewController: UIViewController {
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         
+        view.addSubview(darkButton)
+        view.addSubview(blueButton)
+        darkButton.translatesAutoresizingMaskIntoConstraints = false
+        blueButton.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
-        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
+            darkButton.trailingAnchor.constraint(equalTo: label.centerXAnchor, constant: -10),
+            blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
+            blueButton.leadingAnchor.constraint(equalTo: label.centerXAnchor, constant: 10)
+        ])        
     }
 }
