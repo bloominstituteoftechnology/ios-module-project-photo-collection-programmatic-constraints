@@ -8,19 +8,14 @@
 
 import UIKit
 
+protocol ThemeChangeDelegate {
+    func themeDidChange()
+}
+
 class ThemeSelectionViewController: UIViewController {
     
     var themeHelper: ThemeHelper?
-    
-    @objc func selectDarkTheme() {
-        themeHelper?.setThemePreferenceToDark()
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func selectBlueTheme() {
-        themeHelper?.setThemePreferenceToBlue()
-        dismiss(animated: true, completion: nil)
-    }
+    var delegate: ThemeChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,5 +55,17 @@ class ThemeSelectionViewController: UIViewController {
             blueButton.topAnchor.constraint(equalTo: darkButton.topAnchor, constant: 0),
             blueButton.leadingAnchor.constraint(equalTo: label.centerXAnchor, constant: 30),
         ])
+    }
+    
+    @objc func selectDarkTheme() {
+        themeHelper?.setThemePreferenceToDark()
+        delegate?.themeDidChange()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func selectBlueTheme() {
+        themeHelper?.setThemePreferenceToBlue()
+        delegate?.themeDidChange()
+        dismiss(animated: true, completion: nil)
     }
 }

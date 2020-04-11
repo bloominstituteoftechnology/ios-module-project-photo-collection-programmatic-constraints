@@ -64,6 +64,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
+            destinationVC.delegate = self
             destinationVC.themeHelper = themeHelper
             
         case "CreatePhoto":
@@ -93,7 +94,7 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         10
     }
@@ -114,5 +115,11 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / itemsPerRow
 
         return CGSize(width: width, height: width * 1.2)
+    }
+}
+
+extension PhotoCollectionViewController: ThemeChangeDelegate {
+    func themeDidChange() {
+        setTheme()
     }
 }
