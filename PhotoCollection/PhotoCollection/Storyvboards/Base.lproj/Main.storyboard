@@ -44,7 +44,7 @@
                     <navigationItem key="navigationItem" title="Photo Collection" id="BSB-L7-6Ea">
                         <barButtonItem key="leftBarButtonItem" title="Select Theme" id="uiT-8K-AZm">
                             <connections>
-                                <segue destination="8G7-gp-Zsk" kind="presentation" identifier="SelectTheme" id="bJH-AP-fjk"/>
+                                <segue destination="8G7-gp-Zsk" kind="presentation" identifier="SelectTheme" modalPresentationStyle="fullScreen" id="bJH-AP-fjk"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="eDm-Wj-GZU">
@@ -79,7 +79,7 @@
             <objects>
                 <viewController id="8G7-gp-Zsk" customClass="ThemeSelectionViewController" customModule="PhotoCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PeE-Nq-Md0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="3lA-Et-ihd"/>

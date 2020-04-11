@@ -70,7 +70,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            relatedBy: .equal,
                            toItem: imageView,
                            attribute: .width,
-                           multiplier: 1,
+                           multiplier: 1/2,
                            constant: 0).isActive = true
         
         
