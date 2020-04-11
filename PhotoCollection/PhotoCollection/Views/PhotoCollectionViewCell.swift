@@ -9,9 +9,9 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    
-    let imageView = UIImageView()
-    let label = UILabel()
+
+    var imageView: UIImageView!
+    var label: UILabel!
     
     var photo: Photo? {
         didSet {
@@ -25,30 +25,45 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setUpSubviews()
     }
     
+    private func updateViews() {
+        guard let photo = photo else { return }
+        imageView.image = UIImage(data: photo.imageData)
+        label.text = photo.title
+    }
+    
     private func setUpSubviews() {
-        addSubview(imageView)
+        
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        
+        addSubview(imageView)
+        self.imageView = imageView
+
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .top,
                            multiplier: 1,
-                           constant: 20).isActive = true
+                           constant: 5).isActive = true
+        
         NSLayoutConstraint(item: imageView,
                            attribute: .leading,
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 20).isActive = true
+                           constant: 5).isActive = true
+        
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: 20).isActive = true
+                           constant: -5).isActive = true
+        
         NSLayoutConstraint(item: imageView,
                            attribute: .height,
                            relatedBy: .equal,
@@ -57,8 +72,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 3/4,
                            constant: 0).isActive = true
         
-        addSubview(label)
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        
+        addSubview(label)
+        self.label = label
+        
+        
         NSLayoutConstraint(item: label,
                            attribute: .top,
                            relatedBy: .equal,
@@ -66,32 +87,21 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .bottom,
                            multiplier: 1,
                            constant: 10).isActive = true
+        
         NSLayoutConstraint(item: label,
                            attribute: .leading,
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 20).isActive = true
+                           constant: 5).isActive = true
+        
         NSLayoutConstraint(item: label,
                            attribute: .trailing,
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: 20).isActive = true
-        NSLayoutConstraint(item: label,
-                           attribute: .bottom,
-                           relatedBy: .equal,
-                           toItem: self,
-                           attribute: .bottom,
-                           multiplier: 1,
-                           constant: 20).isActive = true
-    }
-    
-    private func updateViews() {
-        guard let photo = photo else { return }
-        imageView.image = UIImage(data: photo.imageData)
-        label.text = photo.title
+                           constant: -5).isActive = true
     }
 }
