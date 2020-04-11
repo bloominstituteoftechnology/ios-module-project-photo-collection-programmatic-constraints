@@ -99,7 +99,20 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionViewLayout.collectionViewContentSize.width
-        return CGSize(width: width / 3, height: width / 3)
+        
+//        let width = collectionViewLayout.collectionViewContentSize.width
+//        return CGSize(width: width / 3, height: width / 3)
+        
+        let itemsPerRow: CGFloat = 2
+
+        let insets = self.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: 0)
+
+        let horizontalInsets = insets.left + insets.right
+
+        let itemSpacing = (self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: 0)) * (itemsPerRow - 1)
+
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / itemsPerRow
+
+        return CGSize(width: width, height: width * 1.2)
     }
 }
