@@ -15,6 +15,7 @@ class ThemeSelectionViewController: UIViewController {
     override func viewDidLoad() {
         setupSubViews()
     }
+   
     
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()

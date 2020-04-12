@@ -10,8 +10,8 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
-    var imageView = UIImageView()
-    var photosTitle = UILabel()
+    var imageView: UIImageView!
+    var photosTitle: UILabel!
 
     var photo: Photo? {
         didSet {
@@ -37,9 +37,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpSubviews() {
+        
+        // Image
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
+        self.imageView = imageView
         
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
@@ -70,12 +74,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            relatedBy: .equal,
                            toItem: self,
                            attribute: .width,
-                           multiplier: 1,
+                           multiplier: 2/3,
                            constant: 0).isActive = true
         
+        // Label
+        let photosTitle = UILabel()
         photosTitle.translatesAutoresizingMaskIntoConstraints = false
         photosTitle.textAlignment = .center
         addSubview(photosTitle)
+        self.photosTitle = photosTitle
         
         NSLayoutConstraint(item: photosTitle,
                            attribute: .top,

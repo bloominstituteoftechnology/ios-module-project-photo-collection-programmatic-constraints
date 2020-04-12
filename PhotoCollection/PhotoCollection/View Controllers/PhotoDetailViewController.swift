@@ -14,7 +14,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
-    var photo: Photo?
+    var photo: Photo? 
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -125,8 +125,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         self.imageView = image
         let imageTopAnchor = image.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
         let imageXAnchor = image.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
-        let imageHeight = image.heightAnchor.constraint(equalToConstant: 200)
-        let imageWidth = image.widthAnchor.constraint(equalToConstant: 200)
+        let imageHeight = image.heightAnchor.constraint(equalToConstant: 400)
+        let imageWidth = image.widthAnchor.constraint(equalToConstant: 400)
         
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
