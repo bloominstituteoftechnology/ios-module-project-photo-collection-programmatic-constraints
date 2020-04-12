@@ -40,6 +40,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         
         addSubview(imageView)
+        self.imageView = imageView
         
         
         NSLayoutConstraint.activate([
