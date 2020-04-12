@@ -9,16 +9,53 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
-
-    func selectDarkTheme() {
+    
+    var themeHelper: ThemeHelper?
+    
+    override func viewDidLoad() {
+        setupSubViews()
+    }
+   
+    
+    @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
     
-    func selectBlueTheme() {
+    @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
     
-    var themeHelper: ThemeHelper?
+    func setupSubViews() {
+        
+        // Label
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Select a Theme"
+        view.addSubview(label)
+        let labelTopAnchor = label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
+        let labelXAnchor = label.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        
+        // Dark Button
+        let darkButton = UIButton(type: .system)
+        darkButton.translatesAutoresizingMaskIntoConstraints = false
+        darkButton.setTitle("Dark", for: .normal)
+        view.addSubview(darkButton)
+        darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+        let darkButtonTopConstraint = darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30)
+        let darkButtonTrailingConstraint = darkButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: -10)
+        
+        // Blue Button
+        let blueButton = UIButton(type: .system)
+        blueButton.translatesAutoresizingMaskIntoConstraints = false
+        blueButton.setTitle("Blue", for: .normal)
+        view.addSubview(blueButton)
+        blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        let blueButtonTopConstraint = blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30)
+        let blueButtonLeadingConstraint = blueButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 10)
+        
+        NSLayoutConstraint.activate([labelTopAnchor, labelXAnchor, darkButtonTopConstraint, darkButtonTrailingConstraint, blueButtonTopConstraint, blueButtonLeadingConstraint])
+    }
+    
 }
