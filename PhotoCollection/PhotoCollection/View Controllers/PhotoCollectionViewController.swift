@@ -36,6 +36,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    
     private func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
