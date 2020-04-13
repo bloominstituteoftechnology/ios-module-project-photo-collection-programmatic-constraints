@@ -9,7 +9,9 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
-
+    
+    private var blueLabel = UILabel()
+    private var darkLabel = UILabel()
     func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
@@ -21,4 +23,19 @@ class ThemeSelectionViewController: UIViewController {
     }
     
     var themeHelper: ThemeHelper?
+    
+    private func setUpSubviews() {
+        blueLabel.text = "Blue"
+        darkLabel.text = "Dark"
+        view.addSubview(blueLabel)
+        view.addSubview(darkLabel)
+        
+        blueLabel.translatesAutoresizingMaskIntoConstraints = false
+        darkLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // constraints+
+        
+        
+        
+    }
 }

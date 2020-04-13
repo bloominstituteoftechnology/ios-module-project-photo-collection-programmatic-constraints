@@ -16,7 +16,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     private var addButton = UIButton()
     private var barButton = UIBarButtonItem()
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -81,13 +85,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         
         
-        
-        
-        
-        
-        
-        
     }
+    
+//   MARK: - Update views
+    
+ 
     // MARK: - Private Methods
     
     @objc private func addImage() {

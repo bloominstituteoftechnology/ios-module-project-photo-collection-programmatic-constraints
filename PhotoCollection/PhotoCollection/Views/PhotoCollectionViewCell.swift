@@ -46,8 +46,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        imageView.image = UIImage(data: photo!.imageData)
-        imageLabel.text = photo?.title
+        guard let photo = photo else {
+            return
+        }
+        imageView.image = UIImage(data: photo.imageData)
+        imageLabel.text = photo.title
         
     }
     
