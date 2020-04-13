@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol ThemeSelectionDelegate {
+    func didSetTheme()
+}
+
 class ThemeSelectionViewController: UIViewController {
     
     private var infoLabel = UILabel()
     private var darkButton = UIButton(type: .system)
     private var blueButton = UIButton(type: .system)
+    
+    var delegate: ThemeSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +29,13 @@ class ThemeSelectionViewController: UIViewController {
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
+        delegate?.didSetTheme()
     }
     
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
+        delegate?.didSetTheme()
     }
     
     var themeHelper: ThemeHelper?

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UIViewController, UICollectionViewDataSource {
+class PhotoCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     private var collectionView: UICollectionView?
     
     let photoController = PhotoController()
@@ -37,6 +37,7 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         
         collectionView.dataSource = self
+        collectionView.delegate = self
         
         self.collectionView = collectionView
     }
@@ -55,6 +56,10 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
         cell.photo = photo
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ViewPhoto", sender: self)
     }
     
     private func setTheme() {
@@ -87,6 +92,7 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.delegate = self
             
         case "CreatePhoto":
             
@@ -107,5 +113,12 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: ThemeSelectionDelegate {
+    func didSetTheme() {
+        setTheme()
+        collectionView?.reloadData()
     }
 }
