@@ -22,8 +22,47 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
+        setUpSubviews()
         updateViews()
     }
+    
+    //Functions
+    func setUpSubviews() {
+        imageView = UIImageView()
+        titleTextField = UITextField()
+        let buttonPressed = UIButton(type: .system)
+        let barButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+        
+        self.navigationItem.rightBarButtonItem = barButton
+        buttonPressed.setTitle("Add Image", for: .normal)
+        buttonPressed.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        buttonPressed.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        //Constraints using Anchors
+        //ImageView
+        /*imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0.0).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0.0).isActive = true
+        
+        
+        //Button
+        buttonPressed.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 0.0).isActive = true
+        buttonPressed.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4.0).isActive = true
+        buttonPressed.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0, constant: 0.0).isActive = true
+        //buttonPressed.heightAnchor.constraint(equalTo: , multiplier: <#T##CGFloat#>)
+        */
+        //TextField
+        titleTextField.placeholder = "Give this photo a title: "
+        buttonPressed.titleLabel?.text = "Add Image"
+        
+        //Add SubViews
+        view.addSubview(imageView)
+        view.addSubview(buttonPressed)
+        view.addSubview(titleTextField)
+    }
+    
+    
     
     // MARK: - UIImagePickerControllerDelegate
     
@@ -37,8 +76,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     // MARK: - Private Methods
-    
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +99,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -88,6 +126,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
     }
+    
+    
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
