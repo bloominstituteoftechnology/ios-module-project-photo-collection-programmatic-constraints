@@ -11,8 +11,10 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    private var imageView = UIImageView()
+    private var addImageButton = UIButton(type: .system)
+    private var titleTextField = UITextField()
+    private var saveButton = UIButton(type: .system)
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -21,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubviews()
         setTheme()
         updateViews()
     }
@@ -38,7 +41,47 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    private func setUpSubviews() {
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(imageView)
+        view.addSubview(titleTextField)
+        view.addSubview(addImageButton)
+        view.addSubview(saveButton)
+        
+        imageView.contentMode = .scaleAspectFit
+        titleTextField.textAlignment = .center
+        
+        titleTextField.placeholder = "Give this photo a title:"
+        addImageButton.setTitle("Add Image", for: .normal)
+        saveButton.setTitle("Save Photo", for: .normal)
+        
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(savePhoto), for: .touchUpInside)
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
+        addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 2).isActive = true
+        
+        titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 4).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: addImageButton.leadingAnchor).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: addImageButton.trailingAnchor).isActive = true
+        
+        saveButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 4).isActive = true
+        saveButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
+        saveButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
+    }
+    
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +104,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -91,13 +134,14 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     private func setTheme() {
