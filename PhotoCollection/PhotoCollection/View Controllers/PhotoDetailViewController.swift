@@ -22,7 +22,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubviews()
         setTheme()
         updateViews()
     }
@@ -42,12 +42,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     private func setUpSubviews() {
 
     // Adding subview
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         view.addSubview(titleTextField)
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addButton)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.rightBarButtonItem = barButton
         
         // adding targets && titles
+        imageView.image = UIImage(named: "addImage")
         addButton.setTitle("Add Image", for: .normal)
         addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         titleTextField.placeholder = "Give this photo a title"
@@ -55,7 +60,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         barButton.action = #selector(savePhoto)
         title = "Create Photo"
         // Constraints
-        
+        imageView.backgroundColor = .gray
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).isActive = true
         
         
         
