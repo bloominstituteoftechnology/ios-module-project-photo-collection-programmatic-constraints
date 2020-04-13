@@ -13,6 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     private var imageView = UIImageView()
     private var titleTextField = UITextField()
+    let saveButton = UIBarButtonItem()
     
     var photo: Photo? {
         didSet {
@@ -129,16 +130,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         
-        imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1).isActive = true
         
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleTextField)
-        titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
-        titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = false
         
         // Add Photo Button
         let addImageButton = UIButton(type: .system)
@@ -149,14 +145,23 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.addSubview(addImageButton)
         
-        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16).isActive = true
-        addImageButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
-        addImageButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
+        addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 16).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = false
+        titleTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
         
         // Add Save Button
-        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
-        
         navigationItem.rightBarButtonItem = saveButton
+        saveButton.title = "Save Photo"
+        saveButton.action = #selector(savePhoto)
     }
     
 }
