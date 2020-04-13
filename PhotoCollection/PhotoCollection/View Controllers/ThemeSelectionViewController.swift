@@ -10,6 +10,9 @@ import UIKit
 
 class ThemeSelectionViewController: UIViewController {
     
+    private var titleLabel = UILabel()
+    private var subTitleLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubviews()
@@ -17,87 +20,58 @@ class ThemeSelectionViewController: UIViewController {
 
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
-        self.navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
-        self.navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     var themeHelper: ThemeHelper?
     
     private func setUpSubviews(){
-        let label = UILabel()
-        label.text = "Choose a theme:"
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
+        //Title
         
-        NSLayoutConstraint(item: label,
-                           attribute: .centerX,
-                           relatedBy: .equal,
-                           toItem: view.safeAreaLayoutGuide,
-                           attribute: .centerX,
-                           multiplier: 1,
-                           constant: 0).isActive = true
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Photo Collection"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        view.addSubview(titleLabel)
         
-        NSLayoutConstraint(item: label,
-                           attribute: .top,
-                           relatedBy: .equal,
-                           toItem: view.safeAreaLayoutGuide,
-                           attribute: .top,
-                           multiplier: 1,
-                           constant: 16).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+      
+        
+        //Subtitle
+        
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subTitleLabel.text = "Select the theme you want to use."
+        view.addSubview(subTitleLabel)
+        
+        subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+        subTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         
+        //Dark Button
         let darkButton = UIButton(type: .system)
-        let blueButton = UIButton(type: .system)
-        
-        darkButton.setTitle("Dark", for: .normal)
-        blueButton.setTitle("Blue", for: .normal)
-        
-        darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
-        blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
-        
         darkButton.translatesAutoresizingMaskIntoConstraints = false
-        blueButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        darkButton.setTitle("Dark", for: .normal)
+        darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         view.addSubview(darkButton)
+        
+        darkButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -20).isActive = true
+        darkButton.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 40).isActive = true
+        
+        //Blue Button
+        let blueButton = UIButton(type: .system)
+        blueButton.translatesAutoresizingMaskIntoConstraints = false
+        blueButton.setTitle("Blue", for: .normal)
+        blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         view.addSubview(blueButton)
         
-        
-        NSLayoutConstraint(item: darkButton,
-                           attribute: .leading,
-                           relatedBy: .equal,
-                           toItem: view.safeAreaLayoutGuide,
-                           attribute: .leading,
-                           multiplier: 1,
-                           constant: 70).isActive = true
-        
-        NSLayoutConstraint(item: darkButton,
-                           attribute: .centerY,
-                           relatedBy: .equal,
-                           toItem: view.safeAreaLayoutGuide,
-                           attribute: .centerY,
-                           multiplier: 1,
-                           constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: blueButton,
-                           attribute: .trailing,
-                           relatedBy: .equal,
-                           toItem: view.safeAreaLayoutGuide,
-                           attribute: .trailing,
-                           multiplier: 1,
-                           constant: -70).isActive = true
-        
-        NSLayoutConstraint(item: blueButton,
-                           attribute: .centerY,
-                           relatedBy: .equal,
-                           toItem: view.safeAreaLayoutGuide,
-                           attribute: .centerY,
-                           multiplier: 1,
-                           constant: 0).isActive = true
+        blueButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 20).isActive = true
+        blueButton.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 40).isActive = true
         
     }
 }

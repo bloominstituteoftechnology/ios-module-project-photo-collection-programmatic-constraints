@@ -18,6 +18,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         
         collectionView?.reloadData()
         setTheme()
+        configureCollectionView()
     }
     
     // MARK: UICollectionViewDataSource
@@ -87,19 +88,22 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
-    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        var edgeInsets = UIEdgeInsets()
-        edgeInsets.bottom = 2
-        edgeInsets.left = 2
-        edgeInsets.right = 2
-        edgeInsets.top = 2
-        return edgeInsets
-    }
+    private func configureCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 160, height: 190)
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-            return 5
-     }
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 200, height: 200)
-        }
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        
+        view.addSubview(collectionView)
+        
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        
+        collectionView.dataSource = self
+        
+        self.collectionView = collectionView
+    }
 }
