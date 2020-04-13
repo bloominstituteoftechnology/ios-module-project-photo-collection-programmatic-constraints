@@ -40,8 +40,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Subviews
     private func setUpSubviews() {
-
-    // Adding subview
+        
+        // Adding subview
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
@@ -55,16 +55,33 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = UIImage(named: "addImage")
         addButton.setTitle("Add Image", for: .normal)
         addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addButton.backgroundColor = .blue
         titleTextField.placeholder = "Give this photo a title"
         barButton.title = "Save Photo"
         barButton.action = #selector(savePhoto)
         title = "Create Photo"
+        titleTextField.textAlignment = .center
+        titleTextField.textColor = .black
         // Constraints
+        // Image view
         imageView.backgroundColor = .gray
         imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).isActive = true
+        
+        //add button
+        addButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        
+        // textfield
+        titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 20).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        
+        
+        
         
         
         
@@ -76,7 +93,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
