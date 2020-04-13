@@ -16,9 +16,10 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        configureCollectionView()
         collectionView?.reloadData()
         setTheme()
-        configureCollectionView()
+        
     }
     
     // MARK: UICollectionViewDataSource
@@ -53,6 +54,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         }
         
         collectionView?.backgroundColor = backgroundColor
+        view.backgroundColor = backgroundColor
     }
     
     // MARK: - Navigation

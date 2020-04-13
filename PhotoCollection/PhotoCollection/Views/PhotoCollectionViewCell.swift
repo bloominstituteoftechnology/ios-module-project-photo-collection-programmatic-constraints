@@ -27,7 +27,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setUpSubviews()
     }
     
     func updateViews() {
@@ -48,7 +47,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .top,
                            multiplier: 1,
-                           constant: 5).isActive = true
+                           constant: 4).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .leading,
@@ -56,7 +55,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 5).isActive = true
+                           constant: 4).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
@@ -64,7 +63,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: -5).isActive = true
+                           constant: -4).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .height,

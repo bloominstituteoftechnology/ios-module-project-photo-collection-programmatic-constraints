@@ -26,9 +26,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubviews()
         setTheme()
         updateViews()
-        setUpSubviews()
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -70,7 +71,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func savePhoto() {
         
         guard let image = imageView.image,
-            let imageData = image.pngData(),
+            let imageData = image.jpegData(compressionQuality: 0),
             let title = titleTextField.text else { return }
         
         if let photo = photo {
@@ -160,7 +161,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         // Add Save Button
         navigationItem.rightBarButtonItem = saveButton
-        saveButton.title = "Save Photo"
+        saveButton.title = "Save"
         saveButton.action = #selector(savePhoto)
     }
     
