@@ -18,6 +18,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         collectionView?.reloadData()
         setTheme()
+        configureCollectionView()
     }
     
     

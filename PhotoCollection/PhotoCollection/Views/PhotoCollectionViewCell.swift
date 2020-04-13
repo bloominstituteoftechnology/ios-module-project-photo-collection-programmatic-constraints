@@ -32,6 +32,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         //add subviews
         addSubview(imageView)
         addSubview(imageLabel)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageLabel.translatesAutoresizingMaskIntoConstraints = false
         // creating constraints
         
         let imageXView = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 6)
@@ -41,7 +43,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         // activate constraints
         NSLayoutConstraint.activate([imageXView, imageYView, imageWidth, imageHeightConstraint])
+        
     
+        imageLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
+               imageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
+               imageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
         
     }
     

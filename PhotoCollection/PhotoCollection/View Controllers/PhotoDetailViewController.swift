@@ -28,8 +28,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         setUpSubviews()
         setTheme()
-        updateViews()
     }
+    
+   
     
     // MARK: - UIImagePickerControllerDelegate
     
@@ -44,7 +45,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Subviews
     private func setUpSubviews() {
-        
         // Adding subview
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
