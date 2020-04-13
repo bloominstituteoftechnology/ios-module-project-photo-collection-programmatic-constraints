@@ -15,7 +15,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView = UIImageView()
     private var titleLabel = UILabel()
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -111,5 +115,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([imageViewXConstraint, imageViewYConstraint, imageViewWidthConstraint, imageViewHeightConstraint,
                                      titleLabelYConstraint, titleLabelXConstraint, titleLabelWidthConstraint])
     }
-    
+ 
+    func updateViews() {
+//  function that passes the information from the Photo to the image view and label. (If you need help turning `Data` into a `UIImage` look at `UIImage`'s initializers in the documentation.
+//        Call this function sometime after the `photo` variable has been given a value from the `cellForItem at` method in the `PhotosCollectionViewController`. There are a couple places you could decide to do this.
+        
+        guard let photo = photo else { return }
+        
+        titleLabel.text = photo.title
+        imageView.image = UIImage(data: photo.imageData)
+    }
 }
