@@ -42,6 +42,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         self.collectionView = collectionView
     }
+    
+   
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
