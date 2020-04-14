@@ -47,6 +47,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         nameLabel.textAlignment = .center
         
+        imageView.backgroundColor = .white
+        nameLabel.textColor = .white
+        
+        nameLabel.numberOfLines = 0
+        
         //Set SubViews
         addSubview(imageView)
         addSubview(nameLabel)
@@ -64,9 +69,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let textXC = NSLayoutConstraint(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 4)
         let textYC = NSLayoutConstraint(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1.0, constant: 4)
         let textWC = NSLayoutConstraint(item: nameLabel, attribute: .width, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1.0, constant: 0.0)
-        //let textHC = NSLayoutConstraint(item: nameLabel, attribute: <#T##NSLayoutConstraint.Attribute#>, relatedBy: <#T##NSLayoutConstraint.Relation#>, toItem: <#T##Any?#>, attribute: <#T##NSLayoutConstraint.Attribute#>, multiplier: <#T##CGFloat#>, constant: <#T##CGFloat#>)
+        let textHC = NSLayoutConstraint(item: nameLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1.0, constant: 0.0)
         
-        NSLayoutConstraint.activate([textXC, textYC, textWC]) 
+        NSLayoutConstraint.activate([textXC, textYC, textWC, textHC]) 
     }
     
 }

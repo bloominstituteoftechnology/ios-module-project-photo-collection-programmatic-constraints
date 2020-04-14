@@ -28,38 +28,45 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     //Functions
     func setUpSubviews() {
+        
+        //Create Objects and set their properties
         imageView = UIImageView()
         titleTextField = UITextField()
         let buttonPressed = UIButton(type: .system)
         let barButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
         
+        //Add SubViews
+        view.addSubview(imageView)
+        view.addSubview(buttonPressed)
+        view.addSubview(titleTextField)
+        
+        //Properties
+        imageView.backgroundColor = .black
+        titleTextField.backgroundColor = .white
         self.navigationItem.rightBarButtonItem = barButton
         buttonPressed.setTitle("Add Image", for: .normal)
         buttonPressed.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         buttonPressed.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Give this photo a title: "
         
         //Constraints using Anchors
         //ImageView
-        /*imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0.0).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0.0).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0.00).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0.00).isActive = true
         
+        //TextField
+        titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0.00).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 10).isActive = true
+        titleTextField.widthAnchor.constraint(equalTo: imageView.widthAnchor, constant: 0.00).isActive = true
         
         //Button
-        buttonPressed.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 0.0).isActive = true
-        buttonPressed.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4.0).isActive = true
-        buttonPressed.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0, constant: 0.0).isActive = true
-        //buttonPressed.heightAnchor.constraint(equalTo: , multiplier: <#T##CGFloat#>)
-        */
-        //TextField
-        titleTextField.placeholder = "Give this photo a title: "
-        buttonPressed.titleLabel?.text = "Add Image"
+        buttonPressed.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor, constant: 0.0).isActive = true
+        buttonPressed.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8.0).isActive = true
+        buttonPressed.widthAnchor.constraint(equalTo: titleTextField.widthAnchor, multiplier: 1.0, constant: 0.0).isActive = true
         
-        //Add SubViews
-        view.addSubview(imageView)
-        view.addSubview(buttonPressed)
-        view.addSubview(titleTextField)
+        
     }
     
     
