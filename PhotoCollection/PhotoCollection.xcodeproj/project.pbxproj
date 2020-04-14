@@ -125,7 +125,6 @@
 		4639ABC72284C1D100285343 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				460DDFFB2112D6E500E7FF73 /* Photo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -134,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				460DDFFD2112D70C00E7FF73 /* PhotoController.swift */,
+				460DDFFB2112D6E500E7FF73 /* Photo.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
