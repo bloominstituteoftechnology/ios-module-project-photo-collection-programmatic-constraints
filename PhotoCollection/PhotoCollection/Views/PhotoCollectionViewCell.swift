@@ -16,10 +16,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     var photo: Photo? {
         didSet {
-            updateViews()
+            setUpSubViews()
         }
     }
-    
     
     //Initializers
     override init(frame: CGRect) {
@@ -33,9 +32,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     //Functions
     func updateViews() {
-        guard let photo = photo else { return }
-        imageView.image = UIImage(data: photo.imageData)
-        nameLabel.text = photo.title
+        guard let myPhoto = photo else {
+            print("photo failed")
+            return }
+        guard let image = UIImage(data: myPhoto.imageData) else {
+            print("Creating image failed")
+            return }
+        imageView.image = image
+        nameLabel.text = photo?.title
+        print("image set")
     }
     
     func setUpSubViews() {
@@ -47,10 +52,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         nameLabel.textAlignment = .center
         
-        imageView.backgroundColor = .white
-        nameLabel.textColor = .white
+        nameLabel.textColor = .black
         
+        imageView.contentMode = .scaleAspectFill
         nameLabel.numberOfLines = 0
+    
         
         //Set SubViews
         addSubview(imageView)
@@ -58,20 +64,21 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         //Set Constraints
         //ImageView Constraints and Activate
-        let imageXC = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 4)
-        let imageYC = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 4)
-        let imageWC = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -4.0)
-        let imageHC = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1.0, constant: 0)
+        let imageXC = NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0)
+        let imageYC = NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
+        let imageWC = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.75, constant: 0)
+        let imageHC = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0.5, constant: 0)
         
         NSLayoutConstraint.activate([imageXC, imageYC, imageWC, imageHC])
         
         //Label Constraints and Activate
-        let textXC = NSLayoutConstraint(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 4)
+        let textXC = NSLayoutConstraint(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0)
         let textYC = NSLayoutConstraint(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1.0, constant: 4)
         let textWC = NSLayoutConstraint(item: nameLabel, attribute: .width, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1.0, constant: 0.0)
-        let textHC = NSLayoutConstraint(item: nameLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1.0, constant: 0.0)
+        //let textHC = NSLayoutConstraint(item: nameLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1.0, constant: 0.0)
         
-        NSLayoutConstraint.activate([textXC, textYC, textWC, textHC]) 
+        NSLayoutConstraint.activate([textXC, textYC, textWC])
+        updateViews()
     }
     
 }

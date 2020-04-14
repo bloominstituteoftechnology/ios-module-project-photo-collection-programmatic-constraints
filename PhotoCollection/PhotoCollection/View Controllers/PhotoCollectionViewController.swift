@@ -41,15 +41,15 @@ class PhotoCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1 //photoController.photos.count
+        return photoController.photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
-        //let photo = photoController.photos[indexPath.row]
+        let photo = photoController.photos[indexPath.row]
         
-        cell.photo?.title = "Some text" //photo
+        cell.photo = photo
         
         return cell
     }
