@@ -41,32 +41,32 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(titleTextField)
         
         //Properties
-        imageView.backgroundColor = .black
         titleTextField.backgroundColor = .white
         self.navigationItem.rightBarButtonItem = barButton
         buttonPressed.setTitle("Add Image", for: .normal)
         buttonPressed.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         buttonPressed.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.placeholder = "Give this photo a title: "
         
         //Constraints using Anchors
         //ImageView
-        imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0.00).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0.00).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0).isActive = true
+        imageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5, constant: 0.0).isActive = true
+        imageView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.15, constant:  0.0).isActive = true
         
         //TextField
         titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0.00).isActive = true
-        titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 10).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
         titleTextField.widthAnchor.constraint(equalTo: imageView.widthAnchor, constant: 0.00).isActive = true
         
         //Button
         buttonPressed.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor, constant: 0.0).isActive = true
         buttonPressed.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8.0).isActive = true
         buttonPressed.widthAnchor.constraint(equalTo: titleTextField.widthAnchor, multiplier: 1.0, constant: 0.0).isActive = true
-        
-        
     }
     
     
