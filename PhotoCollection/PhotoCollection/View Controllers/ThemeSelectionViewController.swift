@@ -33,6 +33,11 @@ class ThemeSelectionViewController: UIViewController {
         setUpSubviews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViews()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -54,6 +59,10 @@ class ThemeSelectionViewController: UIViewController {
     var themeHelper: ThemeHelper?
     
     // MARK: - Private
+    
+    private func updateViews() {
+        let userDefaults = UserDefaults.standard
+    }
     
     private func setUpSubviews() {
         let themeLabel = UILabel()
