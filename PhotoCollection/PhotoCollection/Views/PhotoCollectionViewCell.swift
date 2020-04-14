@@ -30,7 +30,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpSubviews() {
+    private func setUpSubviews() {
         // configure imageview and use NSLayoutConstraints or NSLayoutAnchor to add constraints to the image view.
         
         // 1. create/configure subview.
@@ -113,7 +113,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func updateViews() {
+  private func updateViews() {
         guard let photo = photo else { return }
         imageView.image = UIImage(data: photo.imageData)
         nameLabel.text = photo.title

@@ -42,28 +42,30 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 4).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 4).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -4).isActive = true
-        //        imageView.heightAnchor.constraint(equalTo: imageView.self, multiplier: 1, constant: 0)
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 4).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -4).isActive = true
+        imageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1.0).isActive = true
+      
+        
         
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.placeholder = "Give this photo a title:"
         titleTextField.textAlignment = .center
         
         
-        titleTextField.topAnchor.constraint(equalTo: addImageButton.topAnchor, constant: -200).isActive = true
-        titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 4).isActive = true
-        titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 4).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: addImageButton.safeAreaLayoutGuide.topAnchor, constant: -200).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 4).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 4).isActive = true
         
         
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         
-        addImageButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        addImageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 4).isActive = true
-        addImageButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 4).isActive = true
+        addImageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+        addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 4).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 4).isActive = true
         
     }
     // MARK: - UIImagePickerControllerDelegate
