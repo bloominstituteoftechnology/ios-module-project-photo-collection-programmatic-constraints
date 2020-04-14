@@ -11,10 +11,15 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    private var imageView: UIImageView!
-    private var titleTextField: UITextField!
+    private var imageView = UIImageView()
+    private var titleTextField = UITextField()
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -39,10 +44,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
@@ -119,49 +124,43 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func setUpSubviews() {
-//  - Add an `UIImageView` to the view controller's `view`. You can leave its image empty in this function.
-        
-        let imageView = UIImageView()
-        view.addSubview(imageView)
-        
-//        - Add a `UIButton` to the view controller's `view`. Set its title to "Add Image" and add a target to it that calls
-//        the `addImage` function that already exists in this view controller.
-        
-        let addButton = UIButton(type: .system)
-        addButton.setTitle("Add Image", for: .normal)
-        addButton.addTarget(self, action: #selector(done), for: .touchUpInside)
-        view.addSubview(addButton)
-        
-//        - Add a `UITextField` to the view controller's `view`. Set its `placeholder` to something like "Give this photo a title:". You can leave its `text` empty.
-        
-        let titleTextField = UITextField()
-        titleTextField.placeholder = "Enter photo title..."
-        view.addSubview(titleTextField)
-        
-//        - Constrain the above UI elements **using only `NSLayoutAnchor`s**.
+        titleTextField.placeholder = "Enter title of photo..."
+        // Image
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
         
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 10).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         
-        addButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
-        addButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
+        // Image title
         
-        titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 20).isActive = true
-        titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         
-//        - Create a `UIBarButtonItem`. Set its title to "Save Photo". Set its action as the `savePhoto` method that already exists in this view controller. Then, set it as the navigation item's right bar button item. (the documentation on `UINavigationItem` is your friend here). **Note:** a view controller subclass already has a `navigationItem` property built-in.
+        // Add photo button
         
-        let saveButton = UIBarButtonItem()
-        saveButton.title = "Save Photo"
-        saveButton.action = #selector(savePhoto)
+        let addImageButton = UIButton(type: .system)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addImageButton.titleLabel?.textAlignment = .center
+        
+        view.addSubview(addImageButton)
+        
+        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
+        addImageButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
+
+        // Save button
+        
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+               
         navigationItem.rightBarButtonItem = saveButton
     }
     
@@ -169,5 +168,4 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc func done() {
         dismiss(animated: true, completion: nil)
     }
-    
 }
