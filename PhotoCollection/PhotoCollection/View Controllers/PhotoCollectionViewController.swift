@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -19,6 +19,29 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView?.reloadData()
         setTheme()
     }
+    
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+          
+          let itemsPerRow: CGFloat = 2
+          
+          let insets = self.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: 0)
+          
+          let horizontalInsets = insets.left + insets.right
+          
+          let itemSpacing = (self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: 0)) * (itemsPerRow - 1)
+          
+          let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / itemsPerRow
+      
+          return CGSize(width: width, height: width * 1.25)
+      }
+      
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+          return 10
+      }
+      
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+          return UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+      }
     
     // MARK: UICollectionViewDataSource
     
@@ -45,8 +68,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         switch themePreference {
         case "Dark":
             backgroundColor = .lightGray
-        case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+        case "Forest":
+            backgroundColor = UIColor(red: 29/255, green: 38.8/255, blue: 29/255, alpha: 1)
         default:
             break
         }
@@ -54,6 +77,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView?.backgroundColor = backgroundColor
     }
     
+ 
+        
+        
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
