@@ -27,11 +27,16 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         updateViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setTheme()
+    }
+    
     func setUpSubViews() {
         // Image View
 //        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
+        imageView.backgroundColor = .lightGray
         
         imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
@@ -44,31 +49,35 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.setTitleColor(.darkGray, for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         
         view.addSubview(addImageButton)
         
         addImageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        addImageButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 200).isActive = true
-        
-        
-        
+        addImageButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 150).isActive = true
+  
         
         // Text field
-//        let titleTextField = UITextField()
-        titleTextField.placeholder = "Give this photo a title:"
+        titleTextField.attributedPlaceholder = NSAttributedString(string: "Give this photo a title:",
+                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        titleTextField.borderStyle = .roundedRect
+        titleTextField.backgroundColor = .lightGray
         titleTextField.text = nil
+        titleTextField.textColor = .darkGray
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleTextField)
         
         titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 4).isActive = true
-        titleTextField.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -30).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: addImageButton.bottomAnchor, constant: 20).isActive = true
         titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -4).isActive = true
         
         // Bar button
-        let barButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(savePhoto))
-        barButton.title = "Save Photo"
-        navigationItem.rightBarButtonItem = barButton
+      let saveBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
+        navigationItem.setRightBarButton(saveBarButtonItem, animated: false)
+        navigationItem.rightBarButtonItem?.tintColor = .darkGray
+        navigationItem.backBarButtonItem?.tintColor = .darkGray
+        
         
         
         
@@ -139,6 +148,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func presentImagePickerController() {
+        DispatchQueue.main.async {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
         
         let imagePicker = UIImagePickerController()
@@ -146,7 +156,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
-        present(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
+    }
     }
     
     private func setTheme() {
@@ -157,8 +168,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         switch themePreference {
         case "Dark":
             backgroundColor = .lightGray
-        case "Sienna":
-            backgroundColor = UIColor(displayP3Red: 237, green: 114, blue: 88, alpha: 1)
+        case "Forest":
+            backgroundColor = UIColor(displayP3Red: 29/255, green: 38.8/255, blue: 29/255, alpha: 1)
         default:
             break
         }

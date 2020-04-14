@@ -11,16 +11,37 @@ import UIKit
 class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
-    let photoDetailViewController = PhotoDetailViewController()
     let themeHelper = ThemeHelper()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
-        photoDetailViewController.updateViews()
         setTheme()
     }
+    
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+          
+          let itemsPerRow: CGFloat = 2
+          
+          let insets = self.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: 0)
+          
+          let horizontalInsets = insets.left + insets.right
+          
+          let itemSpacing = (self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: 0)) * (itemsPerRow - 1)
+          
+          let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / itemsPerRow
+      
+          return CGSize(width: width, height: width * 1.25)
+      }
+      
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+          return 10
+      }
+      
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+          return UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+      }
     
     // MARK: UICollectionViewDataSource
     
@@ -47,8 +68,8 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         switch themePreference {
         case "Dark":
             backgroundColor = .lightGray
-        case "Sienna":
-            backgroundColor = UIColor(red: 235, green: 100, blue: 100, alpha: 1)
+        case "Forest":
+            backgroundColor = UIColor(red: 29/255, green: 38.8/255, blue: 29/255, alpha: 1)
         default:
             break
         }
@@ -56,18 +77,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         collectionView?.backgroundColor = backgroundColor
     }
     
-    func collectView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        return UIEdgeInsets.init(top: 4, left: 4, bottom: 4, right: 4)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 150)
-    }
+ 
         
         
     // MARK: - Navigation

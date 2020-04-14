@@ -12,7 +12,9 @@ class ThemeSelectionViewController: UIViewController {
     
     private var setThemeLabel = UILabel()
     private var darkThemeButton = UIButton()
-    private var burntSiennaButton = UIButton()
+    private var forestButton = UIButton()
+    
+     var themeHelper: ThemeHelper?
     
     override func viewDidLoad() {
         setUpSubViews()
@@ -23,12 +25,11 @@ class ThemeSelectionViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-   @objc func selectSiennaTheme() {
-        themeHelper?.setThemePreferenceToSienna()
+   @objc func selectForestTheme() {
+        themeHelper?.setThemePreferenceToForest()
         dismiss(animated: true, completion: nil)
     }
     
-    var themeHelper: ThemeHelper?
     
     func setUpSubViews() {
         setThemeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -55,15 +56,15 @@ class ThemeSelectionViewController: UIViewController {
         darkThemeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
         
 
-        burntSiennaButton.translatesAutoresizingMaskIntoConstraints = false
-        burntSiennaButton.setTitle("Sienna", for: .normal)
-        burntSiennaButton.addTarget(self, action: #selector(selectSiennaTheme), for: .touchUpInside)
-        burntSiennaButton.setTitleColor(UIColor(red: 237, green: 114, blue: 88, alpha: 1), for: .normal)
-        burntSiennaButton.setTitleColor(.lightGray, for: .selected)
-        view.addSubview(burntSiennaButton)
+        forestButton.translatesAutoresizingMaskIntoConstraints = false
+        forestButton.setTitle("Forest", for: .normal)
+        forestButton.addTarget(self, action: #selector(selectForestTheme), for: .touchUpInside)
+        forestButton.setTitleColor(UIColor(red: 29/255, green: 38.8/255, blue: 29/255, alpha: 1), for: .normal)
+        forestButton.setTitleColor(UIColor(red: 29/255, green: 38.8/255, blue: 29/255, alpha: 1), for: .selected)
+        view.addSubview(forestButton)
         
-        burntSiennaButton.topAnchor.constraint(equalTo: setThemeLabel.topAnchor, constant: 175).isActive = true
-        burntSiennaButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        forestButton.topAnchor.constraint(equalTo: setThemeLabel.topAnchor, constant: 175).isActive = true
+        forestButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
         
     }
 }

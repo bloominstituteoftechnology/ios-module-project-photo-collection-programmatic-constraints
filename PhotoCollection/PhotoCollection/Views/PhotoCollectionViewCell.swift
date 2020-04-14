@@ -10,8 +10,8 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
-    private var imageView = UIImageView()
-    private var photoTitleLabel: UILabel!
+    private var imageView: UIImageView!
+    private var label: UILabel!
     
     var photo: Photo? {
         didSet {
@@ -19,17 +19,32 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //    override init(frame: CGRect) {
-    //        super.init(frame: frame)
-    //        setUpSubviews()
-    //    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUpSubviews()
+    }
+    
+    func updateViews() {
+        guard let photo = photo else { return }
+        
+        imageView.image = UIImage(data: photo.imageData)
+        label.text = photo.title
+    }
     
     
     private func setUpSubviews() {
         // Image View
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
+        
         addSubview(imageView)
+        self.imageView = imageView
         
         
         NSLayoutConstraint(item: imageView,
@@ -38,7 +53,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 6).isActive = true
+                           constant: 3).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
@@ -46,7 +61,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .top,
                            multiplier: 1,
-                           constant: 6).isActive = true
+                           constant: 3).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
@@ -54,7 +69,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            toItem: self,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: -6).isActive = true
+                           constant: -3).isActive = true
         
         NSLayoutConstraint(item: imageView,
                            attribute: .height,
@@ -65,11 +80,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            constant: 0).isActive = true
         
         // Label
-        photoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        photoTitleLabel.textAlignment = .center
-        addSubview(photoTitleLabel)
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         
-        NSLayoutConstraint(item: photoTitleLabel,
+        addSubview(label)
+        self.label = label
+        
+        NSLayoutConstraint(item: label,
                            attribute: .bottom,
                            relatedBy: .equal,
                            toItem: imageView,
@@ -77,29 +95,20 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: 4).isActive = true
         
-        NSLayoutConstraint(item: photoTitleLabel,
+        NSLayoutConstraint(item: label,
                            attribute: .leading,
                            relatedBy: .equal,
                            toItem: imageView,
                            attribute: .leading,
                            multiplier: 1,
-                           constant: 4).isActive = true
+                           constant: 2).isActive = true
         
-        NSLayoutConstraint(item: photoTitleLabel,
+        NSLayoutConstraint(item: label,
                            attribute: .trailing,
                            relatedBy: .equal,
                            toItem: imageView,
                            attribute: .trailing,
                            multiplier: 1,
-                           constant: -4).isActive = true
-    }
-    
-    
-    func updateViews() {
-        photoTitleLabel.text = photo?.title
-        
-        let imageFromData = UIImage(named: "\(photo?.imageData)")
-        let image = UIImageView(image: imageFromData)
-        imageView = image
+                           constant: -2).isActive = true
     }
 }

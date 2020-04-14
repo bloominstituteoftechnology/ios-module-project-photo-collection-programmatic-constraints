@@ -25,7 +25,7 @@ class ThemeHelper {
         UserDefaults.standard.set("Dark", forKey: themePreferenceKey)
     }
     
-    func setThemePreferenceToSienna() {
-        UserDefaults.standard.set("Sienna", forKey: themePreferenceKey)
+    func setThemePreferenceToForest() {
+        UserDefaults.standard.set("Forest", forKey: themePreferenceKey)
     }
 }
