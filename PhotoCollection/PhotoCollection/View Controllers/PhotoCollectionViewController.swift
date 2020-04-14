@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -16,8 +16,10 @@ class PhotoCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        configureCollectionView()
         collectionView?.reloadData()
         setTheme()
+        
     }
     
     // MARK: UICollectionViewDataSource
@@ -52,6 +54,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
         
         collectionView?.backgroundColor = backgroundColor
+        view.backgroundColor = backgroundColor
     }
     
     // MARK: - Navigation
@@ -65,6 +68,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.modalPresentationStyle = .fullScreen
             
         case "CreatePhoto":
             
@@ -85,5 +89,24 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+    
+    private func configureCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 160, height: 190)
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        
+        view.addSubview(collectionView)
+        
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        
+        collectionView.dataSource = self
+        
+        self.collectionView = collectionView
     }
 }
