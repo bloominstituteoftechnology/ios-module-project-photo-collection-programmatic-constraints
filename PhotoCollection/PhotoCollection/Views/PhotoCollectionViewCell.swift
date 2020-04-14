@@ -33,9 +33,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         // 3. create constraints
         // This is the y constraint
-        // everything in ios is positioned from the upper left corner
-        // cell - is a container to hold views
-        
         
         let imageViewYConstraint = NSLayoutConstraint(item: imageView,
                                                       attribute: .top,
