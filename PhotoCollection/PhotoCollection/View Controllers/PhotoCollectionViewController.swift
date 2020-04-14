@@ -17,8 +17,6 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Photos Collection"
-        view.backgroundColor = .darkGray
-
         self.collectionView?.delegate = self
     }
     
@@ -42,6 +40,7 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
         let photo = photoController.photos[indexPath.row]
         
         cell.photo = photo
+        photoController.update(photo: photo, with: photo.imageData, and: photo.title)
         
         return cell
     }
@@ -99,7 +98,11 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
 }
 
 
-extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout, ThemeDelegate {
+    func themeUpdated() {
+        collectionView?.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
     }
@@ -109,4 +112,6 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 250, height: 200)
     }
+    
+    
 }

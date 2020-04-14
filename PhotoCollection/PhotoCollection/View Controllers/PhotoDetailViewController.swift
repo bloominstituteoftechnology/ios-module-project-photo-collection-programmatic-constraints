@@ -18,10 +18,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTheme()
+        setUpSubviews()
         updateViews()
     }
     
@@ -61,7 +63,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -122,27 +124,45 @@ extension PhotoDetailViewController {
     func setUpSubviews() {
         
         
-        var image: UIImageView!
+        var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(image)
-        let imageTopConstraints = image.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 10).isActive = true
+        let imageTopConstraints = image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         let imageTrailingConstraint = image.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-    
-        
-        
-        
+        let imageLeadingConstraint = image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        let imageBottomConstraint = image.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
+        self.imageView = image
         //Button
-        var addImageButton = UIButton(type: .system)
-        addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        addImageButton.setTitle("Add Image", for: .normal)
-        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        view.addSubview(addImageButton)
+        let addButton = UIButton(type: .system)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.setTitle("Add Image", for: .normal)
+        addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addButton.layer.cornerRadius = addButton.frame.size.height/2
+
+        view.addSubview(addButton)
         
+        let addButtonTopConstraint = addButton.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+        let addButtonLeadingConstraint = addButton.leadingAnchor.constraint(equalTo: image.leadingAnchor, constant: 70).isActive = true
+        let addButtonTrailingConstraint = addButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -70).isActive = true
         
         //Text Field
-        var photoTitleTextField: UITextField!
-        photoTitleTextField.placeholder = "Set photo title:"
-        view.addSubview(photoTitleTextField)
+        let titleTextField = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Set photo title:"
+        titleTextField.backgroundColor = .white
+        titleTextField.borderStyle = .roundedRect
+        self.titleTextField = titleTextField
         
+        view.addSubview(titleTextField)
+        
+        let titleTextFieldTopConstraint = titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10).isActive = true
+        let titleTextFieldLeadingConstraint = titleTextField.leadingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -50).isActive = true
+        let titleTextFieldTrailingConstraint = titleTextField.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 50).isActive = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                            target: self,
+                                                            action: #selector(savePhoto))
     }
+    
+
 }

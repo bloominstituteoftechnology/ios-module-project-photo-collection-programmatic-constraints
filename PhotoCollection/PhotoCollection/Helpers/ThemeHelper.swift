@@ -15,6 +15,7 @@ class ThemeHelper {
     var themePreference: String? {
         return UserDefaults.standard.string(forKey: themePreferenceKey)
     }
+
     
     init() {
         guard themePreference == nil else { return }
@@ -28,4 +29,7 @@ class ThemeHelper {
     func setThemePreferenceToBlue() {
         UserDefaults.standard.set("Blue", forKey: themePreferenceKey)
     }
+
 }
+ 
+
