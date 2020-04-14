@@ -11,10 +11,15 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    private var imageView = UIImageView()
+    private var titleTextField = UITextField()
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -23,6 +28,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,10 +44,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
@@ -61,10 +67,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
-            let imageData = image.pngData(),
+            let imageData = image.jpegData(compressionQuality: 0),
             let title = titleTextField.text else { return }
         
         if let photo = photo {
@@ -115,5 +121,51 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    private func setUpSubviews() {
+        titleTextField.placeholder = "Enter title of photo..."
+        // Image
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        
+        imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        // Image title
+        
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTextField)
+        titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        
+        // Add photo button
+        
+        let addImageButton = UIButton(type: .system)
+        addImageButton.translatesAutoresizingMaskIntoConstraints = false
+        addImageButton.setTitle("Add Image", for: .normal)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        addImageButton.titleLabel?.textAlignment = .center
+        
+        view.addSubview(addImageButton)
+        
+        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
+        addImageButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
+        addImageButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
+
+        // Save button
+        
+        let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
+               
+        navigationItem.rightBarButtonItem = saveButton
+    }
+    
+    // MARK: - Objective C
+    @objc func done() {
+        dismiss(animated: true, completion: nil)
     }
 }
