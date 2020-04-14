@@ -126,12 +126,14 @@ extension PhotoDetailViewController {
         
         var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         view.addSubview(image)
-        let imageTopConstraints = image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        let imageTrailingConstraint = image.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        let imageLeadingConstraint = image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        let imageBottomConstraint = image.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
+        image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        image.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        image.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
         self.imageView = image
+        
         //Button
         let addButton = UIButton(type: .system)
         addButton.translatesAutoresizingMaskIntoConstraints = false
@@ -141,9 +143,9 @@ extension PhotoDetailViewController {
 
         view.addSubview(addButton)
         
-        let addButtonTopConstraint = addButton.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
-        let addButtonLeadingConstraint = addButton.leadingAnchor.constraint(equalTo: image.leadingAnchor, constant: 70).isActive = true
-        let addButtonTrailingConstraint = addButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -70).isActive = true
+        addButton.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+        addButton.leadingAnchor.constraint(equalTo: image.leadingAnchor, constant: 70).isActive = true
+        addButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -70).isActive = true
         
         //Text Field
         let titleTextField = UITextField()
@@ -155,9 +157,9 @@ extension PhotoDetailViewController {
         
         view.addSubview(titleTextField)
         
-        let titleTextFieldTopConstraint = titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10).isActive = true
-        let titleTextFieldLeadingConstraint = titleTextField.leadingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -50).isActive = true
-        let titleTextFieldTrailingConstraint = titleTextField.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 50).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -50).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 50).isActive = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,

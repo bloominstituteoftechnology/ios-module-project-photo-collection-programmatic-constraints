@@ -17,14 +17,15 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Photos Collection"
-        self.collectionView?.delegate = self
+        configure()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView?.reloadData()
-        
+        configure()
+        setTheme()
     }
 
     
@@ -74,14 +75,16 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
-            
+            destinationVC.modalPresentationStyle = .fullScreen
+
         case "CreatePhoto":
             
             guard let destinationVC = segue.destination as? PhotoDetailViewController else { return }
             
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
-            
+            destinationVC.modalPresentationStyle = .fullScreen
+
         case "ViewPhoto":
             
             guard let destinationVC = segue.destination as? PhotoDetailViewController,
@@ -90,7 +93,8 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
             destinationVC.photo = photoController.photos[indexPath.row]
             destinationVC.photoController = photoController
             destinationVC.themeHelper = themeHelper
-            
+            destinationVC.modalPresentationStyle = .fullScreen
+
         default:
             break
         }
@@ -98,20 +102,19 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
 }
 
 
-extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout, ThemeDelegate {
-    func themeUpdated() {
-        collectionView?.reloadData()
-    }
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
+    func configure() {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
+        }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            return 10
+        }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: 250, height: 200)
+        }
+        
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 250, height: 200)
-    }
-    
-    
+
 }

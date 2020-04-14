@@ -8,24 +8,12 @@
 
 import UIKit
 
-protocol ThemeDelegate {
-    func themeUpdated()
-}
 
 class ThemeSelectionViewController: UIViewController {
     
     
     var themeHelper: ThemeHelper?
-    var delegate: ThemeDelegate
-    
-    init(with delegate: ThemeDelegate) {
-        self.delegate = delegate
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +26,6 @@ class ThemeSelectionViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate.themeUpdated()
     }
     
     
