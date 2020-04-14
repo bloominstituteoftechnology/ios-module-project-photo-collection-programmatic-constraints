@@ -13,7 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     private var imageView = UIImageView()
     private var titleTextField = UITextField()
-  
+    
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -22,6 +22,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpSubviews()
         setTheme()
         updateViews()
     }
@@ -43,12 +44,12 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         // Image View
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-              view.addSubview(imageView)
-
-              imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
-              imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-              imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-              imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        view.addSubview(imageView)
+        
+        imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         
         
         // Button
@@ -61,7 +62,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.addSubview(addImageButton)
         
-        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
+        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
         addImageButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
         addImageButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
         
@@ -73,12 +74,42 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.addSubview(titleTextField)
         
-        titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
         titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         titleTextField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-
+        
+        // Save Bar Button Item
+        
+        let saveButton = UIButton(type: .system)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.setTitle("Save Image", for: .normal)
+        saveButton.addTarget(self, action: #selector(savePhoto), for: .touchUpInside)
+        
+        view.addSubview(saveButton)
+        
+        let saveTopConstraint = saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+        let saveTrailingConstraint = NSLayoutConstraint(item: saveButton, attribute: .trailing,
+                                                        relatedBy: .equal,
+                                                        toItem: view.safeAreaLayoutGuide,
+                                                        attribute: .trailing,
+                                                        multiplier: 1.0,
+                                                        constant: -20)
+        
+        NSLayoutConstraint.activate([saveTopConstraint, saveTrailingConstraint])
     }
     
+    private func updateViews() {
+        
+        guard let photo = photo else {
+            title = "Create Photo"
+            return
+        }
+        
+        title = photo.title
+        
+        imageView.image = UIImage(data: photo.imageData)
+        titleTextField.text = photo.title
+    }
     
    @objc private func addImage() {
         
@@ -118,18 +149,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationController?.popViewController(animated: true)
     }
     
-    private func updateViews() {
-        
-        guard let photo = photo else {
-            title = "Create Photo"
-            return
-        }
-        
-        title = photo.title
-        
-        imageView.image = UIImage(data: photo.imageData)
-        titleTextField.text = photo.title
-    }
+
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
