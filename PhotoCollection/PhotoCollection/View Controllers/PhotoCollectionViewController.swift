@@ -8,28 +8,27 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UIViewController, UICollectionViewDataSource {
+class PhotoCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
-    private var collectionView: UICollectionView?
+    var collectionView: UICollectionView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Photos Collection"
+        view.backgroundColor = .darkGray
+
+        self.collectionView?.delegate = self
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        collectionView?.reloadData()
         
-        collectionView?.reloadData()
-        setTheme()
-        title = "Photos Collection"
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView?.reloadData()
-    }
-    
-    private func configureCollectionView() {
-      
-    }
+
     
     // MARK: UICollectionViewDataSource
     
@@ -96,5 +95,18 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
         default:
             break
         }
+    }
+}
+
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 250, height: 200)
     }
 }
