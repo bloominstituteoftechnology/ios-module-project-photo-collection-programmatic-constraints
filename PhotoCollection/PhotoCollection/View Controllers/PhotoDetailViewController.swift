@@ -70,7 +70,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func savePhoto() {
         
         guard let image = imageView.image,
-            let imageData = image.pngData(),
+            let imageData = image.jpegData(compressionQuality: 0),
             let title = titleTextField.text else { return }
         
         if let photo = photo {
