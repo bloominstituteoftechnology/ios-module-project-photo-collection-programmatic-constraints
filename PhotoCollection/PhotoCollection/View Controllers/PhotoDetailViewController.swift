@@ -20,7 +20,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

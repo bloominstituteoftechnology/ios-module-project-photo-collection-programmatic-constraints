@@ -10,28 +10,24 @@ import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - Properties
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
     private var imageView = UIImageView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
-
         configureCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView?.reloadData()
-
+        
         setTheme()
     }
-    
-    
     
     // MARK: UICollectionViewDataSource
     
@@ -50,28 +46,28 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     private func configureCollectionView() {
-         let layout = UICollectionViewFlowLayout()
-         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-         layout.itemSize = CGSize(width: 160, height: 190)  // how big is the cell
-         layout.scrollDirection = .vertical
-         layout.minimumInteritemSpacing = 10 // spacing between cells
-         layout.minimumLineSpacing = 10
-         
-         let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-         
-         view.addSubview(collectionView)
-         
-         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
-         
-//         collectionView.dataSource = self  // allowing us to use the UICollectionViewDataSource delgate
-         
-         collectionView.backgroundColor = .white
-         
-         self.collectionView = collectionView
-     }
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 160, height: 190)  // how big is the cell
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10 // spacing between cells
+        layout.minimumLineSpacing = 10
+        
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        
+        view.addSubview(collectionView)
+        
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        
+        //         collectionView.dataSource = self  // allowing us to use the UICollectionViewDataSource delgate
+        
+        collectionView.backgroundColor = .white
+        
+        self.collectionView = collectionView
+    }
     
     private func setTheme() {
-    
+        
         guard let themePreference = themeHelper.themePreference else { return }
         
         var backgroundColor: UIColor!
@@ -119,5 +115,12 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: SettingsDelegate {
+    func settingsWereUpdated() {
+        collectionView?.reloadData()
+        
     }
 }
