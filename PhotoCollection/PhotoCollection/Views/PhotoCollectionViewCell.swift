@@ -41,6 +41,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         //2. add subview to view hierarchy
         
         addSubview(imageView)
+        addSubview(nameLabel)
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         //3. create constraints
         
@@ -90,7 +93,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                       toItem: imageView,
                                                       attribute: .bottom,
                                                       multiplier: 1.0,
-                                                      constant: 4)
+                                                      constant: -4)
         
         let nameLabelXConstraint = NSLayoutConstraint(item: nameLabel,
                                                       attribute: .leading,
@@ -109,7 +112,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                           constant: -4)
         
         //4. activate constraints
-        NSLayoutConstraint.activate([imageViewXConstraint, imageViewYConstraint, imageViewWidthConstraint, imageViewHeightConstraint, nameLabelYConstraint, nameLabelXConstraint, nameLabelWidthConstraint])
+        NSLayoutConstraint.activate([imageViewXConstraint, imageViewYConstraint, imageViewHeightConstraint, imageViewWidthConstraint, nameLabelXConstraint, nameLabelYConstraint, nameLabelWidthConstraint])
         
     }
     
