@@ -97,7 +97,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
     }
     
-    func updateViews() {
+    private func updateViews() {
         guard let photo = photo else {return }
         imageView.image = UIImage(data: photo.imageData)
         titleLabel.text = photo.title
