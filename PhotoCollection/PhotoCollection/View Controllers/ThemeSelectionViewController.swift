@@ -56,8 +56,28 @@ class ThemeSelectionViewController: UIViewController {
         
         // constrain
         
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        view.addSubview(stackView)
+        
+        stackView.addArrangedSubview(selectDarkThemeButton)
+        stackView.addArrangedSubview(selectBlueThemeButton)
         
         
+        let labelLeadingConstraint = label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50)
         
+        let labelTopConstraint = label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50)
+        
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: label.centerYAnchor, constant: 30),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 80),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -80),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            labelLeadingConstraint,
+            labelTopConstraint
+        ])
     }
 }
