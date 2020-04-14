@@ -48,7 +48,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                              toItem: self,
                                                              attribute: .leading,
                                                              multiplier: 1.0,
-                                                             constant: 4)
+                                                             constant: 2)
                
                // This is the width constraint
                let imageViewWidthConstraint = NSLayoutConstraint(item: imageView,
@@ -57,7 +57,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                                                  toItem: self,
                                                                  attribute: .trailing,
                                                                  multiplier: 1.0,
-                                                                 constant: -4)
+                                                                 constant: -2)
                
                // This is the height constraint (aspect ratio)
                let imageViewHeightConstraint = NSLayoutConstraint(item: imageView,
@@ -75,5 +75,21 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                             imageViewHeightConstraint])
         
         
+        // configure the label and use the same constraint classes to make it appear centered and below the imageView
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .center
+        
+        // 2. add to subview
+        
+        addSubview(titleLabel)
+        
+        // 3. This is the y constraint
+        titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2).isActive = true
+        
+        // This is the x constraint
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
+        
+        // This is the width constraint
+        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
     }
 }
