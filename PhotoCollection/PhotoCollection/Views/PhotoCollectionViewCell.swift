@@ -13,7 +13,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView = UIImageView()
     private var titleLabel = UILabel()
     
-    var photo: Photo?
+    var photo: Photo? {
+        didSet {
+            updateViews()
+        }
+    }
     
     private func setUpSubviews() {
         
@@ -91,5 +95,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         // This is the width constraint
         titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+    }
+    
+    func updateViews() {
+        guard let photo = photo else {return }
+        imageView.image = UIImage(data: photo.imageData)
+        titleLabel.text = photo.title
     }
 }
