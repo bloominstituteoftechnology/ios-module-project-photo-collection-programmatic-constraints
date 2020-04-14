@@ -8,22 +8,22 @@
 
 import UIKit
 
-protocol SettingsDelegate {
-    func settingsWereUpdated()
-}
+//protocol SettingsDelegate {
+//    func settingsWereUpdated()
+//}
 
 class ThemeSelectionViewController: UIViewController {
     
-    var delegate: SettingsDelegate!
-    
-    init(with delegate: SettingsDelegate) {
-        self.delegate = delegate
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    var delegate: SettingsDelegate!
+//    
+//    init(with delegate: SettingsDelegate) {
+//        self.delegate = delegate
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     // MARK: - View Lifecycle
     
@@ -38,11 +38,11 @@ class ThemeSelectionViewController: UIViewController {
         updateViews()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        delegate.settingsWereUpdated()
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        delegate.settingsWereUpdated()
+//    }
     
     // MARK: - Action Handlers
     

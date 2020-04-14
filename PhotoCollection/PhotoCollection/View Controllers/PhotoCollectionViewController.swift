@@ -48,7 +48,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     private func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 160, height: 190)  // how big is the cell
+        layout.itemSize = CGSize(width: 320, height: 320)  // how big is the cell
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 10 // spacing between cells
         layout.minimumLineSpacing = 10
@@ -118,9 +118,9 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     }
 }
 
-extension PhotoCollectionViewController: SettingsDelegate {
-    func settingsWereUpdated() {
-        collectionView?.reloadData()
-        
-    }
-}
+//extension PhotoCollectionViewController: SettingsDelegate {
+//    func settingsWereUpdated() {
+//        collectionView?.reloadData()
+//        
+//    }
+//}
