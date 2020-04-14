@@ -18,8 +18,33 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         collectionView?.reloadData()
         setTheme()
+        configureCollectionView()
     }
     
+    
+    
+    private func configureCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        // this is how far it should be from the view
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 160, height: 190)
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        
+        // frame is what is the position and size of the view
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        view.addSubview(collectionView)
+        
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .white
+        
+        self.collectionView = collectionView
+    }
+    
+   
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
