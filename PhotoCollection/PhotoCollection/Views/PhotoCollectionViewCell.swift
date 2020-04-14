@@ -116,7 +116,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                      titleLabelYConstraint, titleLabelXConstraint, titleLabelWidthConstraint])
     }
  
-    func updateViews() {
+    private func updateViews() {
 //  function that passes the information from the Photo to the image view and label. (If you need help turning `Data` into a `UIImage` look at `UIImage`'s initializers in the documentation.
 //        Call this function sometime after the `photo` variable has been given a value from the `cellForItem at` method in the `PhotosCollectionViewController`. There are a couple places you could decide to do this.
         
