@@ -38,23 +38,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    private func configureCollectionView() {
-    let layout = UICollectionViewFlowLayout()
-    layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
-    layout.itemSize = CGSize(width: 160, height: 190)
-    layout.scrollDirection = .vertical
-    layout.minimumInteritemSpacing = 10
-    layout.minimumLineSpacing = 10
     
-    let collectionView = UICollectionView(frame: view.frame , collectionViewLayout: layout)
-    
-    view.addSubview(collectionView)
-        
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
-        
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .white
-    }
     private func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
@@ -108,3 +92,15 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
 }
 
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat { 1 }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 160, height: 190)
+    }
+}
