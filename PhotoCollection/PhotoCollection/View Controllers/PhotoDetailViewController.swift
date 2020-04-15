@@ -61,7 +61,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         //TextField
         titleTextField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0.00).isActive = true
         titleTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-        titleTextField.widthAnchor.constraint(equalTo: imageView.widthAnchor, constant: 0.00).isActive = true
+        titleTextField.widthAnchor.constraint(equalTo: imageView.heightAnchor, constant: 0.00).isActive = true
         
         //Button
         buttonPressed.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor, constant: 0.0).isActive = true

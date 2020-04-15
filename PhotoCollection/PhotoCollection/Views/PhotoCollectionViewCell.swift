@@ -33,14 +33,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     //Functions
     func updateViews() {
         guard let myPhoto = photo else {
-            print("photo failed")
             return }
         guard let image = UIImage(data: myPhoto.imageData) else {
-            print("Creating image failed")
             return }
         imageView.image = image
         nameLabel.text = photo?.title
-        print("image set")
     }
     
     func setUpSubViews() {
