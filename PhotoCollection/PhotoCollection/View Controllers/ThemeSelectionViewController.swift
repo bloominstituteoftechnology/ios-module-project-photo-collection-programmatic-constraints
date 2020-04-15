@@ -68,7 +68,7 @@ class ThemeSelectionViewController: UIViewController {
         
         let labelLeadingConstraint = label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50)
         
-        let labelTopConstraint = label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50)
+        let labelTopConstraint = label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100)
         
         
         NSLayoutConstraint.activate([

@@ -13,6 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     private var imageView = UIImageView()
     private var titleTextField = UITextField()
+    let saveButtonTapped = UIBarButtonItem()
     
     
     var photo: Photo?
@@ -47,8 +48,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         view.addSubview(imageView)
         
         imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         
         
@@ -62,7 +63,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.addSubview(addImageButton)
         
-        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
+        addImageButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
         addImageButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
         addImageButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
         
@@ -80,22 +81,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         // Save Bar Button Item
         
-        let saveButton = UIButton(type: .system)
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.setTitle("Save Image", for: .normal)
-        saveButton.addTarget(self, action: #selector(savePhoto), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = saveButtonTapped
+        saveButtonTapped.title = "Save"
+        saveButtonTapped.action = #selector(savePhoto)
         
-        view.addSubview(saveButton)
-        
-        let saveTopConstraint = saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
-        let saveTrailingConstraint = NSLayoutConstraint(item: saveButton, attribute: .trailing,
-                                                        relatedBy: .equal,
-                                                        toItem: view.safeAreaLayoutGuide,
-                                                        attribute: .trailing,
-                                                        multiplier: 1.0,
-                                                        constant: -20)
-        
-        NSLayoutConstraint.activate([saveTopConstraint, saveTrailingConstraint])
     }
     
     private func updateViews() {
@@ -111,10 +100,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         titleTextField.text = photo.title
     }
     
-   @objc private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
+        
         switch authorizationStatus {
         case .authorized:
             presentImagePickerController()
@@ -148,8 +137,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         navigationController?.popViewController(animated: true)
     }
-    
-
     
     private func presentImagePickerController() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
