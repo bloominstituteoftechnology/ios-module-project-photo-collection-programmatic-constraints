@@ -27,10 +27,10 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     //MARK: - PhotoCollectionViewController
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 6
+        return 1
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 150)

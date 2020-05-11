@@ -64,15 +64,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.addSubview(addButton)
         
-        addButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
-        addButton.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
+        addButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor,
+                                       constant: 20).isActive = true
+        
+        addButton.leadingAnchor.constraint(equalTo:titleTextField.leadingAnchor).isActive = true
+        
         addButton.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
         
         //MARK: - SAVE BUTTON CONSTRAINTS
         
         let saveButton = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
-        
-        self.navigationItem.rightBarButtonItem = saveButton
+        navigationItem.rightBarButtonItem = saveButton
     }
     
     // MARK: - UIImagePickerControllerDelegate
