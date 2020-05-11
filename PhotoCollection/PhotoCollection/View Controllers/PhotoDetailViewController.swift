@@ -18,12 +18,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubViews()
         setTheme()
-        setUpSubviews()
         updateViews()
     }
     
@@ -118,13 +116,10 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
-}
-
-extension PhotoDetailViewController {
-    func setUpSubviews() {
+    
+    func setUpSubViews() {
         
-        
-        var image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         view.addSubview(image)
@@ -134,37 +129,31 @@ extension PhotoDetailViewController {
         image.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
         self.imageView = image
         
-        //Button
-        let addButton = UIButton(type: .system)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.setTitle("Add Image", for: .normal)
-        addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        addButton.layer.cornerRadius = addButton.frame.size.height/2
-
-        view.addSubview(addButton)
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        button.layer.cornerRadius = button.frame.size.height/2
+        view.addSubview(button)
+        button.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+        button.leadingAnchor.constraint(equalTo: image.leadingAnchor, constant: 70).isActive = true
+        button.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -70).isActive = true
         
-        addButton.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
-        addButton.leadingAnchor.constraint(equalTo: image.leadingAnchor, constant: 70).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -70).isActive = true
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Set photo title:"
+        textField.backgroundColor = .white
+        textField.borderStyle = .roundedRect
+        self.titleTextField = textField
+        view.addSubview(textField)
         
-        //Text Field
-        let titleTextField = UITextField()
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.placeholder = "Set photo title:"
-        titleTextField.backgroundColor = .white
-        titleTextField.borderStyle = .roundedRect
-        self.titleTextField = titleTextField
+        textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10).isActive = true
+        textField.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: -50).isActive = true
+        textField.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 50).isActive = true
         
-        view.addSubview(titleTextField)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
         
-        titleTextField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10).isActive = true
-        titleTextField.leadingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -50).isActive = true
-        titleTextField.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 50).isActive = true
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                            target: self,
-                                                            action: #selector(savePhoto))
+        
     }
-    
-
 }
