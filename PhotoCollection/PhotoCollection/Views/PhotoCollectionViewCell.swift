@@ -27,6 +27,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func updateViews() {
         guard let photo = photo else { return }
         imageView.image = UIImage(data: photo.imageData)
