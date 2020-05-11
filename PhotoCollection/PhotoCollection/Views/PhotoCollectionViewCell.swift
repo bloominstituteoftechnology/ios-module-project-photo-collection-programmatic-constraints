@@ -15,7 +15,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var imageView = UIImageView()
     private var photoTitle = UILabel()
     
-    //MARK: - INITIALIZER 
+    //MARK: - INITIALIZER
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpSubviews()
@@ -72,6 +72,39 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .width,
                            multiplier: 1,
                            constant: 0).isActive = true
+        
+        //MARK: - LABEL CONSTRAINTS
+        
+        photoTitle.translatesAutoresizingMaskIntoConstraints = false
+        photoTitle.textAlignment = .center
+        
+        addSubview(photoTitle)
+        //MARK: - Y CONSTRAINTS
+        NSLayoutConstraint(item: photoTitle,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        //MARK: - X CONSTRAINTS
+        NSLayoutConstraint(item: photoTitle,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        //MARK: - WIDTH CONSTRAINTS
+        NSLayoutConstraint(item: photoTitle,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .trailing ,
+                           multiplier: 1,
+                           constant: -4).isActive = true
+      
+     
          
         
         
