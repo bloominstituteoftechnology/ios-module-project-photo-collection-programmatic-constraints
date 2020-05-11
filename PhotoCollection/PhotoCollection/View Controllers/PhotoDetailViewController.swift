@@ -71,6 +71,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             photoController?.update(photo: photo, with: imageData, and: title)
         } else {
             photoController?.createPhoto(with: imageData, title: title)
+            
         }
         
         navigationController?.popViewController(animated: true)

@@ -18,14 +18,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     var imageView = UIImageView()
     var titleLabel = UILabel()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpSubViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     
     
@@ -33,6 +26,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         guard let photo = photo else { return }
         imageView.image = UIImage(data: photo.imageData)
         titleLabel.text = photo.title
+        setUpSubViews()
     }
     
     func setUpSubViews() {
