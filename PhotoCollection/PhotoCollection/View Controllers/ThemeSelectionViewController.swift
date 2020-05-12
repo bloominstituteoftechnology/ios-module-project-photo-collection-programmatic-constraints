@@ -39,5 +39,12 @@ class ThemeSelectionViewController: UIViewController {
         blueThemeButton.setTitle("Blue Theme", for: .normal)
         blueThemeButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         view.addSubview(blueThemeButton)
+        
+        darkThemeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        darkThemeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
+        blueThemeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        blueThemeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
     }
 }
