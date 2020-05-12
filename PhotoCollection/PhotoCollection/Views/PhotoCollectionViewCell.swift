@@ -10,6 +10,9 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
+    var nameLabel = UILabel()
+    var imageView = UIImageView()
+    
     var photo: Photo? {
         didSet {
             updateViews()
@@ -21,7 +24,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     func setUpSubviews() {
         // image view
         //  create / configure
-        let imageView = UIImageView()
+        
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -57,7 +60,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        imageView.image = UIImage(data: photo?.imageData)
-        titleLabel.text = photo?.title
+        guard let coolPhoto = photo else { return }
+        guard let image = UIImage(data: coolPhoto.imageData) else { return }
+        
+        imageView.image = image
+        nameLabel.text = photo?.title
     }
 }
