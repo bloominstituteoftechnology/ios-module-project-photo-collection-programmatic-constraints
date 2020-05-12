@@ -62,7 +62,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -135,5 +135,11 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Give this photo a title:"
         view.addSubview(textField)
+        
+        let savePhotoBarButton = UIBarButtonItem()
+        savePhotoBarButton.title = "Save Photo"
+        savePhotoBarButton.target = self
+        savePhotoBarButton.action = #selector(savePhoto)
+        navigationItem.rightBarButtonItem = savePhotoBarButton
     }
 }
