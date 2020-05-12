@@ -65,6 +65,8 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
             destinationVC.themeHelper = themeHelper
+            destinationVC.modalPresentationStyle = .fullScreen
+            destinationVC.title = "Photo Collection"
             
         case "CreatePhoto":
             

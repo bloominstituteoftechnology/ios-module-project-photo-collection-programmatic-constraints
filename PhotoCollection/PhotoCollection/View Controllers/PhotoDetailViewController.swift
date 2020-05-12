@@ -23,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     private func setUpSubviews() {
@@ -30,10 +31,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         let inset = CGFloat(16)
         let adjustedWidth = screenWidth - (2 * inset)
         
-        imageView = UIImageView()
+        imageView = UIImageView(frame: CGRect(x: inset, y: inset, width: adjustedWidth, height: adjustedWidth))
         view.addSubview(imageView)
-        
-        imageView.frame = CGRect(x: inset, y: inset, width: adjustedWidth, height: adjustedWidth)
+        imageView.backgroundColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerXAnchor.constraint(equalTo: imageView.superview!.centerXAnchor).isActive = true
         
