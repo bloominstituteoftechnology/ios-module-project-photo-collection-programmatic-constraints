@@ -90,7 +90,8 @@ class PhotoCollectionViewController: UICollectionViewController {
 
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        let insets = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        return insets
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -98,6 +99,7 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 300, height: 300)
+        let size = CGSize(width: 300, height: 300)
+        return size
     }
 }

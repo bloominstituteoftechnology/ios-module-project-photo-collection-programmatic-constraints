@@ -23,6 +23,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubViews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +39,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -115,5 +116,24 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    private func setUpSubViews() {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        self.imageView = imageView
+        view.addSubview(self.imageView)
+        
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        view.addSubview(button)
+        
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Give this photo a title:"
+        view.addSubview(textField)
     }
 }
