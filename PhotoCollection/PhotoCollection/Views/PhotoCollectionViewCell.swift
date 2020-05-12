@@ -11,7 +11,7 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo?
-    //MARK: - Programmatic Outlets
+    //MARK: - PROGRAMMATIC OUTLETS
     private var imageView = UIImageView()
     private var photoTitle = UILabel()
     
@@ -23,20 +23,20 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
+    
     //MARK: - UPDATE VIEWS FUNCTION
     func updateViews() {
         guard let photo = photo else { return }
         photoTitle.text = photo.title
         imageView.image = UIImage(data: photo.imageData)
     }
+    
     //MARK: - SUBVIEWS FUNCTION
     func setUpSubviews() {
-        //1. Create
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         
-        //Create/activate constraints
         //MARK: - Y CONSTRAINTS
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
@@ -77,8 +77,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         photoTitle.translatesAutoresizingMaskIntoConstraints = false
         photoTitle.textAlignment = .center
-        
         addSubview(photoTitle)
+        
         //MARK: - Y CONSTRAINTS
         NSLayoutConstraint(item: photoTitle,
                            attribute: .top,
@@ -87,6 +87,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .top,
                            multiplier: 1,
                            constant: 4).isActive = true
+        
         //MARK: - X CONSTRAINTS
         NSLayoutConstraint(item: photoTitle,
                            attribute: .leading,
@@ -95,6 +96,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .leading,
                            multiplier: 1,
                            constant: 4).isActive = true
+        
         //MARK: - WIDTH CONSTRAINTS
         NSLayoutConstraint(item: photoTitle,
                            attribute: .trailing,
@@ -103,10 +105,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .trailing ,
                            multiplier: 1,
                            constant: -4).isActive = true
-      
-     
-         
-        
-        
+   
     }
 }

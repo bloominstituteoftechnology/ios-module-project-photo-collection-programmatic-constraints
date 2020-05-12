@@ -16,7 +16,6 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     private var imageView = UIImageView()
     private var photoTitle = UILabel()
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -36,8 +35,6 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         return CGSize(width: 150, height: 150)
     }
 
-
-    
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
