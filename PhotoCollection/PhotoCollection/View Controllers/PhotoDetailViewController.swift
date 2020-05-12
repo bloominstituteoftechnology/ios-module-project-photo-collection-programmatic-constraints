@@ -25,6 +25,31 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         updateViews()
     }
     
+    private func setUpSubviews() {
+        let screenWidth = UIScreen.main.bounds.width
+        let inset = CGFloat(16)
+        let adjustedWidth = screenWidth - (2 * inset)
+        
+        imageView = UIImageView()
+        view.addSubview(imageView)
+        
+        imageView.frame = CGRect(x: inset, y: inset, width: adjustedWidth, height: adjustedWidth)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.centerXAnchor.constraint(equalTo: imageView.superview!.centerXAnchor).isActive = true
+        
+        let button = UIButton()
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(button)
+        
+        
+        titleTextField = UITextField()
+        view.addSubview(titleTextField)
+        
+        
+    }
+    
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -38,7 +63,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
