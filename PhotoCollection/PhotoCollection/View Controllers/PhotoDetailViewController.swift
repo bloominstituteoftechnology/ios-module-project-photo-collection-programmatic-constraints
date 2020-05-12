@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +61,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -87,6 +87,71 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         imageView.image = UIImage(data: photo.imageData)
         titleTextField.text = photo.title
+    }
+    
+    private func setUpSubViews() {
+        let imageView = UIImageView()
+        let textField = UITextField()
+        let addButton = UIButton()
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "give this photo a title"
+        
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.setTitle("add photo", for: .normal)
+        addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        view.addSubview(imageView)
+        view.addSubview(addButton)
+        view.addSubview(textField)
+        
+        navigationItem.setRightBarButton(saveButton, animated: false)
+        
+        //  imageView constraints
+        let imageViewCenterX = imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0)
+        let imageViewHeight = imageView.heightAnchor.constraint(equalToConstant: 100)
+        let imageViewWidth = imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2)
+        let imageViewTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80)
+        
+        //  button constraints
+        let buttonCenterXConstraint = NSLayoutConstraint(item: addButton,
+                                                         attribute: .centerX,
+                                                         relatedBy: .equal,
+                                                         toItem: view.safeAreaLayoutGuide,
+                                                         attribute: .centerX,
+                                                         multiplier: 1,
+                                                         constant: 0)
+        
+        let buttonTopConstraint = NSLayoutConstraint(item: addButton,
+                                                     attribute: .top,
+                                                     relatedBy: .equal,
+                                                     toItem: imageView,
+                                                     attribute: .bottom,
+                                                     multiplier: 1,
+                                                     constant: 12)
+        
+        let textFieldLeadingConstraint = textField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0)
+        let textFieldTrailingConstraint = textField.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 0)
+        let textFieldTopConstraint = textField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 8)
+        
+        //  activate constraints
+        NSLayoutConstraint.activate([imageViewCenterX,
+                                     imageViewTopConstraint,
+                                     imageViewWidth,
+                                     imageViewHeight,
+                                     buttonCenterXConstraint,
+                                     buttonCenterXConstraint,
+                                     buttonTopConstraint,
+                                     textFieldLeadingConstraint,
+                                     textFieldTrailingConstraint,
+                                     textFieldTopConstraint])
+        
+        self.imageView = imageView
+        self.titleTextField = textField
+        
     }
     
     private func presentImagePickerController() {
