@@ -141,5 +141,18 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         savePhotoBarButton.target = self
         savePhotoBarButton.action = #selector(savePhoto)
         navigationItem.rightBarButtonItem = savePhotoBarButton
+        
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        textField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+        textField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20).isActive = true
+        textField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -20).isActive = true
+        
+        button.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8).isActive = true
+        button.leadingAnchor.constraint(equalTo: textField.leadingAnchor, constant: 20).isActive = true
+        button.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: 0).isActive = true
     }
 }
