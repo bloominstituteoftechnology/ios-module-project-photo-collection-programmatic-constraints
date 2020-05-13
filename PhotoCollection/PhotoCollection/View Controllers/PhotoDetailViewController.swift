@@ -11,6 +11,8 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var saveButton: UIBarButtonItem!
+    
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
@@ -24,8 +26,17 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         setTheme()
         
         setUpSubviews()
+        setUpNavBarItems()
         
         updateViews()
+    }
+    
+    private func setUpNavBarItems() {
+        saveButton = UIBarButtonItem()
+        saveButton.title = "Save"
+        saveButton.action = #selector(savePhoto)
+        
+        navigationItem.rightBarButtonItem = saveButton
     }
     
     private func setUpSubviews() {
@@ -49,6 +60,14 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         let button = UIButton()
         button.setTitle("Add Image", for: .normal)
+        
+        guard let themePreference = themeHelper?.themePreference else { return }
+
+        if themePreference == "Dark" {
+            button.setTitleColor(.systemBlue, for: .normal)
+        } else {
+            button.setTitleColor(.white, for: .normal)
+        }
         button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -68,7 +87,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         titleTextField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: inset).isActive = true
         titleTextField.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -inset).isActive = true
         titleTextField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: inset).isActive = true
-        titleTextField.borderStyle = .line
+        titleTextField.borderStyle = .roundedRect
         
         
         
@@ -110,7 +129,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
