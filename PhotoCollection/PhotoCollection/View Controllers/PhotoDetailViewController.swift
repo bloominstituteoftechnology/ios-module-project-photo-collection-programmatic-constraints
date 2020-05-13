@@ -20,7 +20,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubViews()
         setTheme()
         updateViews()
     }
@@ -38,7 +38,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +61,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -71,6 +71,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
             photoController?.update(photo: photo, with: imageData, and: title)
         } else {
             photoController?.createPhoto(with: imageData, title: title)
+            
         }
         
         navigationController?.popViewController(animated: true)
@@ -115,5 +116,45 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         view.backgroundColor = backgroundColor
+    }
+    
+    func setUpSubViews() {
+        
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        view.addSubview(image)
+        image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        image.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        image.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
+        self.imageView = image
+        
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Add Image", for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        button.layer.cornerRadius = button.frame.size.height/2
+        view.addSubview(button)
+        button.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+        button.leadingAnchor.constraint(equalTo: image.leadingAnchor, constant: 70).isActive = true
+        button.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -70).isActive = true
+        
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Set photo title:"
+        textField.backgroundColor = .white
+        textField.borderStyle = .roundedRect
+        self.titleTextField = textField
+        view.addSubview(textField)
+        
+        textField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10).isActive = true
+        textField.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: -50).isActive = true
+        textField.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 50).isActive = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        
+        
+        
     }
 }

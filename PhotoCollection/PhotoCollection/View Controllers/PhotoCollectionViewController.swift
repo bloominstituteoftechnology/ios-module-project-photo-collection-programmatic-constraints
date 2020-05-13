@@ -12,12 +12,16 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        collectionView?.reloadData()
         setTheme()
+        collectionView.reloadData()
+        print("reloaded")
+    }
+    
+    override func viewDidLoad() {
+        title = "Photo Collection"
     }
     
     // MARK: UICollectionViewDataSource
@@ -27,15 +31,18 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { fatalError("Dequeued cell could not be cast as \(PhotoCollectionViewCell.self)")
+        }
         
-        let photo = photoController.photos[indexPath.row]
+        let photo = photoController.photos[indexPath.item]
+        
         
         cell.photo = photo
         
         return cell
     }
-    
+
+
     private func setTheme() {
     
         guard let themePreference = themeHelper.themePreference else { return }
@@ -63,7 +70,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         case "SelectTheme":
             
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
-            
+            destinationVC.delegate = self
             destinationVC.themeHelper = themeHelper
             
         case "CreatePhoto":
@@ -87,3 +94,29 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 220)
+    }
+    
+}
+
+extension PhotoCollectionViewController: ThemeDelegate {
+    func themeSelected() {
+        setTheme()
+        collectionView?.reloadData()
+    }
+}
+
+
+

@@ -14,6 +14,7 @@ class PhotoController {
         let photo = Photo(imageData: imageData, title: title)
         
         photos.append(photo)
+        print(photos)
     }
     
     func update(photo: Photo, with imageData: Data, and title: String) {
