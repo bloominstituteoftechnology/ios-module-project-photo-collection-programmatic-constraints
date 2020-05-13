@@ -11,6 +11,8 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var saveButton: UIBarButtonItem!
+    
     var imageView: UIImageView!
     var titleTextField: UITextField!
     
@@ -22,7 +24,73 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         setTheme()
+        
+        setUpSubviews()
+        setUpNavBarItems()
+        
         updateViews()
+    }
+    
+    private func setUpNavBarItems() {
+        saveButton = UIBarButtonItem()
+        saveButton.title = "Save"
+        saveButton.action = #selector(savePhoto)
+        
+        navigationItem.rightBarButtonItem = saveButton
+    }
+    
+    private func setUpSubviews() {
+        let screenWidth = UIScreen.main.bounds.width
+        let inset = CGFloat(16)
+        let adjustedWidth = screenWidth * 0.9
+        
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: adjustedWidth, height: adjustedWidth))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+
+        
+        
+        view.addSubview(imageView)
+        imageView.heightAnchor.constraint(equalToConstant: adjustedWidth).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: adjustedWidth).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+//        imageView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: inset).isActive = true
+//        imageView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: inset).isActive = true
+        
+        let button = UIButton()
+        button.setTitle("Add Image", for: .normal)
+        
+        guard let themePreference = themeHelper?.themePreference else { return }
+
+        if themePreference == "Dark" {
+            button.setTitleColor(.systemBlue, for: .normal)
+        } else {
+            button.setTitleColor(.white, for: .normal)
+        }
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        view.addSubview(button)
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        button.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: inset).isActive = true
+//        button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: inset).isActive = true
+        button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: inset).isActive = true
+        
+        
+        titleTextField = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Give this photo a title"
+        
+        view.addSubview(titleTextField)
+        titleTextField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: inset).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -inset).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: button.bottomAnchor, constant: inset).isActive = true
+        titleTextField.borderStyle = .roundedRect
+        
+        
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +106,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +129,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
