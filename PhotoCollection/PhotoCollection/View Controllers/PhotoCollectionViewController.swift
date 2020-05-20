@@ -87,3 +87,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        <#code#>
+    }
+}

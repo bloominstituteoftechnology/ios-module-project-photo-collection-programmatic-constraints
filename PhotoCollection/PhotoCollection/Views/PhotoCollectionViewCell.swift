@@ -13,7 +13,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     //MARK: - Properties
     private var imageView = UIImageView()
     private var photoLabel = UILabel()
-    var photo: Photo?
+    var photo: Photo?{
+        didSet{
+            updateViews()
+        }
+    }
     
     //MARK: - Initalization
     override init(frame: CGRect){
@@ -26,6 +30,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Functions
+    private func updateViews(){
+        guard let photo = photo else { return }
+        photoLabel.text = photo.title
+        imageView.image = UIImage(data: photo.imageData)
+    }
+    
+    
     private func setUpSubViews(){
         //Image View
         imageView.translatesAutoresizingMaskIntoConstraints = false
