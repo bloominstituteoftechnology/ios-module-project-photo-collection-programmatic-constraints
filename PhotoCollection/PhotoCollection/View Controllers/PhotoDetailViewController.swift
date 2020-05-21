@@ -78,30 +78,30 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationItem.rightBarButtonItem = saveButton
     }
     
-    @objc private func addImage() {
-        
-        let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-        
-        switch authorizationStatus {
-        case .authorized:
-            presentImagePickerController()
-            
-        case .notDetermined:
-            
-            PHPhotoLibrary.requestAuthorization { (status) in
-                
-                guard status == .authorized else {
-                    NSLog("User did not authorize access to the photo library")
-                    return
-                }
-                self.presentImagePickerController()
-            }
-        default:
-            break
-        }
-    }
+        @objc private func addImage() {
     
-   @objc private func savePhoto() {
+            let authorizationStatus = PHPhotoLibrary.authorizationStatus()
+    
+            switch authorizationStatus {
+            case .authorized:
+                presentImagePickerController()
+    
+            case .notDetermined:
+    
+                PHPhotoLibrary.requestAuthorization { (status) in
+    
+                    guard status == .authorized else {
+                        NSLog("User did not authorize access to the photo library")
+                        return
+                    }
+                    self.presentImagePickerController()
+                }
+            default:
+                break
+            }
+        }
+
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
