@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ThemeDelegate {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -64,6 +64,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
             
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
+            destinationVC.delegate = self
             destinationVC.themeHelper = themeHelper
             
         case "CreatePhoto":
@@ -85,6 +86,11 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         default:
             break
         }
+    }
+    
+    func didChangeTheme() {
+        setTheme()
+        collectionView.reloadData()
     }
     
     // UICollectionViewDelegateFlowLayout Methods

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol ThemeDelegate: class {
+    func didChangeTheme()
+}
+
 class ThemeSelectionViewController: UIViewController {
+    
+    weak var delegate: ThemeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +24,13 @@ class ThemeSelectionViewController: UIViewController {
 
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
+        delegate?.didChangeTheme()
         dismiss(animated: true, completion: nil)
     }
     
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
+        delegate?.didChangeTheme()
         dismiss(animated: true, completion: nil)
     }
     
@@ -40,26 +48,31 @@ class ThemeSelectionViewController: UIViewController {
         selectThemeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         selectThemeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         
-        let darkButton = UIButton()
+        let darkButton = UIButton(type: .system)
         
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         darkButton.setTitle("Dark", for: .normal)
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         
-        view.addSubview(darkButton)
-        
-        darkButton.topAnchor.constraint(equalTo: selectThemeLabel.bottomAnchor, constant: 20).isActive = true
-        darkButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        
-        let blueButton = UIButton()
+        let blueButton = UIButton(type: .system)
         
         blueButton.translatesAutoresizingMaskIntoConstraints = false
         blueButton.setTitle("Blue", for: .normal)
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         
-        view.addSubview(blueButton)
+        let buttonStack = UIStackView(arrangedSubviews: [darkButton, blueButton])
         
-        blueButton.topAnchor.constraint(equalTo: selectThemeLabel.bottomAnchor, constant: 20).isActive = true
-        blueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.axis = .horizontal
+        buttonStack.distribution = .fillEqually
+        buttonStack.alignment = .fill
+        buttonStack.spacing = 30
+        
+        view.addSubview(buttonStack)
+        
+        buttonStack.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        buttonStack.topAnchor.constraint(equalTo: selectThemeLabel.bottomAnchor, constant: 30).isActive = true
     }
 }
