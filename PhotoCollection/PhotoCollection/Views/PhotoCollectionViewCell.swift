@@ -9,19 +9,31 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
+// Properties
     var photo: Photo? {
         didSet {
-            
+            setUpSubView()
         }
     }
     
-    // Outlets
+// Outlets
     private var photoImageView = UIImageView()
     private var photoTitleLabel = UILabel()
     
+    
+//    private func updateViews() {
+//        guard let photo = photo else { return }
+//        photoImageView.image = UIImageView(image: UIImage(data: photo.imageData))
+//        photoTitleLabel.text = photo.title
+//    }
+    
+    
     private func setUpSubView() {
         if let photo = photo {
+            
+            
+// photoImageView
+            
             photoImageView = UIImageView(image: UIImage(data: photo.imageData))
             photoImageView.translatesAutoresizingMaskIntoConstraints = false
             photoImageView.contentMode = .scaleAspectFit
@@ -63,9 +75,36 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                attribute: .width,
                                multiplier: 1,
                                constant: 0).isActive = true
+// photoTitleLabel
             
             photoTitleLabel.translatesAutoresizingMaskIntoConstraints = false
             photoTitleLabel.text = photo.title
+            photoTitleLabel.textAlignment = .center
+            
+            addSubview(photoTitleLabel)
+            
+            NSLayoutConstraint(item: photoTitleLabel,
+                               attribute: .top,
+                               relatedBy: .equal,
+                               toItem: photoImageView,
+                               attribute: .bottom,
+                               multiplier: 1,
+                               constant: 4).isActive = true
+            NSLayoutConstraint(item: photoTitleLabel,
+                               attribute: .leading,
+                               relatedBy: .equal,
+                               toItem: self,
+                               attribute: .leading,
+                               multiplier: 1,
+                               constant: 4).isActive = true
+            
+            NSLayoutConstraint(item: photoTitleLabel,
+                               attribute: .trailing,
+                               relatedBy: .equal,
+                               toItem: self,
+                               attribute: .trailing,
+                               multiplier: 1,
+                               constant: 4).isActive = true
         }
     }
 
