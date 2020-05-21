@@ -18,8 +18,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     
     // create the views
-    private var imageView = UIImageView()
-    private var nameLabel = UILabel()
+     var imageView = UIImageView()
+     var nameLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,11 +27,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) is not supported")
+        super.init(coder: coder)
+        setUpSubviews()
     }
     
     
-    private func setUpSubviews() {
+   func setUpSubviews() {
         
         // configure the imageView constraints
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -127,7 +128,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     
-    private func updateViews() {
+     func updateViews() {
         guard let photo = photo else { return }
         imageView.image = UIImage(data: photo.imageData)
         nameLabel.text = photo.title
