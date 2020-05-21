@@ -19,6 +19,24 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
+//    var isInEditingMode: Bool = false {
+//        didSet{
+//            checkmarkLabel.isHidden = !isInEditingMode
+//        }
+//    }
+//
+//    override var isSelected: Bool {
+//        didSet {
+//            if isInEditingMode {
+//                checkmarkLabel.text = isSelected ? "✓" : ""
+//            }
+//        }
+//    }
+//
+    
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpSubViews()

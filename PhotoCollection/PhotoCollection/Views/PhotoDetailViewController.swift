@@ -150,6 +150,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.addSubview(photoTitleTextField)
         photoTitleTextField.backgroundColor = .clear
+        photoTitleTextField.textAlignment = .center
         photoTitleTextField.backgroundColor = UIColor.white.withAlphaComponent(0.25)
         self.photoTitleTextField = photoTitleTextField
         
