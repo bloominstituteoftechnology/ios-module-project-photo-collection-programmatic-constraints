@@ -57,10 +57,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textAlignment = .center
+        nameLabel.textColor = .red
         addSubview(nameLabel)
         
         // puts label at bottom of the imageView, this is the y
-        NSLayoutConstraint(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: -4).isActive = true
+        NSLayoutConstraint(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: -20).isActive = true
         
         //this is the x
         NSLayoutConstraint(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 2).isActive = true
