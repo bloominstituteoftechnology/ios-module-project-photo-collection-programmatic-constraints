@@ -15,7 +15,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         collectionView?.reloadData()
         setTheme()
     }
@@ -87,6 +87,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
             break
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     }
@@ -94,7 +95,7 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         return 2
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let halfScreenWidth = (UIScreen.main.bounds.width * 0.5) - 4
+        let halfScreenWidth = (UIScreen.main.bounds.width * 0.5) - 8
         return CGSize(width: halfScreenWidth, height: halfScreenWidth)
     }
 }
