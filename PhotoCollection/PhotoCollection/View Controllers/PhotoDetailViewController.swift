@@ -28,8 +28,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     func setUpSubviews() {
         // Image View
-        let imageView = UIImageView()
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         
@@ -54,16 +52,14 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         buttonView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         // Text Field
-        let textFieldView = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Give this photo a title"
         
-        textFieldView.translatesAutoresizingMaskIntoConstraints = false
-        textFieldView.placeholder = "Give this photo a title"
+        view.addSubview(titleTextField)
         
-        view.addSubview(textFieldView)
-        
-        textFieldView.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 15).isActive = true
-        textFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        textFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 15).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         // Navigation Button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save Photo", style: .plain, target: self, action: #selector(savePhoto))
