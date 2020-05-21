@@ -37,12 +37,8 @@ class ThemeSelectionViewController: UIViewController {
          dismiss(animated: true, completion: nil)
     }
     
-
-    
     func setUpSubViews() {
         
-        func addControl() {
-       
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Which theme would you like to use?"
@@ -82,20 +78,21 @@ class ThemeSelectionViewController: UIViewController {
 //
 //
        // NSLayoutConstraint.activate([labelYConstraint, labelLeadingConstraint, blueButtonCenterYConstraint, blueButtonLeadingConstraint])
-           
-       /// Segemented Control for theme selection intead of buttons
+        
+        /// Segemented Control for theme selection intead of buttons
+        
+        func addControl() {
+            
             let segmentItems = ["Blue", "Green", "Yellow", "Dark"]
             let control = UISegmentedControl(items: segmentItems)
             control.translatesAutoresizingMaskIntoConstraints = false
             
-           // control.frame = CGRect(x: 10, y: 250, width: (self.view.frame.width - 20), height: 0)
+            // control.frame = CGRect(x: 10, y: 250, width: (self.view.frame.width - 20), height: 0)
             control.addTarget(self, action: #selector(segmentControl(_:)), for: .valueChanged)
             control.backgroundColor = .clear
             control.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             control.layer.borderColor = UIColor.black.cgColor
             control.layer.borderWidth = 2.0
-            
-        
             
             guard let themePreference = themeHelper?.themePreference else { return }
             switch themePreference {
@@ -121,6 +118,7 @@ class ThemeSelectionViewController: UIViewController {
             
              NSLayoutConstraint.activate([labelYConstraint, labelLeadingConstraint, controlTop, controlCenterX])
                    }
+        
                    addControl()
     }
     
