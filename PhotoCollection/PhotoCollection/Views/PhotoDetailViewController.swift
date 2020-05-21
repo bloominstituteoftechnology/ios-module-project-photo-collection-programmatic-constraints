@@ -24,8 +24,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    
-    
     var photoController: PhotoController?
     var themeHelper: ThemeHelper?
     
@@ -39,6 +37,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        updateViews()
         setTheme()
     }
     
@@ -97,18 +96,20 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
       
         guard let photo = photo else {
             title = "Create Photo"
+             self.imageView.image = UIImage(named: "emptyImage")
             return
         }
         
         title = photo.title
-        
+        imageView.image = UIImage(named: "")
         imageView.image = UIImage(data: photo.imageData)
         photoTitleTextField.text = photo.title
+        addImageButton.setTitle("Change Yo Image", for: .normal)
     }
     /// This sets up the UI buttons and labels
     private func setUpSubViews() {
         
-        let savePhotoButton = UIBarButtonItem(title: "Save Photo", style: .done, target: self, action: #selector(savePhoto))
+        let savePhotoButton = UIBarButtonItem(title: "Save Da Photo", style: .done, target: self, action: #selector(savePhoto))
         navigationItem.rightBarButtonItem = savePhotoButton
         
         let imageView = UIImageView()
@@ -148,7 +149,8 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         photoTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(photoTitleTextField)
-        photoTitleTextField.backgroundColor = .white
+        photoTitleTextField.backgroundColor = .clear
+        photoTitleTextField.backgroundColor = UIColor.white.withAlphaComponent(0.25)
         self.photoTitleTextField = photoTitleTextField
         
         // y

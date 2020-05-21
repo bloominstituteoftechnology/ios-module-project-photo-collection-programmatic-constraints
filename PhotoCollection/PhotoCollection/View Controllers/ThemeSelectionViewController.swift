@@ -15,24 +15,29 @@ class ThemeSelectionViewController: UIViewController {
     override func viewDidLoad() {
         setUpSubViews()
         setTheme()
-        
     }
     
     @objc func segmentControl(_ segmentedControl: UISegmentedControl) {
         switch (segmentedControl.selectedSegmentIndex) {
         case 0:
             selectBlueTheme()
+            segmentedControl.selectedSegmentTintColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
         case 1:
             selectGreenTheme()
+            segmentedControl.selectedSegmentTintColor = UIColor.systemGreen
         case 2:
             selectYellowTheme()
+            segmentedControl.selectedSegmentTintColor = UIColor.systemYellow
         case 3:
             selectDarkTheme()
+            segmentedControl.selectedSegmentTintColor = UIColor.darkGray
         default:
             break
         }
          dismiss(animated: true, completion: nil)
     }
+    
+
     
     func setUpSubViews() {
         
@@ -83,25 +88,33 @@ class ThemeSelectionViewController: UIViewController {
             let control = UISegmentedControl(items: segmentItems)
             control.translatesAutoresizingMaskIntoConstraints = false
             
-            control.frame = CGRect(x: 10, y: 250, width: (self.view.frame.width - 20), height: 50)
+           // control.frame = CGRect(x: 10, y: 250, width: (self.view.frame.width - 20), height: 0)
             control.addTarget(self, action: #selector(segmentControl(_:)), for: .valueChanged)
             control.backgroundColor = .clear
             control.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            control.layer.borderColor = UIColor.black.cgColor
+            control.layer.borderWidth = 2.0
+            
+        
             
             guard let themePreference = themeHelper?.themePreference else { return }
             switch themePreference {
             case "Blue":
                 control.selectedSegmentIndex = 0
+                control.selectedSegmentTintColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
             case "Green":
                 control.selectedSegmentIndex = 1
+                control.selectedSegmentTintColor = .systemGreen
             case "Yellow":
                 control.selectedSegmentIndex = 2
+                control.selectedSegmentTintColor = .yellow
             case "Dark":
                 control.selectedSegmentIndex = 3
+                control.selectedSegmentTintColor = .darkGray
             default:
                 break
             }
-            
+
             view.addSubview(control)
             let controlTop = control.topAnchor.constraint(equalTo: label.topAnchor, constant: 40)
             let controlCenterX = control.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -110,25 +123,22 @@ class ThemeSelectionViewController: UIViewController {
                    }
                    addControl()
     }
-
+    
+    
     @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
-    //    dismiss(animated: true, completion: nil)
     }
     
     @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
-     //   dismiss(animated: true, completion: nil)
     }
     
     @objc func selectYellowTheme() {
         themeHelper?.setThemePreferenceToYellow()
-     //   dismiss(animated: true, completion: nil)
     }
     
     @objc func selectGreenTheme() {
         themeHelper?.setThemePreferenceToGreen()
-     //   dismiss(animated: true, completion: nil)
     }
     
     private func setTheme() {
