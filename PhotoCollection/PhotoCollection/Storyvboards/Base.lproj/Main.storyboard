@@ -2,8 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9RN-X9-4bW">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,9 +29,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
-                                <connections>
-                                    <segue destination="NGh-cL-33m" kind="show" identifier="ViewPhoto" id="83N-iO-oAe"/>
-                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -41,17 +37,28 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Photo Collection" id="BSB-L7-6Ea">
-                        <barButtonItem key="leftBarButtonItem" title="Select Theme" id="uiT-8K-AZm">
-                            <connections>
-                                <segue destination="8G7-gp-Zsk" kind="presentation" identifier="SelectTheme" modalPresentationStyle="fullScreen" id="bJH-AP-fjk"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="eDm-Wj-GZU">
-                            <connections>
-                                <segue destination="NGh-cL-33m" kind="show" identifier="CreatePhoto" id="M2Q-r3-aQa"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="eDm-Wj-GZU">
+                                <connections>
+                                    <segue destination="NGh-cL-33m" kind="show" identifier="CreatePhoto" id="M2Q-r3-aQa"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="VPn-TQ-jQK">
+                                <connections>
+                                    <action selector="deleteItem:" destination="bS6-tv-wts" id="IZE-jJ-2pR"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Select Theme" id="uiT-8K-AZm">
+                                <connections>
+                                    <segue destination="8G7-gp-Zsk" kind="presentation" identifier="SelectTheme" modalPresentationStyle="fullScreen" id="bJH-AP-fjk"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="deleteButton" destination="VPn-TQ-jQK" id="3mU-vI-Hsn"/>
+                        <segue destination="NGh-cL-33m" kind="show" identifier="ViewPhoto" id="nqd-tv-XO6"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ti4-Mc-n0v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -108,6 +115,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="83N-iO-oAe"/>
+        <segue reference="nqd-tv-XO6"/>
     </inferredMetricsTieBreakers>
 </document>

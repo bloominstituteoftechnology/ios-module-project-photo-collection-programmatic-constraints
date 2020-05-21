@@ -12,6 +12,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     private var imageView = UIImageView()
     private var titleLabel = UILabel()
+    private var checkmarkLabel = UILabel()
     
     var photo: Photo? {
         didSet {
@@ -20,22 +21,20 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     
-//    var isInEditingMode: Bool = false {
-//        didSet{
-//            checkmarkLabel.isHidden = !isInEditingMode
-//        }
-//    }
-//
-//    override var isSelected: Bool {
-//        didSet {
-//            if isInEditingMode {
-//                checkmarkLabel.text = isSelected ? "✓" : ""
-//            }
-//        }
-//    }
-//
-    
-    
+    var isInEditingMode: Bool = false {
+        didSet{
+            checkmarkLabel.isHidden = !isInEditingMode
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            if isInEditingMode {
+                checkmarkLabel.text = isSelected ? "✓" : ""
+            }
+        }
+    }
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -130,5 +129,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            attribute: .trailing,
                            multiplier: 1,
                            constant: -4).isActive = true
+        
+        // Checkmark Label
+      
+        checkmarkLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(checkmarkLabel)
+        
+        checkmarkLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        checkmarkLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
     }
 }
