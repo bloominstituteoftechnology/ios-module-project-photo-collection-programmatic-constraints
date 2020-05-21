@@ -26,7 +26,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setUpSubViews()
     }
     
     //MARK: - Functions
@@ -84,21 +85,21 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                                               toItem: imageView,
                                               attribute: .bottom,
                                               multiplier: 1,
-                                              constant: 4)
+                                              constant: 1)
         let xAxisLabel =  NSLayoutConstraint(item: photoLabel,
                                               attribute: .leading,
                                               relatedBy: .equal,
                                               toItem: imageView,
                                               attribute: .leading,
                                               multiplier: 1,
-                                              constant: 4)
+                                              constant: 1)
         let widthLabel =  NSLayoutConstraint(item: photoLabel,
                                               attribute: .trailing,
                                               relatedBy: .equal,
                                               toItem: self,
                                               attribute: .trailing,
                                               multiplier: 1,
-                                              constant: -4)
+                                              constant: -1)
         NSLayoutConstraint.activate([
             yAxisImage,
             xAxisImage,
