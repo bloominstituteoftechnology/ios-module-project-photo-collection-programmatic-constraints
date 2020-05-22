@@ -81,7 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				460DDFFF2112D80000E7FF73 /* ThemeSelectionViewController.swift */,
-				460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */,
 				460DE0032112D9E300E7FF73 /* PhotoCollectionViewController.swift */,
 			);
 			path = "View Controllers";
@@ -118,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				460DE0052112DA8400E7FF73 /* PhotoCollectionViewCell.swift */,
+				460DE0072112DDBA00E7FF73 /* PhotoDetailViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -364,6 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/PhotoCollection/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -382,6 +383,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/PhotoCollection/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
