@@ -33,7 +33,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         setUpSubViews()
-        updateViews()
+     //   updateViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +97,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         guard let photo = photo else {
             title = "Create Photo"
              self.imageView.image = UIImage(named: "emptyImage")
+            addImageButton.setTitle("Add Image", for: .normal)
+            photoTitleTextField.placeholder = "Add Title of Photo"
+            photoTitleTextField.backgroundColor = UIColor.white.withAlphaComponent(0.65)
             return
         }
         
@@ -133,7 +136,6 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         let addImageButton = UIButton(type: .system)
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        addImageButton.setTitle("Add Image", for: .normal)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         view.addSubview(addImageButton)
         self.addImageButton = addImageButton

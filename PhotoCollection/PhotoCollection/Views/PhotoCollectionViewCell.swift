@@ -135,7 +135,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         checkmarkLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(checkmarkLabel)
         
-        checkmarkLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        checkmarkLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        checkmarkLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
+        checkmarkLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
 }

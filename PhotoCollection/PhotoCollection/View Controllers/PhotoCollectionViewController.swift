@@ -12,6 +12,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var createButton: UIBarButtonItem!
+    @IBOutlet weak var themeButton: UIBarButtonItem!
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
@@ -19,7 +20,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         deleteButton.isEnabled = false
-            navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem = editButtonItem
         
     }
     
@@ -33,11 +34,13 @@ class PhotoCollectionViewController: UICollectionViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if isEditing {
-        deleteButton.isEnabled = true
+            deleteButton.isEnabled = true
             createButton.isEnabled = false
+            themeButton.isEnabled = false
         } else if !isEditing {
             deleteButton.isEnabled = false
             createButton.isEnabled = true
+            themeButton.isEnabled = true
         }
         collectionView.allowsMultipleSelection = isEditing
        
@@ -50,13 +53,13 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        //let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
+       // let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
         
         if !isEditing {
             deleteButton.isEnabled = false
             performSegue(withIdentifier: "ViewPhoto", sender: self)
         } else {
-           // selectedCell.contentView.backgroundColor = UIColor(red: 102/256, green: 255/256, blue: 255/256, alpha: 0.66)
+         //   selectedCell.contentView.backgroundColor = UIColor(red: 102/256, green: 255/256, blue: 255/256, alpha: 0.66)
             deleteButton.isEnabled = true
         }
     }

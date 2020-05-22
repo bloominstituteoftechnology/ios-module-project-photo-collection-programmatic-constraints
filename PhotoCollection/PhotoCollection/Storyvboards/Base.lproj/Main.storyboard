@@ -58,6 +58,7 @@
                     <connections>
                         <outlet property="createButton" destination="eDm-Wj-GZU" id="klL-NB-uyH"/>
                         <outlet property="deleteButton" destination="VPn-TQ-jQK" id="3mU-vI-Hsn"/>
+                        <outlet property="themeButton" destination="uiT-8K-AZm" id="mbX-oW-8Xs"/>
                         <segue destination="NGh-cL-33m" kind="show" identifier="ViewPhoto" id="nqd-tv-XO6"/>
                     </connections>
                 </collectionViewController>
