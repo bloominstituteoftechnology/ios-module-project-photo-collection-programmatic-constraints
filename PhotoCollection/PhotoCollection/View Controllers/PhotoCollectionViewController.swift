@@ -11,13 +11,13 @@ import UIKit
 class PhotoCollectionViewController: UICollectionViewController {
     
     @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var createButton: UIBarButtonItem!
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         deleteButton.isEnabled = false
             navigationItem.leftBarButtonItem = editButtonItem
         
@@ -34,8 +34,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         super.setEditing(editing, animated: animated)
         if isEditing {
         deleteButton.isEnabled = true
+            createButton.isEnabled = false
         } else if !isEditing {
             deleteButton.isEnabled = false
+            createButton.isEnabled = true
         }
         collectionView.allowsMultipleSelection = isEditing
        
@@ -47,18 +49,18 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                      
-           let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
-          
-           if !isEditing {
-               deleteButton.isEnabled = false
-             performSegue(withIdentifier: "ViewPhoto", sender: self)
-           } else {
-               selectedCell.contentView.backgroundColor = UIColor(red: 102/256, green: 255/256, blue: 255/256, alpha: 0.66)
-               deleteButton.isEnabled = true
-           }
-       }
-       
+        
+        //let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
+        
+        if !isEditing {
+            deleteButton.isEnabled = false
+            performSegue(withIdentifier: "ViewPhoto", sender: self)
+        } else {
+           // selectedCell.contentView.backgroundColor = UIColor(red: 102/256, green: 255/256, blue: 255/256, alpha: 0.66)
+            deleteButton.isEnabled = true
+        }
+    }
+    
     // MARK: UICollectionViewDataSource
     
     

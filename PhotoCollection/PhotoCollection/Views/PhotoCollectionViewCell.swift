@@ -30,7 +30,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if isInEditingMode {
-                checkmarkLabel.text = isSelected ? "✓" : ""
+                checkmarkLabel.text = isSelected ? "👍🏼" : ""
             }
         }
     }

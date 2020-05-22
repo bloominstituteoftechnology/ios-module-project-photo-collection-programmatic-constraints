@@ -56,6 +56,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="createButton" destination="eDm-Wj-GZU" id="klL-NB-uyH"/>
                         <outlet property="deleteButton" destination="VPn-TQ-jQK" id="3mU-vI-Hsn"/>
                         <segue destination="NGh-cL-33m" kind="show" identifier="ViewPhoto" id="nqd-tv-XO6"/>
                     </connections>
@@ -115,6 +116,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nqd-tv-XO6"/>
+        <segue reference="M2Q-r3-aQa"/>
     </inferredMetricsTieBreakers>
 </document>
