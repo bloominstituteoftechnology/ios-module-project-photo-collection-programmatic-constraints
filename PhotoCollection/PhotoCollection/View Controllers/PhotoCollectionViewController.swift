@@ -64,6 +64,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
             
+            destinationVC.delegate = self
             destinationVC.themeHelper = themeHelper
             
         case "CreatePhoto":
@@ -85,5 +86,40 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+//        let width = collectionViewLayout.collectionViewContentSize.width
+//        return CGSize(width: width / 3, height: width / 3)
+        
+        let itemsPerRow: CGFloat = 2
+
+        let insets = self.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: 0)
+
+        let horizontalInsets = insets.left + insets.right
+
+        let itemSpacing = (self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: 0)) * (itemsPerRow - 1)
+
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / itemsPerRow
+
+        return CGSize(width: width, height: width * 1.2)
+    }
+}
+
+extension PhotoCollectionViewController: ThemeChangeDelegate {
+    func themeDidChange() {
+        setTheme()
     }
 }
