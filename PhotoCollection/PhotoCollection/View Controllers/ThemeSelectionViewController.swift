@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ThemeChangeDelegate {
+protocol ThemeChangeDelegate: AnyObject {
     func themeDidChange()
 }
 
 class ThemeSelectionViewController: UIViewController {
     
     var themeHelper: ThemeHelper?
-    var delegate: ThemeChangeDelegate?
+    weak var delegate: ThemeChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
