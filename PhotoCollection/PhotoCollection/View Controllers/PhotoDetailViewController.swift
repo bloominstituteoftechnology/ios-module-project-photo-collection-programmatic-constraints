@@ -20,7 +20,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSubViews()
         setTheme()
         updateViews()
     }
@@ -36,29 +36,35 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.image = image
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Private Methods
     
     @objc private func addImage() {
+        let imagePick = UIImagePickerController()
+        imagePick.delegate = self
         
-        let authorizationStatus = PHPhotoLibrary.authorizationStatus()
-    
-        switch authorizationStatus {
-        case .authorized:
-            presentImagePickerController()
-            
-        case .notDetermined:
-            
-            PHPhotoLibrary.requestAuthorization { (status) in
-                
-                guard status == .authorized else {
-                    NSLog("User did not authorize access to the photo library")
-                    return
-                }
-                self.presentImagePickerController()
+        let action = UIAlertController(title: "Photo Access", message: "please select your photo source", preferredStyle: .actionSheet)
+        
+        action.addAction(UIAlertAction(title: "camera", style: .default, handler: { (action: UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePick.sourceType = .camera
+                self.present(imagePick, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "camera unavail", message: "no camera", preferredStyle: .alert)
+                let act = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(act)
+                self.present(alert, animated: true, completion: nil)
             }
-        default:
-            break
-        }
+        }))
+        action.addAction(UIAlertAction(title: "photo library", style: .default, handler: { (action: UIAlertAction) in
+            imagePick.sourceType = .photoLibrary
+            self.present(imagePick, animated: true, completion: nil)
+        }))
+        action.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        present(action, animated: true, completion: nil)
     }
     
     @objc private func savePhoto() {
@@ -90,79 +96,50 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func setUpSubViews() {
+        
         let imageView = UIImageView()
         let textField = UITextField()
         let addButton = UIButton()
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePhoto))
+        let saveButton = UIBarButtonItem(title: "save photo", style: .done, target: self, action: #selector(savePhoto))
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
         
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "give this photo a title"
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.6, constant: 0).isActive = true
+        
         
         addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.layer.cornerRadius = 20
+        addButton.backgroundColor = .darkGray
         addButton.setTitle("add photo", for: .normal)
         addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         
-        view.addSubview(imageView)
         view.addSubview(addButton)
+        
+        addButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+        addButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "image title"
+        textField.backgroundColor = .lightGray
+        textField.layer.cornerRadius = 8
+        textField.clipsToBounds = true
+        
         view.addSubview(textField)
+        textField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 8).isActive = true
+        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
         
         navigationItem.setRightBarButton(saveButton, animated: false)
-        
-        //  imageView constraints
-        let imageViewCenterX = imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0)
-        let imageViewHeight = imageView.heightAnchor.constraint(equalToConstant: 100)
-        let imageViewWidth = imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2)
-        let imageViewTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80)
-        
-        //  button constraints
-        let buttonCenterXConstraint = NSLayoutConstraint(item: addButton,
-                                                         attribute: .centerX,
-                                                         relatedBy: .equal,
-                                                         toItem: view.safeAreaLayoutGuide,
-                                                         attribute: .centerX,
-                                                         multiplier: 1,
-                                                         constant: 0)
-        
-        let buttonTopConstraint = NSLayoutConstraint(item: addButton,
-                                                     attribute: .top,
-                                                     relatedBy: .equal,
-                                                     toItem: imageView,
-                                                     attribute: .bottom,
-                                                     multiplier: 1,
-                                                     constant: 12)
-        
-        let textFieldLeadingConstraint = textField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0)
-        let textFieldTrailingConstraint = textField.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 0)
-        let textFieldTopConstraint = textField.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 8)
-        
-        //  activate constraints
-        NSLayoutConstraint.activate([imageViewCenterX,
-                                     imageViewTopConstraint,
-                                     imageViewWidth,
-                                     imageViewHeight,
-                                     buttonCenterXConstraint,
-                                     buttonCenterXConstraint,
-                                     buttonTopConstraint,
-                                     textFieldLeadingConstraint,
-                                     textFieldTrailingConstraint,
-                                     textFieldTopConstraint])
         
         self.imageView = imageView
         self.titleTextField = textField
         
-    }
-    
-    private func presentImagePickerController() {
-        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
     }
     
     private func setTheme() {

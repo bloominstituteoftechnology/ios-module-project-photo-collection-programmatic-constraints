@@ -10,21 +10,29 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    var nameLabel = UILabel()
-    var imageView = UIImageView()
+    private var nameLabel: UILabel!
+    private var imageView: UIImageView!
     
-    var photo: Photo? {
+    var photo: Photo! {
         didSet {
             updateViews()
         }
     }
     
-    private
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubviews()
+    }
     
-    func setUpSubviews() {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpSubviews()
+    }
+    
+    private func setUpSubviews() {
         // image view
         //  create / configure
-        
+        let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -38,32 +46,29 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         addSubview(label)
         
-        let labelLeadingConstraint = NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1, constant: 0)
+        imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        imageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: 0).isActive = true
         
-        let labelTrailingConstraint = NSLayoutConstraint(item: label, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1, constant: 0)
-        
-        let labelBottomConstraint = NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: 4)
-        
-        NSLayoutConstraint.activate([labelLeadingConstraint, labelTrailingConstraint, labelBottomConstraint])
-        
-        //  imageView constraints
-        let imageViewLeadingConstraint = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 4)
-        
-        let imageViewTrailingConstraint = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: 4)
-        
-        let imageViewTopConstraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 4)
-        
-        let imageViewBottomConstraint = NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .top, multiplier: 1, constant: 0)
-        
-        NSLayoutConstraint.activate([imageViewLeadingConstraint, imageViewTrailingConstraint, imageViewTopConstraint, imageViewBottomConstraint])
+        self.imageView = imageView
 
+        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
+        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
+        label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
+        
+        self.nameLabel = label
+        
+        self.heightAnchor.constraint(equalToConstant: 200)
+        self.widthAnchor.constraint(equalToConstant: 200)
     }
     
     func updateViews() {
         guard let coolPhoto = photo else { return }
-        guard let image = UIImage(data: coolPhoto.imageData) else { return }
         
+        let data = coolPhoto.imageData
+        let image = UIImage(data: data)
         imageView.image = image
-        nameLabel.text = photo?.title
+        nameLabel.text = photo.title
     }
 }

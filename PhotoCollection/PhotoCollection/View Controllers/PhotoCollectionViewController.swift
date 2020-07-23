@@ -13,9 +13,13 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.collectionViewLayout = self.getLayout()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         collectionView?.reloadData()
         setTheme()
     }
@@ -89,6 +93,14 @@ class PhotoCollectionViewController: UICollectionViewController {
 }
 
 extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func getLayout() -> UICollectionViewLayout {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 200, height: 200)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        return layout as UICollectionViewLayout
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
