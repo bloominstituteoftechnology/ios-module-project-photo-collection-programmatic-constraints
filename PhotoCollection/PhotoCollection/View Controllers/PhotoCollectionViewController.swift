@@ -18,7 +18,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         collectionView?.reloadData()
         setTheme()
-        
     }
     
     // MARK: UICollectionViewDataSource
@@ -87,4 +86,23 @@ class PhotoCollectionViewController: UICollectionViewController {
             break
         }
     }
+}
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let screenWidth = view.window?.frame.size.width else {
+            return CGSize(width: 160, height: 160)
+        }
+        return CGSize(width: (screenWidth - 30) / 2, height: (screenWidth - 30) / 2)
+    }
+    
 }
