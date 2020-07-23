@@ -10,15 +10,57 @@ import UIKit
 
 class ThemeSelectionViewController: UIViewController {
 
-    func selectDarkTheme() {
+    private var label = UILabel()
+    private var darkButton = UIButton()
+    private var blueButton = UIButton()
+    
+    var themeHelper: ThemeHelper?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpSubviews()
+    }
+    
+    private func setUpSubviews() {
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Please select a theme:"
+        view.addSubview(label)
+        
+        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        darkButton.translatesAutoresizingMaskIntoConstraints = false
+        darkButton.setTitle("Dark", for: .normal)
+        darkButton.backgroundColor = .black
+        darkButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        darkButton.layer.cornerRadius = 8
+        darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
+        view.addSubview(darkButton)
+        
+        darkButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30).isActive = true
+        darkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80).isActive = true
+        
+        blueButton.translatesAutoresizingMaskIntoConstraints = false
+        blueButton.setTitle("Blue", for: .normal)
+        blueButton.backgroundColor = .blue
+        blueButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        blueButton.layer.cornerRadius = 8
+        blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
+        view.addSubview(blueButton)
+
+        blueButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30).isActive = true
+        blueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80).isActive = true
+        
+    }
+    
+    @objc func selectDarkTheme() {
         themeHelper?.setThemePreferenceToDark()
         dismiss(animated: true, completion: nil)
     }
     
-    func selectBlueTheme() {
+    @objc func selectBlueTheme() {
         themeHelper?.setThemePreferenceToBlue()
         dismiss(animated: true, completion: nil)
     }
-    
-    var themeHelper: ThemeHelper?
+
 }
