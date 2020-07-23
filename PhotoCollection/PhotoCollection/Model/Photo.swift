@@ -11,4 +11,12 @@ import Foundation
 struct Photo: Equatable {
     var imageData: Data
     var title: String
+    
+//    init(title: String, imageData: Data) {
+//        self.title = title
+//        self.imageData = imageData
+//    }
+  
+        
+    
 }

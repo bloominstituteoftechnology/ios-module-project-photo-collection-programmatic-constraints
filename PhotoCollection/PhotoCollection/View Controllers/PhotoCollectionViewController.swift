@@ -13,12 +13,55 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+   
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
         setTheme()
+        
     }
+    
+    
+    
+    //MARK: Private
+    
+    private func configureCollectionView() {
+        // 1. Create a collection view layout object and configure it
+              let layout = UICollectionViewFlowLayout()
+
+              layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+              layout.itemSize = CGSize(width: 160, height: 190)
+              layout.scrollDirection = .vertical
+              layout.minimumLineSpacing = 10
+              layout.minimumInteritemSpacing = 10
+        
+       
+        // 2. Create a collection view and assign it the above layout,
+        //    set the background color
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        
+        // 3. Add the collection view to the view hierarchy
+              view.addSubview(collectionView)
+        
+        // 4. Register the appropriate cell class to the collection view
+//        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier)
+        
+         // 5. Assign the datasource
+               collectionView.dataSource = self
+               
+               // 6. Assign the local collection view to the property to
+               //    add a strong reference such that it won't get deallocated
+               self.collectionView = collectionView
+        
+        
+      
+        
+    }
+    
+    
     
     // MARK: UICollectionViewDataSource
     
@@ -87,3 +130,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+
+//extension PhotoDetailViewController: UICollectionViewDelegateFlo {
+//    
+//}
