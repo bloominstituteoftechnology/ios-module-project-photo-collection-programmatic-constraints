@@ -12,21 +12,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photo: Photo? {
         didSet {
+            setUpSubviews()
             updateViews()
         }
     }
     
     private var imageView = UIImageView()
     private var titleLabel = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpSubviews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) is not supported")
-    }
     
     private func updateViews() {
         guard let photo = photo else { return }

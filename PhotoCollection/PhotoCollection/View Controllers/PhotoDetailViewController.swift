@@ -33,7 +33,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
         
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 240).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
