@@ -10,17 +10,45 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
+    
+
     private var imageView = UIImageView()
     private var nameLabel = UILabel()
-
-    var photo: Photo?
+    
+    
+    var photo: Photo? {
+           didSet {
+               updateViews()
+           }
+       }
+    
+    // MARK: - Initialization
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+   
+    
+    // MARK: - Private
     
     
     func updateViews() {
         guard let photo = photo else { return }
-        imageView.image = photo.imageData
-        
-    }
+        nameLabel.text = photo.title
+        imageView.image = UIImage(data: photo.imageData)
+    
+       
+           
+       }
+    
+    
     func setUpSubViews() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
