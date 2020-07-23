@@ -40,6 +40,9 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setTitle("Add Image", for: .normal)
+        addButton.backgroundColor = .blue
+        addButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        addButton.layer.cornerRadius = 8
         addButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         view.addSubview(addButton)
         

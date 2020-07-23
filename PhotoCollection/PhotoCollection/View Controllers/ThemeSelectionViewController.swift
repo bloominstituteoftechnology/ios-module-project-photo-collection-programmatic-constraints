@@ -26,12 +26,14 @@ class ThemeSelectionViewController: UIViewController {
         label.text = "Please select a theme:"
         view.addSubview(label)
         
-        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         darkButton.translatesAutoresizingMaskIntoConstraints = false
         darkButton.setTitle("Dark", for: .normal)
         darkButton.backgroundColor = .black
+        darkButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        darkButton.layer.cornerRadius = 8
         darkButton.addTarget(self, action: #selector(selectDarkTheme), for: .touchUpInside)
         view.addSubview(darkButton)
         
@@ -41,6 +43,8 @@ class ThemeSelectionViewController: UIViewController {
         blueButton.translatesAutoresizingMaskIntoConstraints = false
         blueButton.setTitle("Blue", for: .normal)
         blueButton.backgroundColor = .blue
+        blueButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        blueButton.layer.cornerRadius = 8
         blueButton.addTarget(self, action: #selector(selectBlueTheme), for: .touchUpInside)
         view.addSubview(blueButton)
 
