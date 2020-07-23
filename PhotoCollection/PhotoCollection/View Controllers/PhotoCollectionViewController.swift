@@ -13,13 +13,16 @@ class PhotoCollectionViewController: UICollectionViewController {
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
+    let itemsPerRow: Int = 2
+    let insetValue: CGFloat = 16.0
+    let itemAspectRatio: CGFloat = 1.0
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        collectionView?.reloadData()
         setTheme()
+        collectionView?.reloadData()
     }
-    
+
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -36,22 +39,22 @@ class PhotoCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    private func setTheme() {
-    
+    func setTheme() {
+        
         guard let themePreference = themeHelper.themePreference else { return }
         
-        var backgroundColor: UIColor!
+        var backgroundColor = UIColor()
         
         switch themePreference {
         case "Dark":
             backgroundColor = .lightGray
         case "Blue":
-            backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+            backgroundColor = UIColor(red: 55/255, green: 180/255, blue: 260/255, alpha: 2)
         default:
             break
         }
         
-        collectionView?.backgroundColor = backgroundColor
+        collectionView.backgroundColor = backgroundColor
     }
     
     // MARK: - Navigation
@@ -85,5 +88,33 @@ class PhotoCollectionViewController: UICollectionViewController {
         default:
             break
         }
+    }
+}
+
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: insetValue, left: insetValue, bottom: insetValue, right: insetValue)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return insetValue
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let totalSpacingWidth = insetValue * (CGFloat(itemsPerRow) + 1)
+        let availableWidthForItems = view.frame.width - totalSpacingWidth
+        let itemWidth = availableWidthForItems / CGFloat(itemsPerRow)
+        let itemHeight = itemWidth / itemAspectRatio
+        
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+}
+
+extension PhotoCollectionViewController: ThemeSelectionViewControllerDelegate {
+    func themeChanged() {
+        setTheme()
+        
     }
 }
