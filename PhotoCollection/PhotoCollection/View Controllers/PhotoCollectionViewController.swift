@@ -8,10 +8,21 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "My Photos"
+        view.backgroundColor = .white
+        
+        configureCollectionView()
+        
+       // navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(presentSettingsView))
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,6 +32,24 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     // MARK: UICollectionViewDataSource
+    
+    private func configureCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 160, height: 190)
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        
+        view.addSubview(collectionView)
+        
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier)
+        
+        collectionView.dataSource = self
+        self.collectionView = collectionView
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoController.photos.count
