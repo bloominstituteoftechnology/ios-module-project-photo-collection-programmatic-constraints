@@ -11,8 +11,9 @@ import Photos
 
 class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imageView: UIImageView!
-    var titleTextField: UITextField!
+    var imageView = UIImageView()
+    var titleTextField = UITextField(frame: CGRect())
+    var saveButton = UIBarButtonItem()
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -23,6 +24,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         setTheme()
         updateViews()
+        setUpSubviews()
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -38,7 +40,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +63,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -116,4 +118,56 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         
         view.backgroundColor = backgroundColor
     }
+    
+    private func setUpSubviews() {
+         
+        
+        
+            // Button
+            // 1. Create/configure
+            let addImageButton = UIButton(type: .system)
+            addImageButton.translatesAutoresizingMaskIntoConstraints = false
+            addImageButton.setTitle("Add Image", for: .normal)
+            addImageButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+            titleTextField.placeholder = "Give this photo a title:"
+            titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+            // 2. Add to view hierarchy
+            view.addSubview(addImageButton)
+            view.addSubview(imageView)
+            view.addSubview(titleTextField)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self.navigationItem.rightBarButtonItem, action: #selector(savePhoto)), animated: true)
+        
+        
+        
+            // 3. Create constraints
+        let addImageButtonBottomConstraint = addImageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+        let addImageButtonTrailingConstraint = addImageButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        let addImageButtonLeadingConstraint = addImageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
+        let addImageButtonHeightConstraint = addImageButton.heightAnchor.constraint(equalToConstant: 20)
+        
+        
+        //TextField Constraints
+        let titleTextFieldTopConstraint = titleTextField.topAnchor.constraint(equalTo: addImageButton.topAnchor, constant: -40)
+        let titleTextFieldHorizontal = titleTextField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        let titleTextFieldHeight = titleTextField.heightAnchor.constraint(equalToConstant: 20)
+            
+            
+        //ImageView Constraints
+        
+        let imageViewTopConstraint = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40)
+        let imageViewHeight = imageView.heightAnchor.constraint(equalToConstant: 200)
+        let imageViewWidth = imageView.widthAnchor.constraint(equalToConstant: 200)
+        let imageViewHorizontal = imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        
+            
+        
+            
+            // All
+            // 4. Activate constraints
+            NSLayoutConstraint.activate([addImageButtonBottomConstraint, addImageButtonTrailingConstraint, addImageButtonLeadingConstraint, addImageButtonHeightConstraint, titleTextFieldTopConstraint, titleTextFieldHorizontal, titleTextFieldHeight,   imageViewWidth, imageViewHeight, imageViewTopConstraint, imageViewHorizontal])
+            
+        }
 }
