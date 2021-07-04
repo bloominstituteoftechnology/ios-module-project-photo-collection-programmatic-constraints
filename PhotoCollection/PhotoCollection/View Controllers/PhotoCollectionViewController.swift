@@ -8,16 +8,29 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    
+    var horizontalPhotos: CGFloat = 2
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
         setTheme()
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let horizontalInsets = collectionView.contentInset.left + collectionView.contentInset.right
+        let itemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing * (horizontalPhotos - 1)
+        
+        let width = (collectionView.frame.width - horizontalInsets - itemSpacing) / horizontalPhotos
+        return CGSize(width: width, height: width * 1.2)
+        
     }
     
     // MARK: UICollectionViewDataSource
@@ -30,8 +43,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
         
         let photo = photoController.photos[indexPath.row]
-        
+        cell.updateViews()
         cell.photo = photo
+        
         
         return cell
     }
