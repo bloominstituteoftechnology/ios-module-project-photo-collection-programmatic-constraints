@@ -13,6 +13,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     var imageView: UIImageView!
     var titleTextField: UITextField!
+    var button: UIButton!
     
     var photo: Photo?
     var photoController: PhotoController?
@@ -20,10 +21,60 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTheme()
         updateViews()
     }
+    
+    func setUpSubviews() {
+        imageView = UIImageView()
+        titleTextField = UITextField()
+        button = UIButton()
+        
+        
+        view.addSubview(button)
+        view.addSubview(imageView)
+        view.addSubview(titleTextField)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+        titleTextField.backgroundColor = .white
+        titleTextField.textColor = .black
+        titleTextField.placeholder = "Give photo a title"
+        
+        
+        button.setTitle("Add Image", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        button.backgroundColor = .blue
+        
+        
+        let constraints = [
+            NSLayoutConstraint(item: button, attribute: .topMargin, relatedBy: .equal, toItem: imageView, attribute: .bottomMargin, multiplier: 1.0, constant: 60.0),
+            NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: imageView, attribute: .leading, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: button, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0),
+            NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1.0, constant: -150.0),
+            NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 300.0),
+            NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 300.0),
+            NSLayoutConstraint(item: titleTextField, attribute: .topMargin, relatedBy: .equal, toItem: button, attribute: .bottomMargin, multiplier: 1.0, constant: 60.0),
+            NSLayoutConstraint(item: titleTextField, attribute: .leading, relatedBy: .equal, toItem: button, attribute: .leading, multiplier: 1.0, constant: -40.0),
+            NSLayoutConstraint(item: titleTextField, attribute: .trailing, relatedBy: .equal, toItem: button, attribute: .trailing, multiplier: 1.0, constant: 40.0)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+        
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.title = "Save"
+        barButtonItem.action = #selector(savePhoto)
+        
+        navigationItem.setRightBarButton(barButtonItem, animated: true)
+    }
+    
     
     // MARK: - UIImagePickerControllerDelegate
     
@@ -38,7 +89,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Private Methods
     
-    private func addImage() {
+    @objc private func addImage() {
         
         let authorizationStatus = PHPhotoLibrary.authorizationStatus()
     
@@ -61,7 +112,7 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    private func savePhoto() {
+    @objc private func savePhoto() {
         
         guard let image = imageView.image,
             let imageData = image.pngData(),
@@ -76,13 +127,13 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
         navigationController?.popViewController(animated: true)
     }
     
-    private func updateViews() {
-        
+    func updateViews() {
+        setUpSubviews()
         guard let photo = photo else {
             title = "Create Photo"
             return
         }
-        
+        button.isHidden = true
         title = photo.title
         
         imageView.image = UIImage(data: photo.imageData)
